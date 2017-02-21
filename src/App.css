@@ -1,0 +1,20 @@
+
+
+.App-Header {
+  border-bottom: 1px solid black;
+  width: 100%;
+  top: 0;
+  position: fixed;
+  background-color: #fff;
+  z-index: 100000;
+}
+
+.Content-Body {
+  overflow-y:none;
+  margin-top: 45px;
+}
+
+.hm-side-nav {
+  margin-top:0px;
+  z-index: 100002;
+}
