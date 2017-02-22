@@ -48,7 +48,8 @@ class Visit extends React.Component {
 	}
 
 	addPayment() {
-		
+		const id = this.state.selection ? this.state.selection.Id : '';
+		hashHistory.push('/payment/' + id)
 	}
 
 	edit() {
@@ -66,7 +67,7 @@ class Visit extends React.Component {
 		const buttons = [
 			<Button key="add" onClick={this.add.bind(this)} text="Add Visit" />,
 			<Button key="addVisitor" onClick={()=>hashHistory.push('people/edit')}>Add Visitor</Button>,
-			<Button key="addPayment" onClick={this.addPayment.bind(this)}>Add Payment</Button>,
+			<Button key="viewPayment" onClick={this.addPayment.bind(this)} className={this.state.selection ? '' : "w3-disabled"}>View Payments</Button>,
 			<Button key="edit" onClick={this.edit.bind(this)} text="Edit" className={this.state.selection ? '' : "w3-disabled"}/>,
 			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>
 		]

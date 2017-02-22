@@ -34,7 +34,7 @@ export function renderTextArea(field) {
 }
 
 export function renderCombo( field ) {
-  const { valueField, textField, data, className, hidden, placeholder, input, readOnly, meta: { touched, error, warning } } = field;
+  const { valueField, textField, data, hidden, placeholder, input, readOnly, meta: { touched, error, warning } } = field;
   return <div>
     <label>{placeholder}</label>
     <div>
@@ -42,19 +42,19 @@ export function renderCombo( field ) {
         {...input}
         readOnly={readOnly}
         hidden={hidden}
-        onBlur={input.onBlur()}
+        onBlur={() => input.onBlur()}
         valueField={valueField || 'Id'}
         textField={textField || 'Desc'}
         placeholder={placeholder}
         data={data}
         onChange={(option) => {
           console.log(option);
-          let value = option;
-          if (valueField) {
-            value = option[valueField];
-          }
+          // let value = option;
+          // if (valueField) {
+          //   value = option[valueField];
+          // }
           if (field.onChangeAction !== undefined) {
-            field.onChangeAction(value)
+            field.onChangeAction(option)
           }
           input.onChange(option)
         }}

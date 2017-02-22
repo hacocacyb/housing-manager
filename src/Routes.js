@@ -9,6 +9,7 @@ import PeopleEdit from './modules/PeopleEdit'
 import Visit from './modules/Visit'
 import VisitEdit from './modules/VisitEdit'
 import Payment from './modules/Payment'
+import Dashboard from './modules/dashboard/Dashboard'
 
 const routes = {
   path: '/',
@@ -25,6 +26,9 @@ const routes = {
     path: '/beds/edit(/:Id)',
     component: BedEdit
   }, {
+    path: '/dashboard',
+    component: Dashboard
+  }, {
     path: '/rooms',
     component: Rooms
   }, {
@@ -40,8 +44,12 @@ const routes = {
     path: '/people/edit(/:Id)',
     component: PeopleEdit
   }, {
-    path: '/payment(:/id)',
-    component: Payment
+    path: '/payment',
+    component: Payment,
+    childRoutes: [{
+      path: ':VisitId',
+      component: Payment
+    }]
   }, {
     path: '/visits',
     component : Visit
@@ -49,7 +57,7 @@ const routes = {
     path: '/visits/edit(/:Id)',
     component: VisitEdit
   }, {
-    path: '*',
+    path: 'star*',
     indexRoute: {
       onEnter: (nextState, replace) => {
         replace('/beds')

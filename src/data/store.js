@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux'
 
-import logger from "redux-logger"
+//import logger from "redux-logger"
 import thunk from "redux-thunk"
 import promise from "redux-promise-middleware"
 import reducer from "./reducers/index.js"
@@ -19,10 +19,25 @@ export default store
 //force an update. Adding in the bed count and visit count means that
 // this needs an update eaech time those change. <ToDo?>
 export function getAllBuildings(byForce) {
-  const state = store.getState();
+  // const state = store.getState();
   // if (!byForce && state.buildings.data.length > 0) {
   //   return state.buildings.data;
   // } else {
     store.dispatch(BuildingActions.getAll());
   // }
+}
+
+//dont make more of these without building hash tables first
+export function getVisitById(id) {
+  const state = store.getState();
+  const visits = state.visits.data;
+  let visit;
+  let ix = 0;
+  while (!visit  && ix < (visits.length)) {
+    if (visits[ix].Id === id) {
+      visit = visits[ix];
+    }
+    ix++;
+  }
+  return visit;
 }

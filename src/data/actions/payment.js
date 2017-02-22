@@ -1,7 +1,7 @@
-import { hashHistory } from 'react-router'
+import { reset } from 'redux-form'
 
-const apiRoot = '/api/visits/'
-const actionNoun = 'VISIT'
+const apiRoot = '/api/payments/'
+const actionNoun = 'PAYMENT'
 
 export function getAll() {
   return function(dispatch) {
@@ -28,7 +28,7 @@ export function get(id) {
       type: 'FETCHING_' + actionNoun
     })
 
-    fetch(apiRoot + 'get/' + id)
+    fetch(apiRoot + id)
       .then((response) => {
         return response.json();
       })
@@ -38,6 +38,12 @@ export function get(id) {
           payload: json.data
         })
       })
+  }
+}
+
+export function getPaymentsByVisit(visit) {
+  return function(dispatch) {
+    //fetch(apiRoot + )
   }
 }
 
@@ -63,11 +69,12 @@ export function save(obj) {
       })
       .then((json) => {
         if (json.success) {
-          hashHistory.push('/visits');
+          //hashHistory.push('/visits');
           dispatch({
             type: actionNoun + '_SAVED',
             payload: json
           })
+          dispatch(reset('paymentForm'))
         }
       })
       .catch((err) => {

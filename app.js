@@ -12,6 +12,7 @@ var codes = require('./server/CodeQueries.js');
 var buildings = require('./server/BuildingQueries.js');
 var People = require('./server/peopleQueries.js');
 var Visit = require('./server/visitQueries.js');
+var Payment = require('./server/paymentQueries.js');
 
 app.get('/api/codes/getBedTypes', codes.getBedTypes);
 app.get('/api/beds/getAll', beds.getAllBeds);
@@ -29,6 +30,9 @@ app.put('/api/people/', People.save);
 app.get('/api/visits/getAll', Visit.getAll);
 app.get('/api/visits/get/:id', Visit.get);
 app.put('/api/visits/', Visit.save);
+
+app.get('/api/payments/:id', Payment.get);
+app.put('/api/payments/', Payment.save);
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console

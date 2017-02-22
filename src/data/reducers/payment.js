@@ -2,6 +2,7 @@ export default function payments(state={
   fetching: false,
   fetched: false,
   current: undefined,
+  currentPayments: undefined,
   data: [],
   rowCount: 0
 }, action) {
@@ -36,7 +37,7 @@ export default function payments(state={
 
       return {
         ...state,
-        current: payload
+        currentPayments: payload
       }
     }
     default:

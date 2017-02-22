@@ -6,6 +6,9 @@ import moment from 'moment'
 import Button from './shared/Button'
 import * as Actions from '../data/actions/payment'
 import  * as FC  from './shared/formControls'
+import { required } from '../fn/form-validate.js'
+import PaymentHistory from './PaymentHistory.js'
+import { getVisitById } from '../data/store.js'
 
 const getFormValue = formValueSelector('paymentForm');
 
@@ -29,6 +32,9 @@ class Payment extends React.Component {
       this.setState({
         editMode: true
       })
+    } else if (params.VisitId) {
+      const visitId = parseInt(params.VisitId, 10);
+      this.props.dispatch(Actions.get(visitId))
     } else {
       this.props.dispatch(Actions.removeCurrent())
       this.setState({
@@ -41,24 +47,27 @@ class Payment extends React.Component {
     hashHistory.push('/visits')
   }
   handleSubmit(formValues) {
-console.log('form values from redux', formValues);
     ['VisitId'].forEach(fn => {
       if (typeof formValues[fn] === 'object') {
         formValues[fn] = formValues[fn].Id;
       }
     })
-    console.log('payment form', formValues);
-    //this.props.dispatch(Actions.save(formValues))
+    this.props.dispatch(Actions.save(formValues))
+  }
+
+  onVisitChange(visit) {
+    this.props.dispatch(Actions.get(visit.Id));
   }
 
   render() {
     const editMode = false;//this.state.editMode;
-    const visits = this.props.visits;
+    const { visits, currentVisit, currentPayments } = this.props;
+
     return (
       <div className="w3-row">
         <form className=" w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
           <p>
-            <Button type="submit">Save</Button>
+            <Button type="submit">Add Payment</Button>
             <Button onClick={this.onCancel}>Cancel</Button>
           </p>
           <div className="w3-third">
@@ -67,23 +76,30 @@ console.log('form values from redux', formValues);
               readOnly={editMode}
               data={visits}
               component={FC.renderCombo}
-              onChangeAction={()=>console.log('combo changed')}
+              validate={required}
+              onChangeAction={this.onVisitChange.bind(this)}
               textField="Display"
               type="text"
-              placeholder="Apply Payment for"/>
+              placeholder="Visit"/>
 
             <Field name="Amount"
               component={FC.renderInput}
               readOnly={editMode}
               type="number"
+              validate={required}
               placeholder="Payment Amount"/>
             <Field name="PayDate"
               readOnly={editMode}
               component={FC.renderInput}
               type="date"
+              validate={required}
               placeholder="Date"/>
           </div>
+          <PaymentHistory
+            visit={currentVisit}
+            payments={currentPayments}
 
+          />
         </form>
       </div>
     )
@@ -98,16 +114,23 @@ Payment = reduxForm({
 
 Payment = withRouter(Payment)
 
-export default connect((store) => {
-  let visitId =  getFormValue(store, 'VisitId');
-  if (typeof visitId === 'object') {
-    visitId = visitId.Id
+export default connect((store, ownProps) => {
+  let visitId;
+  let currentVisit = getFormValue(store, 'VisitId');
+  if (ownProps.params.VisitId) {
+    visitId = parseInt(ownProps.params.VisitId, 10);
+    if (typeof currentVisit !== 'object') {
+      currentVisit = getVisitById(visitId);
+    }
   }
 
   return {
     initialValues: {
+      VisitId: visitId,
       PayDate: moment().format('YYYY-MM-DD')
     },
+    currentPayments: store.payments.currentPayments,
+    currentVisit: currentVisit,
     visits: store.visits.data,
   }
 })(Payment);
