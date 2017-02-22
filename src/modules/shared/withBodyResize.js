@@ -14,7 +14,7 @@ function withBodyResize(WrappedComponent) {
 
   	updateDimensions() {
   		this.setState({
-  			gridHeight: window.innerHeight - 125
+  			gridHeight: window.innerHeight - 105
   		})
   	}
 

@@ -39,7 +39,9 @@ class Layout extends React.Component {
             Sober Living
         </div>
         <nav  className="w3-sidenav w3-black hm-side-nav" style={navStyle}>
+          <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/visits">Visits</NavLink>
+          <NavLink to="/payment">Payment</NavLink>
           <NavLink to="/people">Visitors</NavLink>
           <NavLink to="/buildings">Buildings</NavLink>
           <NavLink to="/beds">Beds</NavLink>

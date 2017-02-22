@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field } from 'redux-form'
-import * as BedActions from '../data/actions/bedActions.js'
+import * as BedActions from '../data/actions/bed'
 
-import  * as FC  from './shared/formControls.js'
+import  * as FC  from './shared/formControls'
 
 class BedEdit extends React.Component {
 

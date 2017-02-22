@@ -24,7 +24,6 @@ class People extends React.Component {
 		this.state = {
 			selection : null
 		};
-
 	}
 
 	componentWillMount() {
@@ -48,8 +47,8 @@ class People extends React.Component {
 	render() {
 		const buttons = [
 			<Button key="add" onClick={this.add.bind(this)} text="Add Person" />,
-			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>,
-			<Button key="edit" onClick={this.edit.bind(this)} text="Edit" className={this.state.selection ? '' : "w3-disabled"}/>
+			<Button key="edit" onClick={this.edit.bind(this)} text="Edit" className={this.state.selection ? '' : "w3-disabled"}/>,
+			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>
 		]
 		return (
 		  <BaseGrid

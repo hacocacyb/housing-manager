@@ -22,8 +22,8 @@ class BaseGrid extends React.Component {
     this.autoSizeColumns();
   }
   autoSizeColumns() {
-      let cols = this.gridOptions.columnApi.getAllColumns().map((c) => c.colId);
-      this.gridOptions.columnApi.autoSizeColumns(cols);
+    let cols = this.gridOptions.columnApi.getAllColumns().map((c) => c.colId);
+    this.gridOptions.columnApi.autoSizeColumns(cols);
   }
 
   render() {
@@ -58,4 +58,3 @@ class BaseGrid extends React.Component {
 }
 
 export default withBodyResize(BaseGrid)
-//<div className="w3-large w3-cell-middle">Grid Title</div>

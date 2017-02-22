@@ -11,6 +11,11 @@ const dateCellFormatter = function(obj) {
 		return moment(obj.value).format('MM/DD/YYYY');
 	}
 }
+const rentalPeriod = function(obj) {
+	if (obj.value) {
+		return obj.value === 1 ? 'Weekly' : 'Bi-Weekly'
+	}
+}
 let colDefs = [
 	{headerName: 'Visitor', cellFormatter: function(obj) {
 		const data = obj.node.data;
@@ -18,7 +23,7 @@ let colDefs = [
 	}},
 	{headerName: 'Building', field: 'BuildingName'},
 	{headerName: 'Bed', field: 'BedName'},
-	{headerName: 'Rental Period', field: 'PayTypeId'},
+	{headerName: 'Rental Period', field: 'PayTypeId', cellFormatter: rentalPeriod},
 	{headerName: 'Intake', field: 'Intake', cellFormatter: dateCellFormatter},
 	{headerName: 'Outtake', field: 'Outtake', cellFormatter: dateCellFormatter},
 	{headerName: 'Rent', field: 'Cost'}
@@ -42,6 +47,10 @@ class Visit extends React.Component {
 		hashHistory.push('/visits/edit')
 	}
 
+	addPayment() {
+		
+	}
+
 	edit() {
 		hashHistory.push('visits/edit/' + this.state.selection.Id);
 	}
@@ -57,8 +66,9 @@ class Visit extends React.Component {
 		const buttons = [
 			<Button key="add" onClick={this.add.bind(this)} text="Add Visit" />,
 			<Button key="addVisitor" onClick={()=>hashHistory.push('people/edit')}>Add Visitor</Button>,
-			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>,
-			<Button key="edit" onClick={this.edit.bind(this)} text="Edit" className={this.state.selection ? '' : "w3-disabled"}/>
+			<Button key="addPayment" onClick={this.addPayment.bind(this)}>Add Payment</Button>,
+			<Button key="edit" onClick={this.edit.bind(this)} text="Edit" className={this.state.selection ? '' : "w3-disabled"}/>,
+			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>
 		]
 		return (
 		  <BaseGrid

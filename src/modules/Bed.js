@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
-import * as BedActions from '../data/actions/bedActions.js'
+import * as BedActions from '../data/actions/bed.js'
 import BaseGrid from './shared/BaseGrid.js'
 import Button from './shared/Button.js'
 
@@ -44,11 +44,11 @@ class Bed extends React.Component {
 	render() {
 
 		const toolbar = [
-			<Button key="refresh" onClick={this.props.getAll}>Refresh</Button>,
 			<Button key="add" onClick={this.add}>Add Bed</Button>,
 			<Button key="edit" onClick={this.edit.bind(this)}
 				text="Edit" className={this.state.selection ? '' : "w3-disabled"}
-			/>
+			/>,
+			<Button key="refresh" onClick={this.props.getAll}>Refresh</Button>
 		]
 		return (
 

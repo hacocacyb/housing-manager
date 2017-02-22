@@ -11,12 +11,18 @@ export default function bedReducer(state={
       return {...state, fetching: true, fetched: false, data: []};
     }
     case "FETCH_BEDS_FULFILLED": {
+      const beds = payload.beds.map(function(b) {
+        b.Display = b.Name + ' - ' + b.Type;
+        if (b.Occupied) {
+          b.Display += ' (Occupied)'
+        }
+        return b;
+      })
 
       return {...state,
         fetching : false,
         fetched: true,
-        data: payload.beds,
-        rowCount: payload.rowCount
+        data: beds
       };
     }
     case "FETCH_BEDS_FAILED": {

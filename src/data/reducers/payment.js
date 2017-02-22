@@ -1,4 +1,4 @@
-export default function visits(state={
+export default function payments(state={
   fetching: false,
   fetched: false,
   current: undefined,
@@ -7,35 +7,32 @@ export default function visits(state={
 }, action) {
   let payload = action.payload;
   switch(action.type) {
-    case "FETCHING_VISITS": {
+    case "FETCHING_PAYMENTS": {
 
       return {...state, fetching: true, fetched: false, data: []};
     }
-    case "FETCH_VISITS_FULFILLED": {
-      const visits = payload.map(function(v) {
-        v.Display = v.First + ' ' + v.Last + ' (' + v.BuildingName + ')'
-        return v;
-      })
+    case "FETCH_PAYMENTS_FULFILLED": {
+
       return {...state,
         fetching : false,
         fetched: true,
-        data: visits
+        data: payload
       };
     }
-    case "FETCH_VISITS_FAILED": {
+    case "FETCH_PAYMENTS_FAILED": {
       return {...state,
         fetching: false,
         fetcheed: false,
         data: []
       };
     }
-    case "REMOVE_CURRENT_VISIT": {
+    case "REMOVE_CURRENT_PAYMENT": {
       return {
         ...state,
         current: undefined
       }
     }
-    case "WORK_WITH_VISIT": {
+    case "WORK_WITH_PAYMENT": {
 
       return {
         ...state,

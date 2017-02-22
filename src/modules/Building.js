@@ -42,12 +42,13 @@ class Building extends React.Component {
 
 	render() {
 		const toolbar = [
-			<Button key="refresh" onClick={() => Actions.getAllBuildings(true)} text="Refresh"/>,
+
 			<Button key="add" onClick={this.add.bind(this)} text="Add Building" />,
 			<Button key="edit"
 				onClick={this.edit.bind(this)} text="Edit"
  				className={this.state.selection ? '' : "w3-disabled"}
-			/>
+			/>,
+			<Button key="refresh" onClick={() => Actions.getAllBuildings(true)} text="Refresh"/>
 		]
 
 		return (

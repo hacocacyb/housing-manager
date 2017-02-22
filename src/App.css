@@ -18,3 +18,18 @@
   margin-top:0px;
   z-index: 100002;
 }
+
+.form-error {
+  font-weight: 700;
+  color: #700;
+}
+.form-error:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: '\F06A';
+  margin-right: 5px;
+}

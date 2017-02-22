@@ -7,7 +7,7 @@ import Button from './shared/Button.js'
 import * as Actions from '../data/actions/visit.js'
 import  * as FC  from './shared/formControls.js'
 
-const getFormValue = formValueSelector('peopleForm');
+const getFormValue = formValueSelector('visitForm');
 
 class VisitEdit extends React.Component {
 
@@ -15,7 +15,6 @@ class VisitEdit extends React.Component {
     super(props);
     const {params} = this.props;
     let editMode = false;
-    console.log(' params to visit edit', params);
     if (params.Id) {
       editMode = true;
     }
@@ -31,7 +30,7 @@ class VisitEdit extends React.Component {
         editMode: true
       })
     } else {
-      this.props.dispatch(Actions.removeCurrent());
+      this.props.dispatch(Actions.removeCurrent())
       this.setState({
         editMode: false
       })
@@ -86,6 +85,12 @@ class VisitEdit extends React.Component {
             <Field name="PersonId"
               readOnly={editMode}
               data={people}
+              validate={function(value) {
+                console.log(value);
+                if (value && value.Visiting) {
+                  return value.FullName + ' is already visiting';
+                }
+              }}
               component={FC.renderCombo}
               textField="FullName"
               type="text"
@@ -101,8 +106,12 @@ class VisitEdit extends React.Component {
               readOnly={editMode}
               data={beds}
               component={FC.renderCombo}
-
-              textField="Type"
+              validate={function(v) {
+                if (v && v.Occupied) {
+                  return 'Bed is currently occupied'
+                }
+              }}
+              textField="Display"
               type="text"
               placeholder="Bed"/>
             <Field name="PayTypeId"
@@ -139,7 +148,7 @@ class VisitEdit extends React.Component {
 }
 
 VisitEdit = reduxForm({
-  form:'peopleForm',
+  form:'visitForm',
   enableReinitialize: true
 })(VisitEdit);
 
