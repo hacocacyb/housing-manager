@@ -5,20 +5,47 @@ var fs = require('fs');
 
 const tableName = '"Payment"';
 
+//no UI for get all yet
 function getAll(req, res, next) {
-  var getAllVisitsSql = fs.readFileSync('server/sql/getVisits.sql').toString();
+  res.status(200).send("not yet implemented")
+  return
+  var getAllVisitsSql = fs.readFileSync('server/sql/getVisits.sql').toString()
   query(getAllVisitsSql, (err, response) => {
     if (err) {
       res.status(500).send(err.message);
     } else {
+      const result = response.rows.map((r) => {
+        r.PastDue = Math.max(r.DueBilled - r.Payments, 0);
+        return r;
+      }).sort((a,b) => b.PastDue - a.PastDue)
       res.status(200);
       res.json({
         status: 'success',
-        data: response.rows,
+        data: result,
         message: 'Retrieved all Visits'
       });
     }
   })
+}
+
+function getWidgetInfo(req, res) {
+  console.log('in here')
+    var getBillingSql = fs.readFileSync('server/sql/getBillingWidget.sql').toString()
+    query(getBillingSql, (err, response) => {
+      if (err) {
+        res.status(500).send(err.message);
+      } else {
+        const result = response.rows.map((r) => {
+          r.PastDue = Math.max(r.DueBilled - r.Payments, 0);
+          return r;
+        }).sort((a,b) => b.PastDue - a.PastDue)
+        res.status(200);
+        res.json({
+          status: 'success',
+          data: result
+        });
+      }
+    })
 }
 
 function get(req, res, next) {
@@ -93,5 +120,6 @@ function save(req, res, next) {
 module.exports = {
   getAll: getAll,
   get: get,
+  getWidgetInfo: getWidgetInfo,
   save: save
 }

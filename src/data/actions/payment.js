@@ -41,6 +41,25 @@ export function get(id) {
   }
 }
 
+export function getPaymentsWidget() {
+  return function(dispatch) {
+    dispatch({
+      type: 'FETCHING_' + actionNoun
+    })
+
+    fetch('api/dashboard/billing')
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        dispatch({
+          type: 'FETCHED_PAYMENT_WIDGET',
+          payload: json.data
+        })
+      })
+  }
+}
+
 export function getPaymentsByVisit(visit) {
   return function(dispatch) {
     //fetch(apiRoot + )

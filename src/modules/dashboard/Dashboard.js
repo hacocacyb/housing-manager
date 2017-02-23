@@ -10,11 +10,15 @@ class Dashboard extends React.Component {
     return (
       <div className="w3-padding-small">
         <div className="w3-row">
-          <BuildingWidget className="w3-quarter w3-margin"/>
-          <BedWidget className="w3-quarter w3-margin"/>
-        </div>
-        <div className="w3-row">
-          <BillingWidget className="w3-half w3-margin"/>
+          <div className="w3-third w3-padding">
+            <BuildingWidget/>
+          </div>
+          <div className="w3-third w3-padding">
+            <BedWidget/>
+          </div>
+          <div className="w3-third w3-padding">
+            <BillingWidget/>
+          </div>
         </div>
       </div>
     )

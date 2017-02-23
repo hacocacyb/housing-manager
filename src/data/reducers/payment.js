@@ -3,6 +3,7 @@ export default function payments(state={
   fetched: false,
   current: undefined,
   currentPayments: undefined,
+  widgetData: null,
   data: [],
   rowCount: 0
 }, action) {
@@ -38,6 +39,12 @@ export default function payments(state={
       return {
         ...state,
         currentPayments: payload
+      }
+    }
+    case "FETCHED_PAYMENT_WIDGET": {
+      return {
+        ...state,
+        widgetData: payload
       }
     }
     default:

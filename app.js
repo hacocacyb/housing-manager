@@ -33,6 +33,7 @@ app.put('/api/visits/', Visit.save);
 
 app.get('/api/payments/:id', Payment.get);
 app.put('/api/payments/', Payment.save);
+app.get('/api/dashboard/billing', Payment.getWidgetInfo);
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console

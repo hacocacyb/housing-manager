@@ -1,27 +1,40 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
-
+import { getPaymentsWidget } from '../../data/actions/payment'
+var formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+});
+var currency = function(v) {
+  return formatter.format(v);
+}
 class BillingWidget extends React.Component {
 
+	componentWillMount() {
+		this.props.dispatch(getPaymentsWidget())
+	}
+
 	render() {
+		const data = this.props.widgetData;
+		console.log(data);
+		const list = data && data.map((d) => {
+			return <div key={d.VisitId} className="w3-row w3-container w3-border-top">
+				<span className="w3-col s6">{d.FullName}</span>
+				<span className="w3-col s6 w3-center">{currency(d.PastDue)}</span>
+			</div>
+		})
 
 		return (
       <div className={"w3-card-4 " + this.props.className } onDoubleClick={()=>hashHistory.push('/beds')}>
-				<header className="w3-container w3-blue">Billing</header>
+				<header className="w3-container w3-red">Past Due Statements</header>
 				<div className="w3-container">
-					<div className="w3-row">
-						<span className="w3-col s6 l6">Past Due Statements</span>
-						<span className="w3-col s6 l6 w3-center">4</span>
+					<div className="w3-row w3-container w3-border-bottom">
+						<span className="w3-col s6">Visitor</span>
+						<span className="w3-col s6 w3-center">Past Due Amount</span>
 					</div>
-					<div className="w3-row">
-						<span className="w3-col s6 l6">Visits Ending in Next 5 days</span>
-						<span className="w3-col s6 l6 w3-center">2</span>
-					</div>
-					<div className="w3-row">
-						<span className="w3-col s6 l6">Visitors with Payments due today</span>
-						<span className="w3-col s6 l6 w3-center">1</span>
-					</div>
+					{list}
 				</div>
       </div>
 		 );
@@ -29,5 +42,5 @@ class BillingWidget extends React.Component {
 }
 
 export default connect((store) => {
-	return {...store.beds};
+	return { ...store.payments };
 })(BillingWidget);
