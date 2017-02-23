@@ -64,12 +64,12 @@ class Payment extends React.Component {
     const { visits, currentVisit, currentPayments } = this.props;
 
     return (
-      <div className="w3-row">
-        <form className=" w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
-          <p>
+      <div className=" w3-padding-top w3-padding-small">
+        <form className="" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+          <div  className="w3-padding-bottom w3-cell-row">
             <Button type="submit">Add Payment</Button>
             <Button onClick={this.onCancel}>Cancel</Button>
-          </p>
+          </div>
           <div className="w3-third">
             <Field name="Id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
             <Field name="VisitId"

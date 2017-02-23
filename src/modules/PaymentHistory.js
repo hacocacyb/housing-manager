@@ -46,7 +46,15 @@ class PaymentHistory extends React.Component {
     }
 
     ledger.sort(function(a,b) {
-      return a.date - b.date;
+      if (a.date.isSame(b.date)) {
+        if (a.payment === undefined) {
+          return 1
+        } else {
+          return 0;
+        }
+      } else {
+        return a.date - b.date;
+      }
     })
 
     let balance = 0;

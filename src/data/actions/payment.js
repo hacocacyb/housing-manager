@@ -64,21 +64,21 @@ export function save(obj) {
       method: 'PUT',
       body: JSON.stringify(obj)
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        if (json.success) {
-          //hashHistory.push('/visits');
-          dispatch({
-            type: actionNoun + '_SAVED',
-            payload: json
-          })
-          dispatch(reset('paymentForm'))
-        }
-      })
-      .catch((err) => {
-        dispatch({type: 'SAVING_' + actionNoun + '_FAILED', payload: err})
-      })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      if (json.success) {
+        dispatch({
+          type: actionNoun + '_SAVED',
+          payload: json
+        })
+        dispatch(reset('paymentForm'))
+        dispatch(get(obj.VisitId))
+      }
+    })
+    .catch((err) => {
+      dispatch({type: 'SAVING_' + actionNoun + '_FAILED', payload: err})
+    })
   }
 }

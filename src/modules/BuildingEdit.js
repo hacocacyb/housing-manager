@@ -7,12 +7,29 @@ import  * as FC  from './shared/formControls.js'
 
 class BuildingEdit extends React.Component {
 
+  constructor(props) {
+    super(props);
+    const {params} = this.props;
+    let editMode = false;
+    if (params.Id) {
+      editMode = true
+    }
+    this.state = {
+      editMode : editMode
+    }
+  }
   componentWillMount() {
     let {params} = this.props;
     if (params.Id) {
       this.props.dispatch(Actions.get(params.Id))
+      this.setState({
+        editMode: true
+      })
     } else {
-      this.props.dispatch(Actions.removeCurrent());
+      this.props.dispatch(Actions.removeCurrent())
+      this.setState({
+        editMode: false
+      })
     }
   }
 
@@ -23,6 +40,7 @@ class BuildingEdit extends React.Component {
   render() {
     return (
       <form className="w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+        <h4>{this.state.editMode ? 'Edit Building' : 'Add Building'}</h4>
         <p>
           <button className="w3-btn w3-padding-tiny w3-margin-right" type="submit">Save</button>
           <button className="w3-btn w3-padding-tiny w3-margin-right" onClick={(e) => hashHistory.push('/buildings')}>Cancel</button>

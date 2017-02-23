@@ -67,7 +67,6 @@ export function saveBed(bed) {
         return response.json();
       })
       .then((json) => {
-        console.log("this got json", json);
         hashHistory.push('/beds')
         dispatch({
           type: 'BED_SAVED',

@@ -57,7 +57,6 @@ class Visit extends React.Component {
 	}
 
 	onSelectionChange(sel) {
-		console.log(sel)
 		this.setState({
 			selection: sel
 		})

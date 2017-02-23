@@ -15,6 +15,5 @@ class Room extends React.Component {
 }
 
 export default connect((store) => {
-	console.log(store);
 	return {...store};
 })(Room);

@@ -70,23 +70,23 @@ class VisitEdit extends React.Component {
     const editMode = false;//this.state.editMode;
 
     return (
-      <div className="w3-row">
-        <form className=" w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
-          <p>
+      <div className="w3-container">
+        <form className="" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+          <h4>{this.state.editMode ? 'Edit Visit' : 'Add Visit'}</h4>
+          <div  className="w3-padding-bottom w3-cell-row">
             <Button type="submit">Save</Button>
             <Button
               onClick={()=>hashHistory.push('people/edit')}
               className={editMode ? 'w3-hide' : ''}
             >Add Visitor</Button>
             <Button onClick={this.onCancel}>Cancel</Button>
-          </p>
+          </div>
           <div className="w3-third">
             <Field name="Id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
             <Field name="PersonId"
               readOnly={editMode}
               data={people}
               validate={function(value) {
-                console.log(value);
                 if (value && value.Visiting) {
                   return value.FullName + ' is already visiting';
                 }

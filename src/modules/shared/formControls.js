@@ -1,5 +1,5 @@
 import React from 'react'
-import DropdownList from 'react-widgets/lib/DropdownList'
+//import DropdownList from 'react-widgets/lib/DropdownList'
 import Combobox from 'react-widgets/lib/Combobox'
 
 export function renderInput( { className, hidden, placeholder, input, type, readOnly, meta: { touched, error, warning } } ) {
@@ -48,11 +48,6 @@ export function renderCombo( field ) {
         placeholder={placeholder}
         data={data}
         onChange={(option) => {
-          console.log(option);
-          // let value = option;
-          // if (valueField) {
-          //   value = option[valueField];
-          // }
           if (field.onChangeAction !== undefined) {
             field.onChangeAction(option)
           }
