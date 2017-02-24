@@ -60,7 +60,7 @@ class PaymentHistory extends React.Component {
     let balance = 0;
     let totalPaid = 0;
     ledger.forEach(function(row, ix) {
-      let dateFormat = row.date.format('YYYY-MM-DD');
+      let dateFormat = row.date.format('MM/DD/YYYY');
       if (row.cost) {
         balance += row.cost;
       }
@@ -92,7 +92,7 @@ class PaymentHistory extends React.Component {
     if (visit) {
       const payHistory = this.buildPayHistory(visit, payments);
       const { totalBilled, totalPaid, balance, history } = payHistory;
-      const intakeDate = moment(visit.Intake).format('YYYY-MM-DD');
+      const intakeDate = moment(visit.Intake).format('MM/DD/YYYY');
       return (
         <div className="w3-container w3-rest">
           <div className="w3-panel">

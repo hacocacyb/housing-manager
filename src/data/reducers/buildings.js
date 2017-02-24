@@ -33,7 +33,9 @@ export default function buildings(state={
       }
     }
     case "WORK_WITH_BUILDING": {
-
+      if (payload.length > 0) {
+        payload = payload[0]
+      }
       return {
         ...state,
         current: payload

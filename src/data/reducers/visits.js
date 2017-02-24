@@ -36,7 +36,9 @@ export default function visits(state={
       }
     }
     case "WORK_WITH_VISIT": {
-
+      if (payload.length > 0) {
+        payload = payload[0]
+      }
       return {
         ...state,
         current: payload

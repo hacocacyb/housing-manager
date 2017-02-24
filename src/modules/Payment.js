@@ -56,7 +56,9 @@ class Payment extends React.Component {
   }
 
   onVisitChange(visit) {
-    this.props.dispatch(Actions.get(visit.Id));
+    if (visit && visit.Id) {
+      this.props.dispatch(Actions.get(visit.Id));
+    }
   }
 
   render() {

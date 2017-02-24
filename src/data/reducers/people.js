@@ -36,7 +36,9 @@ export default function people(state={
       }
     }
     case "WORK_WITH_PERSON": {
-
+      if (payload.length > 0) {
+        payload = payload[0]
+      }
       return {
         ...state,
         current: payload

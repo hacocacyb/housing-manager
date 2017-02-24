@@ -39,7 +39,9 @@ export default function bedReducer(state={
       }
     }
     case "WORK_WITH_BED": {
-
+      if (payload.length > 0) {
+        payload = payload[0]
+      }
       return {
         ...state,
         currentBed: payload

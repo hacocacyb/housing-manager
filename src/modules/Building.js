@@ -9,8 +9,17 @@ import Button from './shared/Button.js'
 const colDefs = [
 	{headerName: 'Id', field: 'Id', width: 40, hide: true},
 	{headerName: 'Name', field: 'Name'},
-	{headerName: 'Total Beds', field: 'BedCount', width: 90},
-	{headerName: 'Occupied', field: 'Occupied', width: 80},
+	{headerName: 'Total Beds',
+		field: 'BedCount',
+		width: 90,
+		cellStyle: {
+			textAlign: 'right'
+		}
+	},
+	{headerName: 'Occupied', field: 'Occupied', width: 80,
+	cellStyle: {
+		textAlign: 'right'
+	}},
 	{headerName: 'Address 1', field: 'Addr1', width: 140},
 	{headerName: 'Address 2', field: 'Addr2', width: 140},
 	{headerName: 'City', field: 'City', width: 140},

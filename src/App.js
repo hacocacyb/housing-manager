@@ -20,7 +20,7 @@ import store from './data/store'
 import * as CodeActions from './data/actions/code'
 import * as BuildingActions from './data/actions/building'
 import * as BedActions from './data/actions/bed'
-import * as PeopleActions from './data/actions/person'
+import * as PeopleActions from './data/actions/people'
 import * as VisitActions from './data/actions/visit'
 
 store.dispatch(CodeActions.getBedTypes());

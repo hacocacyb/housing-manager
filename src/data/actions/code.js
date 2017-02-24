@@ -4,7 +4,7 @@ export function getBedTypes() {
       type: "FETCHING_BED_TYPES"
     })
 
-    fetch('api/codes/getBedTypes')
+    fetch('api/codes/bedTypes')
       .then((response) => {
         return response.json();
       })

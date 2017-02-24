@@ -1,6 +1,6 @@
 import { hashHistory } from 'react-router'
 
-const apiRoot = '/api/visits/'
+const apiRoot = '/api/visits'
 const actionNoun = 'VISIT'
 
 export function getAll() {
@@ -9,7 +9,7 @@ export function getAll() {
       type: "FETCHING_" + actionNoun + 'S'
     })
 
-    fetch(apiRoot + 'getAll')
+    fetch(apiRoot)
       .then((response) => {
         return response.json();
       })
@@ -28,7 +28,7 @@ export function get(id) {
       type: 'FETCHING_' + actionNoun
     })
 
-    fetch(apiRoot + 'get/' + id)
+    fetch(apiRoot + '/' + id)
       .then((response) => {
         return response.json();
       })

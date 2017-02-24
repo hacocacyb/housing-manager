@@ -1,4 +1,5 @@
 import { reset } from 'redux-form'
+import { hashHistory } from 'react-router'
 
 const apiRoot = '/api/payments/'
 const actionNoun = 'PAYMENT'
@@ -92,7 +93,8 @@ export function save(obj) {
           type: actionNoun + '_SAVED',
           payload: json
         })
-        dispatch(reset('paymentForm'))
+        //dispatch(reset('paymentForm'))
+        hashHistory.push('payment/' + obj.VisitId);
         dispatch(get(obj.VisitId))
       }
     })

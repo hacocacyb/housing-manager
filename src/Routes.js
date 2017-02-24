@@ -16,7 +16,7 @@ const routes = {
   component: Layout,
   indexRoute: {
     onEnter: (nextState, replace) => {
-      replace('/beds')
+      replace('/dashboard')
     }
   },
   childRoutes: [{
@@ -57,10 +57,10 @@ const routes = {
     path: '/visits/edit(/:Id)',
     component: VisitEdit
   }, {
-    path: 'star*',
+    path: '*',
     indexRoute: {
       onEnter: (nextState, replace) => {
-        replace('/beds')
+        replace('/dashboard')
       }
     }
   }]

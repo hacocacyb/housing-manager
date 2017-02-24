@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field } from 'redux-form'
 import Button from './shared/Button.js'
-import * as Actions from '../data/actions/person.js'
+import * as Actions from '../data/actions/people.js'
 import  * as FC  from './shared/formControls.js'
 import { required, minAge } from '../fn/form-validate.js'
 

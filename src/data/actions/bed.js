@@ -6,7 +6,7 @@ export function getAll() {
       type: "FETCHING_BEDS"
     })
 
-    fetch('api/beds/getAll')
+    fetch('api/beds')
       .then((response) => {
         return response.json();
       })
@@ -27,7 +27,7 @@ export function getBed(id) {
       type: 'FETCHING_BED'
     })
 
-    fetch('api/beds/getBed/' + id)
+    fetch('api/beds/' + id)
       .then((response) => {
         return response.json();
       })
