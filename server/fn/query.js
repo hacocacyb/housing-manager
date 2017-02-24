@@ -1,8 +1,28 @@
-var Pool = require('pg').Pool;
-var fs = require('fs');
+var pg = require('pg');
+var Pool = pg.Pool;
+var url = require('url');
+
 
 var env = process.env.NODE_ENV || 'development';
-var config = require('./config')[env];
+const useSSL = (env === 'production')
+
+pg.defaults.ssl = useSSL;
+const databaseUrl = process.env.DATABASE_URL;
+
+if (!databaseUrl) {
+  throw('No DATABASE_URL is set in process.env');
+}
+const params = url.parse(databaseUrl);
+const auth = params.auth.split(':');
+
+const config = {
+  user: auth[0],
+  password: auth[1],
+  host: params.hostname,
+  port: params.port,
+  database: params.pathname.split('/')[1],
+  ssl: useSSL
+};
 
 pool = new Pool(config);
 

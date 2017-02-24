@@ -1,4 +1,5 @@
 var { queryToResponse } = require('../fn/query.js');
+var { parseRequest } = require('../fn/httpHelpers.js');
 var fs = require('fs');
 
 function getAllBeds(req, res) {
@@ -12,7 +13,7 @@ function getBed(req, res, next) {
   if (!id) {
     res.error('No id was included in request');
   }
-  queryToResponse('select * from "Bed" where "Bed"."Id" = $1', [id])
+  queryToResponse(res, 'select * from "Bed" where "Bed"."Id" = $1', [id])
 }
 
 function saveBed(req, res, next) {
