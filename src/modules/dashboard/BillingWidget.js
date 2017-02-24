@@ -18,21 +18,22 @@ class BillingWidget extends React.Component {
 
 	render() {
 		const data = this.props.widgetData;
-		console.log(data);
 		const list = data && data.map((d) => {
-			return <div key={d.VisitId} className="w3-row w3-container w3-border-top">
+			return <div key={d.VisitId} className="w3-row w3-border-top"
+				onDoubleClick={()=>hashHistory.push('/payment/' + d.VisitId)}
+			>
 				<span className="w3-col s6">{d.FullName}</span>
 				<span className="w3-col s6 w3-center">{currency(d.PastDue)}</span>
 			</div>
 		})
 
 		return (
-      <div className={"w3-card-4 " + this.props.className } onDoubleClick={()=>hashHistory.push('/beds')}>
+      <div className={"w3-card-4 " + this.props.className }>
 				<header className="w3-container w3-red">Past Due Statements</header>
 				<div className="w3-container">
-					<div className="w3-row w3-container w3-border-bottom">
+					<div className="w3-row w3-border-bottom">
 						<span className="w3-col s6">Visitor</span>
-						<span className="w3-col s6 w3-center">Past Due Amount</span>
+						<span className="w3-col s6 w3-center">Past Due</span>
 					</div>
 					{list}
 				</div>
