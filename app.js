@@ -14,21 +14,21 @@ var People = require('./server/peopleQueries.js');
 var Visit = require('./server/visitQueries.js');
 var Payment = require('./server/paymentQueries.js');
 
-app.get('/api/codes/getBedTypes', codes.getBedTypes);
-app.get('/api/beds/getAll', beds.getAllBeds);
-app.get('/api/beds/getBed/:id', beds.getBed);
+app.get('/api/codes/bedTypes', codes.getBedTypes);
+app.get('/api/beds', beds.getAllBeds);
+app.get('/api/beds/:id', beds.getBed);
 app.put('/api/beds', beds.saveBed);
 
-app.get('/api/buildings/getAll', buildings.getAll);
-app.get('/api/buildings/get/:id', buildings.get);
+app.get('/api/buildings', buildings.getAll);
+app.get('/api/buildings/:id', buildings.get);
 app.put('/api/buildings/', buildings.save);
 
-app.get('/api/people/getAll', People.getAll);
-app.get('/api/people/get/:id', People.get);
+app.get('/api/people', People.getAll);
+app.get('/api/people/:id', People.get);
 app.put('/api/people/', People.save);
 
-app.get('/api/visits/getAll', Visit.getAll);
-app.get('/api/visits/get/:id', Visit.get);
+app.get('/api/visits', Visit.getAll);
+app.get('/api/visits/:id', Visit.get);
 app.put('/api/visits/', Visit.save);
 
 app.get('/api/payments/:id', Payment.get);

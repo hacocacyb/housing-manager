@@ -6,5 +6,8 @@
        string += '$'+i;
      }
      return string;
+   },
+   fieldString : function(fields) {
+     return '"' + fields.join('","') + '"';
    }
  }

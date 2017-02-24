@@ -29,7 +29,6 @@ function getAll(req, res, next) {
 }
 
 function getWidgetInfo(req, res) {
-  console.log('in here')
     var getBillingSql = fs.readFileSync('server/sql/getBillingWidget.sql').toString()
     query(getBillingSql, (err, response) => {
       if (err) {
@@ -76,7 +75,6 @@ function save(req, res, next) {
     let fieldsString = '"' + fields.join('","') + '"';
 
     if (params.Id === undefined || params.Id === null) {
-      console.log('INSERT INTO '+tableName+'(' + fieldsString + ') VALUES (' + qh.dollarString(fields.length) + ')');
       query({
         text: 'INSERT INTO '+tableName+'(' + fieldsString + ') VALUES (' + qh.dollarString(fields.length) + ')',
         values: values
