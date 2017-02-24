@@ -17,3 +17,4 @@ npm-debug.log*
 
 # database config
 database/config.js
+database/fn/config.js

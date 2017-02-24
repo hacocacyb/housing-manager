@@ -4,18 +4,27 @@ import { hashHistory } from 'react-router'
 import * as Actions from '../data/actions/people.js'
 import BaseGrid from './shared/BaseGrid.js'
 import Button from './shared/Button.js'
+import moment from 'moment'
 
 const colDefs = [
-	{headerName: 'Id', field: 'Id', width: 40, hide: true},
+	{headerName: 'Id', field: 'Id',hide: true},
 	{headerName: 'First Name', field: 'First'},
-	{headerName: 'Middle', field: 'Middle', width: 90},
-	{headerName: 'Last Name', field: 'Last', width: 80},
+	{headerName: 'Middle', field: 'Middle'},
+	{headerName: 'Last Name', field: 'Last'},
+	{headerName: 'D.O.B.', field: 'Dob',
+		cellFormatter: function(obj) {
+			return obj.value ? moment(obj.value).format('MM/DD/YYYY') : null
+		}
+	},
 	{headerName: 'Phone', field: 'Phone', width: 140},
-	{headerName: 'Visiting', field: 'Visiting', cellStyle: {
+	{headerName: 'Visiting', field: 'Visiting',
+		cellStyle: {
 			textAlign: 'center'
-		}, cellFormatter: function(obj) {
-		return obj.value ? 'Y' : ''
-	}}
+		},
+		cellFormatter: function(obj) {
+			return obj.value ? 'Y' : ''
+		}
+	}
 ]
 class People extends React.Component {
 

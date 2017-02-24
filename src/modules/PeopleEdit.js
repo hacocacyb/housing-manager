@@ -59,7 +59,7 @@ class PeopleEdit extends React.Component {
 
         />
         <Field name="Last" component={FC.renderInput} type="text" placeholder="Last" validate={required}/>
-        <Field name="DOB" component={FC.renderInput} type="date" placeholder="Date of Birth" validate={[required, minAge(18)]}/>
+        <Field name="Dob" component={FC.renderInput} type="date" placeholder="Date of Birth" validate={[required, minAge(18)]}/>
         <Field name="Phone" component={FC.renderInput} type="tel" placeholder="Phone Number" validate={required}/>
 
       </form>

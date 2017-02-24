@@ -6,3 +6,4 @@ select p.*,
     and (v."Outtake" is null or v."Outtake" > now())
   ) as "Visiting"
 from "Person" p
+order by "Last"

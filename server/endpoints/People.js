@@ -1,6 +1,6 @@
-var { query, queryToResponse } = require('./query.js');
-var { parseRequest } = require('./httpHelpers.js');
-var qh = require('./queryHelpers.js');
+var { query, queryToResponse } = require('../fn/query.js');
+var { parseRequest } = require('../fn/httpHelpers.js');
+var qh = require('../fn/queryHelpers.js');
 var fs = require('fs');
 
 const tableName = '"Person"';
@@ -23,9 +23,9 @@ function get(req, res, next) {
 
 function save(req, res, next) {
   parseRequest(req, function(params) {
-    let values = [params.First,params.Last, params.Middle, params.Phone];
-    let fields = ['First', 'Last', 'Middle', 'Phone'];
-    let fieldsString = '"' + fields.join('","') + '"';
+    let fields = ['First', 'Last', 'Middle', 'Phone', 'Dob'];
+    let values = fields.map(fieldName => params[fieldName]);
+    let fieldsString = qh.fieldString(fields);
 
     if (params.Id === undefined || params.Id === null) {
       queryToResponse(res, {
@@ -34,7 +34,7 @@ function save(req, res, next) {
       });
     } else {
       let qry ='UPDATE '+tableName+' SET "First"=$1, "Last"=$2, ';
-      qry += '"Middle"=$3, "Phone"=$4 WHERE "Id" = $5';
+      qry += '"Middle"=$3, "Phone"=$4, "Dob"=$5 WHERE "Id" = $6';
       values.push(params.Id);
       queryToResponse(res, {
         text: qry,

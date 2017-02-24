@@ -1,5 +1,5 @@
-var { query, queryToResponse } = require('./query.js');
-var { parseRequest } = require('./httpHelpers.js');
+var { queryToResponse } = require('../fn/query.js');
+var { parseRequest } = require('../fn/httpHelpers.js');
 var fs = require('fs');
 
 function getAll(req, res, next) {

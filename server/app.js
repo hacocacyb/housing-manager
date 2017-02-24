@@ -7,33 +7,33 @@ app.use(express.static(path.join(__dirname, '/build')))
 
 app.set('port', (process.env.PORT || 3001));
 
-var beds = require('./server/BedQueries.js');
-var codes = require('./server/CodeQueries.js');
-var buildings = require('./server/BuildingQueries.js');
-var People = require('./server/peopleQueries.js');
-var Visit = require('./server/visitQueries.js');
-var Payment = require('./server/paymentQueries.js');
+var Beds = require('./endpoints/Bed.js');
+var Codes = require('./endpoints/Code.js');
+var Buildings = require('./endpoints/Building.js');
+var People = require('./endpoints/People.js');
+var Visits = require('./endpoints/Visit.js');
+var Payments = require('./endpoints/Payment.js');
 
-app.get('/api/codes/bedTypes', codes.getBedTypes);
-app.get('/api/beds', beds.getAllBeds);
-app.get('/api/beds/:id', beds.getBed);
-app.put('/api/beds', beds.saveBed);
+app.get('/api/codes/bedTypes', Codes.getBedTypes);
+app.get('/api/beds', Beds.getAllBeds);
+app.get('/api/beds/:id', Beds.getBed);
+app.put('/api/beds', Beds.saveBed);
 
-app.get('/api/buildings', buildings.getAll);
-app.get('/api/buildings/:id', buildings.get);
-app.put('/api/buildings/', buildings.save);
+app.get('/api/buildings', Buildings.getAll);
+app.get('/api/buildings/:id', Buildings.get);
+app.put('/api/buildings/', Buildings.save);
 
 app.get('/api/people', People.getAll);
 app.get('/api/people/:id', People.get);
 app.put('/api/people/', People.save);
 
-app.get('/api/visits', Visit.getAll);
-app.get('/api/visits/:id', Visit.get);
-app.put('/api/visits/', Visit.save);
+app.get('/api/visits', Visits.getAll);
+app.get('/api/visits/:id', Visits.get);
+app.put('/api/visits/', Visits.save);
 
-app.get('/api/payments/:id', Payment.get);
-app.put('/api/payments/', Payment.save);
-app.get('/api/dashboard/billing', Payment.getWidgetInfo);
+app.get('/api/payments/:id', Payments.get);
+app.put('/api/payments/', Payments.save);
+app.get('/api/dashboard/billing', Payments.getWidgetInfo);
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console

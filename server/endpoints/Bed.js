@@ -1,4 +1,4 @@
-var { query, queryToResponse } = require('./query.js');
+var { queryToResponse } = require('../fn/query.js');
 var fs = require('fs');
 
 function getAllBeds(req, res) {
@@ -16,10 +16,7 @@ function getBed(req, res, next) {
 }
 
 function saveBed(req, res, next) {
-  let body='';
-
   parseRequest(req, function(params) {
-
     let values = [params.TypeId,params.RoomId, params.BuildingId, params.Name];
     if (params.Id === undefined || params.Id === null) {
       let qry = 'INSERT INTO "Bed"("TypeId", "RoomId", "BuildingId", "Name") VALUES ($1, $2, $3, $4);';
@@ -29,10 +26,9 @@ function saveBed(req, res, next) {
       let qry = 'UPDATE "Bed" SET "TypeId"=$1, "RoomId"=$2, "BuildingId"=$3, "Name"=$4	WHERE "Id" = $5';
       queryToResponse(res, qry, values)
     }
-
   })
-
 }
+
 module.exports = {
   getAllBeds: getAllBeds,
   getBed: getBed,

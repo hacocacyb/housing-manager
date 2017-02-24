@@ -130,8 +130,8 @@ class PaymentHistory extends React.Component {
             </h5>
             <div className="w3-row w3-border-bottom">
               <div className="w3-quarter" >Date</div>
-              <div className="w3-quarter w3-right-align w3-padding-right" >Debits</div>
-              <div className="w3-quarter w3-right-align w3-padding-right" >Credits</div>
+              <div className="w3-quarter w3-right-align w3-padding-right" >Invoice</div>
+              <div className="w3-quarter w3-right-align w3-padding-right" >Payment</div>
               <div className="w3-quarter w3-right-align w3-padding-right" >Balance</div>
             </div>
             {history}

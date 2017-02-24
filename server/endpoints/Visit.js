@@ -1,6 +1,6 @@
-var { query, queryToResponse } = require('./query.js');
-var { parseRequest } = require('./httpHelpers.js');
-var qh = require('./queryHelpers.js');
+var { query, queryToResponse } = require('../fn/query.js');
+var { parseRequest } = require('../fn/httpHelpers.js');
+var qh = require('../fn/queryHelpers.js');
 var fs = require('fs');
 
 const tableName = '"Visit"';

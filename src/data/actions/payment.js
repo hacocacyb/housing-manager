@@ -1,4 +1,3 @@
-import { reset } from 'redux-form'
 import { hashHistory } from 'react-router'
 
 const apiRoot = '/api/payments/'
