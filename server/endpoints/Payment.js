@@ -32,14 +32,14 @@ function get(req, res, next) {
     res.status(500).send('No id was included in request');
     return;
   }
-  queryToResponse('select * from '+tableName+' where '+tableName+'."VisitId" = $1', [id]);
+  queryToResponse(res, 'select * from '+tableName+' where '+tableName+'."VisitId" = $1', [id]);
 }
 
 function save(req, res, next) {
   parseRequest(req, function(params) {
     let values = [params.Amount,params.PayDate, params.VisitId]
     let fields = ['Amount', 'PayDate', 'VisitId']
-    let fieldsString = qh.fieldsString(fields)
+    let fieldsString = qh.fieldString(fields)
 
     if (params.Id === undefined || params.Id === null) {
       queryToResponse(res, {

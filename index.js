@@ -7,12 +7,12 @@ app.use(express.static(path.join(__dirname, '/build')))
 
 app.set('port', (process.env.PORT || 3001));
 
-var Beds = require('./endpoints/Bed.js');
-var Codes = require('./endpoints/Code.js');
-var Buildings = require('./endpoints/Building.js');
-var People = require('./endpoints/People.js');
-var Visits = require('./endpoints/Visit.js');
-var Payments = require('./endpoints/Payment.js');
+var Beds = require('./server/endpoints/Bed.js');
+var Codes = require('./server/endpoints/Code.js');
+var Buildings = require('./server/endpoints/Building.js');
+var People = require('./server/endpoints/People.js');
+var Visits = require('./server/endpoints/Visit.js');
+var Payments = require('./server/endpoints/Payment.js');
 
 app.get('/api/codes/bedTypes', Codes.getBedTypes);
 app.get('/api/beds', Beds.getAllBeds);
