@@ -4,7 +4,11 @@ import { applyMiddleware, createStore } from 'redux'
 import thunk from "redux-thunk"
 import promise from "redux-promise-middleware"
 import reducer from "./reducers/index.js"
-import * as BuildingActions from "./actions/building.js"
+import * as CodeActions from './actions/code'
+import * as BuildingActions from './actions/building'
+import * as BedActions from './actions/bed'
+import * as PeopleActions from './actions/people'
+import * as VisitActions from './actions/visit'
 
 
 const middleware = applyMiddleware(promise(), thunk) //, logger()
@@ -40,4 +44,12 @@ export function getVisitById(id) {
     ix++;
   }
   return visit;
+}
+
+export function initializeData() {
+  store.dispatch(CodeActions.getBedTypes());
+  store.dispatch(BedActions.getAll());
+  store.dispatch(BuildingActions.getAll());
+  store.dispatch(PeopleActions.getAll());
+  store.dispatch(VisitActions.getAll());
 }

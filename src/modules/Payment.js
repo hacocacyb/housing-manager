@@ -16,8 +16,10 @@ const getFormValue = formValueSelector('paymentForm');
 class Payment extends React.Component {
 
   componentWillMount() {
-      console.log('in component will mount');
+    const visitId = this.props.params.VisitId;
+    if (visitId) {
       this.props.dispatch(Actions.get(this.props.params.VisitId))
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -25,20 +27,6 @@ class Payment extends React.Component {
       this.props.dispatch(Actions.get(newProps.params.VisitId))
     }
   }
-
-  // componentWillMount() {
-  //   let {params} = this.props;
-  //   if (params.Id) {
-  //     this.props.dispatch(Actions.get(params.Id))
-  //
-  //   } else if (params.VisitId) {
-  //     const visitId = parseInt(params.VisitId, 10);
-  //     this.props.dispatch(Actions.get(visitId))
-  //   } else {
-  //     this.props.dispatch(Actions.removeCurrent())
-  //
-  //   }
-  // }
 
   onCancel() {
     hashHistory.push('/visits')
@@ -52,7 +40,6 @@ class Payment extends React.Component {
   onVisitChange(visit) {
     if (visit && visit.id) {
       hashHistory.push('payment/' + visit.id);
-      //this.props.dispatch(Actions.get(visit.id));
     }
   }
 
@@ -112,7 +99,6 @@ Payment = reduxForm({
   form:'paymentForm',
   enableReinitialize: true,
   onSubmitSuccess: function(submitResponse, dispatch, props) {
-    console.log('will the amount change to 0?')
     props.dispatch(props.change('amount', 0))
     props.dispatch(props.untouch('amount'))
     const visitId = props.currentVisit && props.currentVisit.id;
@@ -134,7 +120,6 @@ export default connect((store, ownProps) => {
   return {
     initialValues: {
       visitId: visitId,
-      amount: 0,
       payDate: moment().format('YYYY-MM-DD')
     },
     currentPayments: store.payments.currentPayments,

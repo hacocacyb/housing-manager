@@ -1,8 +1,8 @@
 module.exports = {
-  parseRequest: function (req, callback, scope) {
+  parseRequest: function(req, callback, scope) {
     let body = '';
     req.on('data', function(data) {
-      body+=data.toString();
+      body += data.toString();
     });
 
     req.on('end', function() {
