@@ -23,7 +23,7 @@ if (env === 'production') {
   //   ssl: true
   // };
   sequelize = new Sequelize(databaseUrl)
-  pg.defaults.ssl = true;
+  //pg.defaults.ssl = true;
 } else {
   console.log('**Trying to connect sequelize')
   sequelize = new Sequelize('postgres://localhost:5432/Housing', {
