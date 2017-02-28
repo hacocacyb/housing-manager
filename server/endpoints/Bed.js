@@ -6,6 +6,12 @@ function getAllBeds(req, res) {
   var qry = fs.readFileSync('server/sql/getBeds.sql').toString();
   db.sequelize.query(qry).spread((beds, meta) => {
     console.log(beds.length);
+    beds.forEach(function(b) {
+      b.display = b.name + ' - ' + b.type;
+      if (b.occupied) {
+        b.display += ' (Occupied)'
+      }
+    })
     res.status(200).json(beds)
   }).catch(err => {
     res.status(500).json(err)

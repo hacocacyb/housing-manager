@@ -3,30 +3,39 @@ export default function people(state={
   fetched: false,
   current: undefined,
   data: [],
+  byId: {},
   rowCount: 0
 }, action) {
   let payload = action.payload;
   switch(action.type) {
     case "FETCHING_PERSONS": {
 
-      return {...state, fetching: true, fetched: false, data: []};
+      return {
+        ...state,
+        fetching: true,
+        fetched: false,
+        data: [],
+        byId: {}
+      };
     }
     case "FETCH_PERSONS_FULFILLED": {
-      payload.forEach(function(p) {
-        let middle = p.middle ? ' ' + p.middle + ' ' : ' ';
-        p.fullName = p.first + middle + p.last
-      })
+      let byId = {};
+      payload.forEach(p=>byId[p.id] = p);
+
       return {...state,
         fetching : false,
         fetched: true,
-        data: payload
+        data: payload,
+        byId: byId
       };
     }
     case "FETCH_PERSONS_FAILED": {
-      return {...state,
+      return {
+        ...state,
         fetching: false,
-        fetcheed: false,
-        data: []
+        fetched: false,
+        data: [],
+        byId: {}
       };
     }
     case "REMOVE_CURRENT_PERSON": {

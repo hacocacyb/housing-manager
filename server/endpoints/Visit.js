@@ -1,10 +1,13 @@
 var { parseRequest } = require('../fn/httpHelpers.js');
 var fs = require('fs');
 var db = require('../models/index')
-
+function addMetaFields(v) {
+  v.display = v.first + ' ' + v.last + ' (' + v.buildingName + ')'
+}
 function getAll(req, res, next) {
   var getAllVisitsSql = fs.readFileSync('server/sql/getVisits.sql').toString();
   db.query(getAllVisitsSql).spread((data, meta) => {
+    data.forEach(addMetaFields);
     res.status(200).json(data);
   })
 }

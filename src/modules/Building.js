@@ -5,7 +5,7 @@ import * as Actions from '../data/store.js'
 import BaseGrid from './shared/BaseGrid.js'
 import Button from './shared/Button.js'
 
-const colDefs = [
+var colDefs = [
   {
     headerName: 'Id',
     field: 'id',

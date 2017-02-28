@@ -3,6 +3,7 @@ import { hashHistory } from 'react-router'
 const apiRoot = '/api/visits'
 const actionNoun = 'VISIT'
 
+
 export function getAll() {
   return function(dispatch) {
     dispatch({
@@ -23,21 +24,21 @@ export function getAll() {
 }
 
 export function get(id) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
     dispatch({
       type: 'FETCHING_' + actionNoun
     })
 
-    fetch(apiRoot + '/' + id)
-      .then((response) => {
-        return response.json();
+    fetch(apiRoot + '/' + id).then((response) => {
+      return response.json();
+    }).then((json) => {
+      dispatch({
+        type: 'WORK_WITH_' + actionNoun,
+        payload: json
       })
-      .then((json) => {
-        dispatch({
-          type: 'WORK_WITH_' + actionNoun,
-          payload: json
-        })
-      })
+    }).catch((err) => {
+      dispatch({type: 'FETCH_' + actionNoun + 'S_FAILED', payload: err})
+    })
   }
 }
 

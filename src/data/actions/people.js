@@ -23,21 +23,30 @@ export function getAll() {
 }
 
 export function get(id) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
+
+
     dispatch({
       type: 'FETCHING_' + actionNoun
     })
 
-    fetch(apiRoot + '/' + id)
-      .then((response) => {
-        return response.json();
+    const state = getState()
+    const localPerson = state.people.byId[id]
+    if (localPerson) {
+      dispatch({
+        type: 'WORK_WITH_' + actionNoun,
+        payload: localPerson
       })
-      .then((json) => {
+    } else {
+      fetch(apiRoot + '/' + id).then((response) => {
+        return response.json();
+      }).then((json) => {
         dispatch({
           type: 'WORK_WITH_' + actionNoun,
           payload: json
         })
       })
+    }
   }
 }
 

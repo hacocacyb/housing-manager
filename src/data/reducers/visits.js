@@ -3,6 +3,7 @@ export default function visits(state={
   fetched: false,
   current: undefined,
   data: [],
+  byId: {},
   rowCount: 0
 }, action) {
   let payload = action.payload;
@@ -12,22 +13,22 @@ export default function visits(state={
       return {...state, fetching: true, fetched: false, data: []};
     }
     case "FETCH_VISITS_FULFILLED": {
-      const visits = payload.map(function(v) {
-        v.display = v.first + ' ' + v.last + ' (' + v.buildingName + ')'
-        return v;
-      })
+      let byId = {};
+      payload.forEach(p=>byId[p.id] = p);
       return {
         ...state,
         fetching : false,
         fetched: true,
-        data: visits
+        data: payload,
+        byId: byId
       };
     }
     case "FETCH_VISITS_FAILED": {
       return {...state,
         fetching: false,
         fetcheed: false,
-        data: []
+        data: [],
+        byId: {}
       };
     }
     case "REMOVE_CURRENT_VISIT": {

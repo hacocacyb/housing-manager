@@ -20,21 +20,30 @@ export function getAll() {
 }
 
 export function getBed(id) {
-  return function(dispatch) {
+  return function(dispatch,getState) {
     dispatch({
       type: 'FETCHING_BED'
     })
 
-    fetch('api/beds/' + id)
-      .then((response) => {
-        return response.json();
+    const state = getState();
+    const localBed = state.beds.byId[id];
+    if (localBed) {
+      dispatch({
+        type: 'WORK_WITH_BED',
+        payload: localBed
       })
-      .then((json) => {
+    } else {
+
+      fetch('api/beds/' + id).then((response) => {
+        return response.json();
+      }).then((json) => {
         dispatch({
           type: 'WORK_WITH_BED',
           payload: json
         })
       })
+    }
+
   }
 }
 
@@ -46,12 +55,6 @@ export function removeCurrentBed() {
 
 export function saveBed(bed) {
 
-  if (typeof bed.TypeId === 'object') {
-    bed.TypeId = bed.TypeId.Id;
-  }
-  if (typeof bed.BuildingId === 'object') {
-    bed.BuildingId = bed.BuildingId.Id
-  }
   return function(dispatch) {
     dispatch({
       type: 'SAVING_BED'
@@ -60,20 +63,17 @@ export function saveBed(bed) {
     fetch('api/beds', {
       method: 'PUT',
       body: JSON.stringify(bed)
+    }).then((response) => {
+      return response.json();
+    }).then((json) => {
+      hashHistory.push('/beds')
+      dispatch({
+        type: 'BED_SAVED',
+        payload: json
+      })
+    }).catch((err) => {
+      dispatch({type: "SAVING_BED_FAILED", payload: err})
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        hashHistory.push('/beds')
-        dispatch({
-          type: 'BED_SAVED',
-          payload: json
-        })
-      })
-      .catch((err) => {
-        dispatch({type: "SAVING_BED_FAILED", payload: err})
-      })
   }
 
 }

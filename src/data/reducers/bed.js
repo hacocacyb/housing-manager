@@ -2,33 +2,39 @@ export default function bedReducer(state={
   fetching: false,
   fetched: false,
   currentBed: undefined,
+  byId: {},
   data: []
 }, action) {
   let payload = action.payload;
   switch(action.type) {
     case "FETCHING_BEDS": {
 
-      return {...state, fetching: true, fetched: false, data: []};
+      return {
+        ...state,
+        fetching: true,
+        fetched: false,
+        byId: {},
+        data: []
+      };
     }
     case "FETCH_BEDS_FULFILLED": {
-      const beds = payload.map(function(b) {
-        b.display = b.name + ' - ' + b.type;
-        if (b.occupied) {
-          b.display += ' (Occupied)'
-        }
-        return b;
+      let byId = {}
+      payload.forEach(function(bed) {
+        byId[bed.id] = bed
       })
       return {
         ...state,
         fetching : false,
         fetched: true,
-        data: beds
+        byId: byId,
+        data: payload
       };
     }
     case "FETCH_BEDS_FAILED": {
       return {...state,
         fetching: false,
-        fetcheed: false,
+        fetched: false,
+        byId: {},
         data: []
       };
     }
