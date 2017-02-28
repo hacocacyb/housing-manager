@@ -1,6 +1,6 @@
-
 var Sequelize = require('sequelize')
 var sequelize = null
+var seedData = require('./seedData')
 
 
 var env = process.env.NODE_ENV || 'development';
@@ -47,9 +47,6 @@ sequelize
     console.log('Unable to connect to the database:', err);
   });
 
-sequelize.import(__dirname + '/bedType')
-sequelize.import(__dirname + '/rentalPeriod')
-
 let db = {
   sequelize: sequelize,
   query: function(qry) {
@@ -64,50 +61,10 @@ let db = {
   Visit: sequelize.import(__dirname + '/visit')
 }
 
-db.RentalPeriod.sync();
-db.RentalPeriod.findOrCreate({
-  where: {
-    id: 1
-  },
-  defaults: {
-    type:'Weekly',
-    duration: 7
-  }
-})
-db.RentalPeriod.findOrCreate({
-  where: {
-    id: 2
-  },
-  defaults: {
-    type:'Bi-Weekly',
-    duration: 14
-  }
-})
-
-
 sequelize.sync({
   force: false
+}).then(()=> {
+  seedData(db)
 })
-const bedTypes = [
-  [1, 'Cot'],
-  [2, 'Twin'],
-  [3, 'Double'],
-  [4, 'Full'],
-  [5, 'Queen'],
-  [6, 'King'],
-  [7, 'Bunk'],
-]
-const bedTypesConfigs = bedTypes.map(bt => ({
-  where: {
-    id: bt[0]
-  },
-  defaults: {
-    type:bt[1]
-  }
-}))
-
-bedTypesConfigs.forEach((bt) => {
-  db.BedType.findOrCreate(bt)
-});
 
 module.exports = db;
