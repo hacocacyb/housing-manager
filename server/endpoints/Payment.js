@@ -1,22 +1,22 @@
 var { parseRequest } = require('../fn/httpHelpers.js');
 var fs = require('fs');
 var db = require('../models/index.js')
-const tableName = '"Payment"';
 
 function getWidgetInfo(req, res) {
-    var getBillingSql = fs.readFileSync('server/sql/getBillingWidget.sql').toString()
-    db.query(getBillingSql).spread((data, meta) => {
-      const result = data.map((r) => {
-        r.pastDue = Math.max(r.dueBilled - r.payments, 0);
-        return r;
-      }).sort((a,b) => b.pastDue - a.pastDue)
+  const queryLoc = 'server/sql/getBillingWidget.sql'
+  const getBillingSql = fs.readFileSync(queryLoc).toString()
+  db.query(getBillingSql).spread((data, meta) => {
+    const result = data.map((r) => {
+      r.pastDue = Math.max(r.dueBilled - r.payments, 0);
+      return r;
+    }).sort((a, b) => b.pastDue - a.pastDue)
 
-      res.status(200);
-      res.json(data);
-    })
+    res.status(200);
+    res.json(data);
+  })
 }
 
-function get(req, res, next) {
+function getPaymentsByVisitId(req, res, next) {
   let id = req.params.id;
 
   if (!id || id === 'undefined') {
@@ -29,7 +29,7 @@ function get(req, res, next) {
     }
   }).then(data => {
     res.status(200).json(data)
-  }).catch(err=>res.status(500).send(err))
+  }).catch(err => res.status(500).send(err))
 }
 
 function save(req, res, next) {
@@ -39,7 +39,7 @@ function save(req, res, next) {
         success: true,
         data: result
       })
-    }).catch(err=>{
+    }).catch(err => {
       res.status(500).json({
         success: false,
         msg: err.toString()
@@ -49,7 +49,7 @@ function save(req, res, next) {
 }
 
 module.exports = {
-  get: get,
+  get: getPaymentsByVisitId,
   getWidgetInfo: getWidgetInfo,
   save: save
 }

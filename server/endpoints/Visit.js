@@ -2,8 +2,6 @@ var { parseRequest } = require('../fn/httpHelpers.js');
 var fs = require('fs');
 var db = require('../models/index')
 
-const tableName = '"Visit"';
-
 function getAll(req, res, next) {
   var getAllVisitsSql = fs.readFileSync('server/sql/getVisits.sql').toString();
   db.query(getAllVisitsSql).spread((data, meta) => {
@@ -27,9 +25,9 @@ function get(req, res, next) {
 function save(req, res, next) {
   parseRequest(req, function(params) {
     db.Visit.upsert(params).then(result => {
-      res.status(200).json({success:true})
-    }).catch((err,b,c)=>{
-      res.status(500).json({success:false, msg:err.toString()})
+      res.status(200).json({ success: true })
+    }).catch((err, b, c) => {
+      res.status(500).json({ success: false, msg: err.toString() })
     })
   })
 

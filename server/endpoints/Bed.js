@@ -27,7 +27,7 @@ function saveBed(req, res, next) {
   parseRequest(req, function(params) {
     db.Bed.upsert(params).then(result => {
       res.status(200).json(result)
-    }).catch(err=>{
+    }).catch(err => {
       res.status(500).json(err)
     })
   })
