@@ -35,7 +35,7 @@ export function get(id) {
       .then((json) => {
         dispatch({
           type: 'WORK_WITH_' + actionNoun,
-          payload: json.data
+          payload: json
         })
       })
   }
@@ -54,15 +54,9 @@ export function getPaymentsWidget() {
       .then((json) => {
         dispatch({
           type: 'FETCHED_PAYMENT_WIDGET',
-          payload: json.data
+          payload: json
         })
       })
-  }
-}
-
-export function getPaymentsByVisit(visit) {
-  return function(dispatch) {
-    //fetch(apiRoot + )
   }
 }
 
@@ -87,14 +81,17 @@ export function save(obj) {
       return response.json();
     })
     .then((json) => {
+      debugger;
       if (json.success) {
         dispatch({
           type: actionNoun + '_SAVED',
           payload: json
         })
-        //dispatch(reset('paymentForm'))
-        hashHistory.push('payment/' + obj.VisitId);
-        dispatch(get(obj.VisitId))
+        const nextRoute = 'payment/' + obj.visitId;
+        dispatch(get(obj.visitId))
+        if (!hashHistory.isActive(nextRoute)) {
+          hashHistory.push('payment/' + obj.visitId);
+        }
       }
     })
     .catch((err) => {

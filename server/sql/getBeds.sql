@@ -1,12 +1,10 @@
-select b.*, bt."Type", bl."Name" as "BuildingName",
-exists(select v."Id" from "Visit" v
-  where v."BedId" = b."Id"
-  and v."Intake" < now()
-  and (v."Outtake" is null or v."Outtake" > now())
-) as "Occupied"
+select b.*, bt.type, bl.name as "buildingName",
+exists(select v.id from visit v
+  where v."bedId" = b.id
+  and v.intake < now()
+  and (v.outtake is null or v.outtake > now())
+) as "occupied"
+from bed b left outer join "bedType" bt on b."typeId"  = bt."id"
+left outer join "building" bl on b."buildingId" = bl.id
 
-from "Bed" B left outer join "BedType" BT on b."TypeId"  = bt."Id"
-
-left outer join "Building" bl on b."BuildingId" = bl."Id"
-
-order by bl."Name", b."Name"
+order by bl.name, b.name

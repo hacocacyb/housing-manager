@@ -11,9 +11,7 @@ export function getAll() {
         return response.json();
       })
       .then(function(json) {
-        dispatch({type: "FETCH_BEDS_FULFILLED", payload: {
-          beds: json.data
-        }})
+        dispatch({type: "FETCH_BEDS_FULFILLED", payload: json})
       })
       .catch((err) => {
         dispatch({type: "FETCH_BEDS_FAILED", payload: err})
@@ -34,7 +32,7 @@ export function getBed(id) {
       .then((json) => {
         dispatch({
           type: 'WORK_WITH_BED',
-          payload: json.data
+          payload: json
         })
       })
   }

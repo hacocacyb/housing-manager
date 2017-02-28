@@ -13,21 +13,20 @@ var currency = function(v) {
 class PaymentHistory extends React.Component {
 
   buildPayHistory(visit, payments) {
-    const { Intake, PayTypeId, Cost } = visit;
-    const payPeriodDays = PayTypeId === 1 ? 7 : 14;
+    const { intake, rentalPeriodId, cost } = visit;
+    const payPeriodDays = rentalPeriodId === 1 ? 7 : 14;
     const today = moment(moment.now());
-
-    const startDate = moment(Intake);
+    const startDate = moment(intake);
     let billDate = startDate;
     let ledger = [];
     let history = [];
     let totalBilled = 0;
 
     while (billDate < today) {
-      totalBilled += Cost;
+      totalBilled += cost;
       ledger.push({
         date: moment(billDate),
-        cost: Cost,
+        cost: cost,
         type: 'debit'
 
       })
@@ -37,8 +36,8 @@ class PaymentHistory extends React.Component {
     if ( payments ) {
       payments.forEach(function(payment) {
         ledger.push({
-          date: moment(payment.PayDate),
-          payment: payment.Amount,
+          date: moment.utc(payment.payDate),
+          payment: payment.amount,
           type: 'credit'
         })
       })
@@ -88,6 +87,7 @@ class PaymentHistory extends React.Component {
 
   render() {
     const props = this.props;
+    console.log(props);
     const { visit, payments } = props;
     if (visit) {
       const payHistory = this.buildPayHistory(visit, payments);
@@ -140,8 +140,6 @@ class PaymentHistory extends React.Component {
     } else {
       return <div></div>
     }
-
-
   }
 }
 

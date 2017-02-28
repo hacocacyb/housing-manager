@@ -19,14 +19,14 @@ const rentalPeriod = function(obj) {
 let colDefs = [
 	{headerName: 'Visitor', cellFormatter: function(obj) {
 		const data = obj.node.data;
-		return data.First + ' ' + data.Last;
+		return data.first + (data.middle ? ' ' + data.middle + ' ' : ' ') + data.last;
 	}},
-	{headerName: 'Building', field: 'BuildingName'},
-	{headerName: 'Bed', field: 'BedName'},
-	{headerName: 'Rental Period', field: 'PayTypeId', cellFormatter: rentalPeriod},
-	{headerName: 'Intake', field: 'Intake', cellFormatter: dateCellFormatter},
-	{headerName: 'Outtake', field: 'Outtake', cellFormatter: dateCellFormatter},
-	{headerName: 'Rent', field: 'Cost'}
+	{headerName: 'Building', field: 'buildingName'},
+	{headerName: 'Bed', field: 'bedName'},
+	{headerName: 'Rental Period', field: 'rentalPeriodId', cellFormatter: rentalPeriod},
+	{headerName: 'Intake', field: 'intake', cellFormatter: dateCellFormatter},
+	{headerName: 'Outtake', field: 'iuttake', cellFormatter: dateCellFormatter},
+	{headerName: 'Rent', field: 'cost'}
 ]
 class Visit extends React.Component {
 
@@ -48,12 +48,12 @@ class Visit extends React.Component {
 	}
 
 	addPayment() {
-		const id = this.state.selection ? this.state.selection.Id : '';
+		const id = this.state.selection ? this.state.selection.id : '';
 		hashHistory.push('/payment/' + id)
 	}
 
 	edit() {
-		hashHistory.push('visits/edit/' + this.state.selection.Id);
+		hashHistory.push('visits/edit/' + this.state.selection.id);
 	}
 
 	onSelectionChange(sel) {

@@ -1,32 +1,35 @@
-var { queryToResponse } = require('../fn/query.js');
-var { parseRequest } = require('../fn/httpHelpers.js');
-var fs = require('fs');
+var { parseRequest } = require('../fn/httpHelpers')
+var fs = require('fs')
+var db = require('../models/index')
 
 function getAllBeds(req, res) {
   var qry = fs.readFileSync('server/sql/getBeds.sql').toString();
-
-  queryToResponse(res, qry)
+  db.sequelize.query(qry).spread((beds, meta) => {
+    console.log(beds.length);
+    res.status(200).json(beds)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
 }
 
 function getBed(req, res, next) {
   let id = req.params.id;
   if (!id) {
-    res.error('No id was included in request');
+    res.status(500).send('No id was included in request');
   }
-  queryToResponse(res, 'select * from "Bed" where "Bed"."Id" = $1', [id])
+
+  db.Bed.findById(id).then(data => {
+    res.status(200).json(data)
+  })
 }
 
 function saveBed(req, res, next) {
   parseRequest(req, function(params) {
-    let values = [params.TypeId,params.RoomId, params.BuildingId, params.Name];
-    if (params.Id === undefined || params.Id === null) {
-      let qry = 'INSERT INTO "Bed"("TypeId", "RoomId", "BuildingId", "Name") VALUES ($1, $2, $3, $4);';
-      queryToResponse(res, qry, values)
-    } else {
-      values.push(params.Id);
-      let qry = 'UPDATE "Bed" SET "TypeId"=$1, "RoomId"=$2, "BuildingId"=$3, "Name"=$4	WHERE "Id" = $5';
-      queryToResponse(res, qry, values)
-    }
+    db.Bed.upsert(params).then(result => {
+      res.status(200).json(result)
+    }).catch(err=>{
+      res.status(500).json(err)
+    })
   })
 }
 

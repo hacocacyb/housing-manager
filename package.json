@@ -22,14 +22,15 @@
     "redux-form": "^6.5.0",
     "redux-logger": "^2.8.1",
     "redux-promise-middleware": "^4.2.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "sequelize": "^3.30.2"
   },
   "scripts": {
     "start": "node index.js",
-    "startdev": "react-scripts start",
+    "startdev": "start react-scripts start && start nodemon index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "heroku-postbuild":"npm install --only=dev && npm run build"
+    "heroku-postbuild": "npm install --only=dev && npm run build"
   }
 }

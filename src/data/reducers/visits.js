@@ -13,10 +13,11 @@ export default function visits(state={
     }
     case "FETCH_VISITS_FULFILLED": {
       const visits = payload.map(function(v) {
-        v.Display = v.First + ' ' + v.Last + ' (' + v.BuildingName + ')'
+        v.display = v.first + ' ' + v.last + ' (' + v.buildingName + ')'
         return v;
       })
-      return {...state,
+      return {
+        ...state,
         fetching : false,
         fetched: true,
         data: visits
@@ -36,9 +37,6 @@ export default function visits(state={
       }
     }
     case "WORK_WITH_VISIT": {
-      if (payload.length > 0) {
-        payload = payload[0]
-      }
       return {
         ...state,
         current: payload

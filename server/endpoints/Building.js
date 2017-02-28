@@ -1,11 +1,15 @@
-var { queryToResponse } = require('../fn/query.js');
 var { parseRequest } = require('../fn/httpHelpers.js');
 var fs = require('fs');
+var db = require('../models/index')
 
 function getAll(req, res, next) {
-  var sql = fs.readFileSync('server/sql/getBuildings.sql').toString();
+  var qry = fs.readFileSync('server/sql/getBuildings.sql').toString();
+  db.sequelize.query(qry).spread((data, meta) => {
+    res.status(200).json(data)
+  }).catch((a,b,c)=> {
+    res.status(500).json()
+  })
 
-  queryToResponse(res, sql)
 }
 
 function get(req, res, next) {
@@ -13,32 +17,21 @@ function get(req, res, next) {
   if (!id) {
     res.error('No id was included in request');
   }
-  queryToResponse(res, 'select * from "Building" where "Building"."Id" = $1', [id]);
+  db.Building.findById(id).then(data => {
+    res.status(200).json(data)
+  }).catch(err=>res.status(500).send(err))
 }
 
 function save(req, res, next) {
 
   parseRequest(req, function(params) {
-    let values = [params.Name,params.Addr1, params.Addr2, params.City, params.State, params.Zip];
-    let fields = ['Name', 'Addr1', 'Addr2', 'City', 'State', 'Zip'];
-    let fieldsString = qh.fieldsString(fields);
-    let dollarString = qh.dollarString(fields.length);
 
-    if (params.Id === undefined || params.Id === null) {
-      queryToResponse(res, {
-        text: 'INSERT INTO "Building"(' + fieldsString + ') VALUES (' + dollarString + ')',
-        values: values
-      });
-    } else {
-      let qry ='UPDATE "Building" SET "Name"=$1, "Addr1"=$2, ';
-      qry += '"Addr2"=$3, "City"=$4,	"State"=$5, "Zip"=$6 WHERE "Id" = $7';
-      values.push(params.Id);
+    db.Building.upsert(params).then(result => {
+      res.status(200).json(result)
+    }).catch(err=>{
+      res.status(500).json(err)
+    })
 
-      queryToResponse(res, {
-        text: qry,
-        values: values
-      })
-    }
   })
 
 }

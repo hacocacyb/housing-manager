@@ -1,13 +1,14 @@
-var { query, queryToResponse } = require('../fn/query.js');
 var { parseRequest } = require('../fn/httpHelpers.js');
-var qh = require('../fn/queryHelpers.js');
 var fs = require('fs');
+var db = require('../models/index')
 
 const tableName = '"Visit"';
 
 function getAll(req, res, next) {
   var getAllVisitsSql = fs.readFileSync('server/sql/getVisits.sql').toString();
-  queryToResponse(res, getAllVisitsSql)
+  db.query(getAllVisitsSql).spread((data, meta) => {
+    res.status(200).json(data);
+  })
 }
 
 function get(req, res, next) {
@@ -17,32 +18,19 @@ function get(req, res, next) {
     res.status(500).send('No id was included in request');
     return;
   }
-  queryToResponse(res, 'select * from '+tableName+' where '+tableName+'."Id" = $1', [id]);
+
+  db.Visit.findById(id).then(data => {
+    res.status(200).json(data)
+  })
 }
 
 function save(req, res, next) {
   parseRequest(req, function(params) {
-    let values = [params.PersonId,params.BuildingId, params.BedId, params.Intake, params.PayTypeId, params.Cost];
-    let fields = ['PersonId', 'BuildingId', 'BedId', 'Intake', 'PayTypeId', 'Cost'];
-    let fieldsString = '"' + fields.join('","') + '"';
-
-    if (params.Id === undefined || params.Id === null) {
-      queryToResponse(res, {
-        text: 'INSERT INTO '+tableName+'(' + fieldsString + ') VALUES (' + qh.dollarString(fields.length) + ')',
-        values: values
-      });
-    } else {
-      let qry ='UPDATE '+tableName+' SET "PersonId"=$1, "BuildingId"=$2, ';
-      qry += '"BedId"=$3, "Intake"=$4, "PayTypeId"=$5, "Cost"=$6 WHERE "Id" = $7';
-      values.push(params.Id);
-
-      queryToResponse(res, {
-        text: qry,
-        values: values
-      })
-    }
-
-
+    db.Visit.upsert(params).then(result => {
+      res.status(200).json({success:true})
+    }).catch((err,b,c)=>{
+      res.status(500).json({success:false, msg:err.toString()})
+    })
   })
 
 }

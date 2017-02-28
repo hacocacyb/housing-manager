@@ -1,9 +1,9 @@
 select *,
-(Select count(*) from "Bed" where "Bed"."BuildingId" = b."Id") as "BedCount",
-(select count(*) from "Visit" v
-  where v."BuildingId" = b."Id"
-  and v."Intake" < now()
-  and (v."Outtake" is null or v."Outtake" > now())
-) as "Occupied"
+(Select count(*) from bed where bed."buildingId" = b.id) as "bedCount",
+(select count(*) from visit v
+  where v."buildingId" = b.id
+  and v.intake < now()
+  and (v.outtake is null or v.outtake > now())
+) as occupied
 
-from "Building" b
+from building b

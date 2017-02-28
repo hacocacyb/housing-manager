@@ -42,9 +42,9 @@ class VisitEdit extends React.Component {
   }
   handleSubmit(formValues) {
 
-    ['BedId', 'BuildingId', 'PersonId', 'PayTypeId'].forEach(fn => {
+    ['bedId', 'buildingId', 'personId', 'rentalPeriodId'].forEach(fn => {
       if (typeof formValues[fn] === 'object') {
-        formValues[fn] = formValues[fn].Id;
+        formValues[fn] = formValues[fn].id;
       }
     })
     this.props.dispatch(Actions.save(formValues))
@@ -65,7 +65,8 @@ class VisitEdit extends React.Component {
   render() {
     const { buildings, people, currentBuildingId, currentIntake, currentPaySchedule } = this.props;
     //filtered by the current building
-    const beds = this.props.beds.filter(b => currentBuildingId === b.BuildingId);
+    console.log(this.props.beds);
+    const beds = this.props.beds.filter(b => currentBuildingId === b.buildingId);
     const payHistory = this.buildPayments(currentIntake,currentPaySchedule);
     const editMode = false;//this.state.editMode;
 
@@ -82,55 +83,55 @@ class VisitEdit extends React.Component {
             <Button onClick={this.onCancel}>Cancel</Button>
           </div>
           <div className="w3-third">
-            <Field name="Id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
-            <Field name="PersonId"
+            <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
+            <Field name="personId"
               readOnly={editMode}
               data={people}
               validate={function(value) {
                 if (value && value.Visiting) {
-                  return value.FullName + ' is already visiting';
+                  return value.fullName + ' is already visiting';
                 }
               }}
               component={FC.renderCombo}
-              textField="FullName"
+              textField="fullName"
               type="text"
               placeholder="Visitor"/>
-            <Field name="BuildingId"
+            <Field name="buildingId"
               readOnly={editMode}
               data={buildings}
               component={FC.renderCombo}
-              textField="Name"
+              textField="name"
               type="text"
               placeholder="Building"/>
-            <Field name="BedId"
+            <Field name="bedId"
               readOnly={editMode}
               data={beds}
               component={FC.renderCombo}
               validate={function(v) {
-                if (v && v.Occupied) {
+                if (v && v.occupied) {
                   return 'Bed is currently occupied'
                 }
               }}
-              textField="Display"
+              textField="display"
               type="text"
               placeholder="Bed"/>
-            <Field name="PayTypeId"
+            <Field name="rentalPeriodId"
               readOnly={editMode}
-              data={[{Id: 1, Desc: 'Weekly'}, {Id: 2, Desc: 'Bi-Weekly'}]}
+              data={[{id: 1, desc: 'Weekly'}, {id: 2, desc: 'Bi-Weekly'}]}
               component={FC.renderCombo}
               type="text"
               placeholder="Pay Schedule"/>
-            <Field name="Cost"
+            <Field name="cost"
               component={FC.renderInput}
               readOnly={editMode}
               type="number"
               placeholder="Cost"/>
-            <Field name="Intake"
+            <Field name="intake"
               readOnly={editMode}
               component={FC.renderInput}
               type="date"
               placeholder="Date In"/>
-            <Field name="Outtake" component={FC.renderInput} type="text" placeholder="Date Out"/>
+            <Field name="outtake" component={FC.renderInput} type="text" placeholder="Date Out"/>
           </div>
           <div className="w3-rest w3-panel ">
             <h5>
@@ -155,25 +156,25 @@ VisitEdit = reduxForm({
 VisitEdit = withRouter(VisitEdit)
 
 export default connect((store) => {
-  let buildingId =  getFormValue(store, 'BuildingId');
+  let buildingId =  getFormValue(store, 'buildingId');
   if (typeof buildingId === 'object') {
-    buildingId = buildingId.Id
+    buildingId = buildingId.id
   }
-  let intake = store.visits.current && store.visits.current.Intake;
+  let intake = store.visits.current && store.visits.current.intake;
   intake = moment(intake);
 
   return {
     initialValues: {
-      PayTypeId: 1,
-      Cost: 180,
+      payTypeId: 1,
+      cost: 180,
       ...store.visits.current,
-      Intake: intake.format('YYYY-MM-DD'),
+      intake: intake.format('YYYY-MM-DD'),
     },
     buildings: store.buildings.data,
     people: store.people.data,
     beds: store.beds.data,
     currentBuildingId: buildingId,
-    currentIntake: getFormValue(store, 'Intake'),
-    currentPaySchedule: getFormValue(store, 'PayType')
+    currentIntake: getFormValue(store, 'intake'),
+    currentPaySchedule: getFormValue(store, 'payType')
   }
 })(VisitEdit);

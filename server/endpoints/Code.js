@@ -1,7 +1,9 @@
-var { queryToResponse } = require('../fn/query.js');
+var db = require('../models/index')
 
 function getBedTypes(req, res) {
-  queryToResponse(res, 'select * from "BedType"')
+  db.BedType.findAll().then(data=>{
+    res.status(200).json(data);
+  }).catch(err=>res.status(500).send(err))
 }
 
 module.exports = {

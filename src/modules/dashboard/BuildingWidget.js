@@ -7,14 +7,14 @@ class BuildingWidget extends React.Component {
 	render() {
 		const data = this.props.data.map((d) => d);
 		data.sort(function(a, b) {
-			return b.Occupied - a.Occupied;
+			return b.occupied - a.occupied;
 		})
 		const rows = data.map(function(d) {
 			return (
-				<div key={"widget-row-" + d.Name} className="w3-row w3-border-top">
-					<div className="w3-col s6 l6">{d.Name}</div>
-					<div className="w3-col s3 l3 w3-center">{d.BedCount}</div>
-					<div className="w3-col s3 l3 w3-center">{d.Occupied}</div>
+				<div key={"widget-row-" + d.name} className="w3-row w3-border-top">
+					<div className="w3-col s6 l6">{d.name}</div>
+					<div className="w3-col s3 l3 w3-center">{d.bedCount}</div>
+					<div className="w3-col s3 l3 w3-center">{d.occupied}</div>
 				</div>
 			)
 		})

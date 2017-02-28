@@ -10,7 +10,7 @@ class BedWidget extends React.Component {
 		let occupied = 0;
 		rows.forEach((row) => {
 			beds++;
-			row.Occupied && occupied++
+			row.occupied && occupied++
 		});
 		let occupancy = (beds === 0) ? 0 : (occupied/beds) * 100;
 		occupancy = occupancy.toFixed(2);

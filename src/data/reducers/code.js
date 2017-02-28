@@ -5,8 +5,9 @@ export default function codeReducer(state={
   switch(action.type) {
     case "FETCH_BEDS_TYPES_FULFILLED": {
 
-      return {...state,
-        bedTypes : payload.bedTypes
+      return {
+        ...state,
+        bedTypes : payload
       };
     }
     default:

@@ -1,10 +1,10 @@
 select v.*,
-	p."First", p."Last",
-  bl."Name" as "BuildingName", bed."Name" as "BedName"
+	p.first, p.last,
+  bl.name as "buildingName", bed.name as "bedName"
 
-from "Visit" v
-left outer join "Person" p on v."PersonId" = p."Id"
-left outer join "Building" bl on v."BuildingId" = bl."Id"
-left outer join "Bed" bed on v."BedId" = bed."Id"
+from visit v
+left outer join person p on v."personId" = p."id"
+left outer join building bl on v."buildingId" = bl.id
+left outer join bed bed on v."bedId" = bed.id
 
-order by v."Intake" desc
+order by v.intake desc

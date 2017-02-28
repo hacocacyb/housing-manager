@@ -14,7 +14,7 @@ export function getAll() {
         return response.json();
       })
       .then(function(json) {
-        dispatch({type: 'FETCH_' + actionNoun + 'S_FULFILLED', payload: json.data})
+        dispatch({type: 'FETCH_' + actionNoun + 'S_FULFILLED', payload: json})
       })
       .catch((err) => {
         dispatch({type: 'FETCH_' + actionNoun + 'S_FAILED', payload: err})
@@ -35,7 +35,7 @@ export function get(id) {
       .then((json) => {
         dispatch({
           type: 'WORK_WITH_' + actionNoun,
-          payload: json.data
+          payload: json
         })
       })
   }
@@ -62,7 +62,7 @@ export function save(obj) {
         return response.json();
       })
       .then((json) => {
-        if (json.success) {
+        if (json) {
           hashHistory.push('/buildings');
           dispatch({
             type: actionNoun + '_SAVED',

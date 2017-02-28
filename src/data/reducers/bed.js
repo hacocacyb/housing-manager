@@ -11,15 +11,15 @@ export default function bedReducer(state={
       return {...state, fetching: true, fetched: false, data: []};
     }
     case "FETCH_BEDS_FULFILLED": {
-      const beds = payload.beds.map(function(b) {
-        b.Display = b.Name + ' - ' + b.Type;
-        if (b.Occupied) {
-          b.Display += ' (Occupied)'
+      const beds = payload.map(function(b) {
+        b.display = b.name + ' - ' + b.type;
+        if (b.occupied) {
+          b.display += ' (Occupied)'
         }
         return b;
       })
-
-      return {...state,
+      return {
+        ...state,
         fetching : false,
         fetched: true,
         data: beds
@@ -39,9 +39,7 @@ export default function bedReducer(state={
       }
     }
     case "WORK_WITH_BED": {
-      if (payload.length > 0) {
-        payload = payload[0]
-      }
+
       return {
         ...state,
         currentBed: payload

@@ -1,9 +1,9 @@
 select p.*,
-  exists(select v."Id"
-    from "Visit" v
-    where p."Id" = v."PersonId"
-    and v."Intake" < now()
-    and (v."Outtake" is null or v."Outtake" > now())
-  ) as "Visiting"
-from "Person" p
-order by "Last"
+  exists(select v.id
+    from visit v
+    where p.id= v."personId"
+    and v.intake < now()
+    and (v.outtake is null or v.outtake > now())
+  ) as visiting
+from person p
+order by last

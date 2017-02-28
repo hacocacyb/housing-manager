@@ -4,25 +4,35 @@ var url = require('url');
 
 
 var env = process.env.NODE_ENV || 'development';
-const useSSL = (env === 'production')
+var config;
 
-pg.defaults.ssl = useSSL;
-const databaseUrl = process.env.DATABASE_URL;
 
-if (!databaseUrl) {
-  throw('No DATABASE_URL is set in process.env');
+if (env === 'production') {
+  let databaseUrl = process.env.DATABASE_URL;
+  console.log('databaseUrl: ', databaseUrl)
+  if (!databaseUrl) {
+    throw('No DATABASE_URL is set in production environment: process.env');
+  }
+  let params = url.parse(databaseUrl);
+  let auth = params.auth.split(':');
+
+  config = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1],
+    ssl: true
+  };
+  pg.defaults.ssl = true;
+} else {
+  //databaseUrl = 'postgresql://localhost:5432/Housing'
+  config = {
+    host: 'localhost',
+    port: 5432,
+    database: 'Housing'
+  };
 }
-const params = url.parse(databaseUrl);
-const auth = params.auth.split(':');
-
-const config = {
-  user: auth[0],
-  password: auth[1],
-  host: params.hostname,
-  port: params.port,
-  database: params.pathname.split('/')[1],
-  ssl: useSSL
-};
 
 pool = new Pool(config);
 

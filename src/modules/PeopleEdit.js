@@ -49,18 +49,16 @@ class PeopleEdit extends React.Component {
           <Button type="submit">Save</Button>
           <Button onClick={this.onCancel}>Cancel</Button>
         </p>
-        <Field name="Id" hidden={true} component={FC.renderInput}
-            readOnly={true} type="text" placeholder="Person Id" />
-        <Field name="First" component={FC.renderInput}
-            type="text" placeholder="First"
-            validate={required}
+        <Field name="id" hidden={true} component={FC.renderInput}
+          readOnly={true} type="text" placeholder="Person Id" />
+        <Field name="first" component={FC.renderInput}
+          type="text" placeholder="First"
+          validate={required}
         />
-        <Field name="Middle" component={FC.renderInput} type="text" placeholder="Middle"
-
-        />
-        <Field name="Last" component={FC.renderInput} type="text" placeholder="Last" validate={required}/>
-        <Field name="Dob" component={FC.renderInput} type="date" placeholder="Date of Birth" validate={[required, minAge(18)]}/>
-        <Field name="Phone" component={FC.renderInput} type="tel" placeholder="Phone Number" validate={required}/>
+        <Field name="middle" component={FC.renderInput} type="text" placeholder="Middle"/>
+        <Field name="last" component={FC.renderInput} type="text" placeholder="Last" validate={required}/>
+        <Field name="dob" component={FC.renderInput} type="date" placeholder="Date of Birth" validate={[required, minAge(18)]}/>
+        <Field name="phone" component={FC.renderInput} type="tel" placeholder="Phone Number" validate={required}/>
 
       </form>
     )

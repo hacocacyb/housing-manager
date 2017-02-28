@@ -13,8 +13,6 @@ import 'react-widgets/dist/css/react-widgets.css'
 
 import './App.css'
 
-
-
 import store from './data/store'
 
 import * as CodeActions from './data/actions/code'
@@ -35,10 +33,12 @@ import routes from './Routes'
 class App extends Component {
   render() {
     return (
-      <Router history={hashHistory} routes={routes} />
+
+        <Router history={hashHistory} routes={routes} />
+
     );
   }
 }
-export default connect((store) => {
-  return store
+export default connect((state) => {
+  return state
 })(App);

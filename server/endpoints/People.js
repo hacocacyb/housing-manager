@@ -1,14 +1,14 @@
-var { query, queryToResponse } = require('../fn/query.js');
 var { parseRequest } = require('../fn/httpHelpers.js');
-var qh = require('../fn/queryHelpers.js');
 var fs = require('fs');
+var db = require('../models/index')
 
 const tableName = '"Person"';
 
 function getAll(req, res, next) {
   const qry = fs.readFileSync('server/sql/getPeople.sql').toString();
-
-  queryToResponse(res, qry);
+  db.query(qry).spread((data, meta) => {
+    res.status(200).json(data)
+  }).catch((err)=>res.status(500).send(err))
 }
 
 function get(req, res, next) {
@@ -18,29 +18,18 @@ function get(req, res, next) {
     res.status(500).send('No id was included in request');
     return;
   }
-  queryToResponse(res, 'select * from '+tableName+' where "Person"."Id" = $1', [id]);
+  db.People.findById(id).then(data => {
+    res.status(200).json(data)
+  }).catch(err=>res.status(500).send(err))
 }
 
 function save(req, res, next) {
   parseRequest(req, function(params) {
-    let fields = ['First', 'Last', 'Middle', 'Phone', 'Dob'];
-    let values = fields.map(fieldName => params[fieldName]);
-    let fieldsString = qh.fieldString(fields);
-
-    if (params.Id === undefined || params.Id === null) {
-      queryToResponse(res, {
-        text: 'INSERT INTO '+tableName+'(' + fieldsString + ') VALUES (' + qh.dollarString(fields.length) + ')',
-        values: values
-      });
-    } else {
-      let qry ='UPDATE '+tableName+' SET "First"=$1, "Last"=$2, ';
-      qry += '"Middle"=$3, "Phone"=$4, "Dob"=$5 WHERE "Id" = $6';
-      values.push(params.Id);
-      queryToResponse(res, {
-        text: qry,
-        values: values
-      })
-    }
+    db.People.upsert(params).then(result => {
+      res.status(200).json(result)
+    }).catch(err=>{
+      res.status(500).json(err)
+    })
   })
 }
 

@@ -34,7 +34,7 @@ export function getVisitById(id) {
   let visit;
   let ix = 0;
   while (!visit  && ix < (visits.length)) {
-    if (visits[ix].Id === id) {
+    if (visits[ix].id === id) {
       visit = visits[ix];
     }
     ix++;

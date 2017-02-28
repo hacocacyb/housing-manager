@@ -7,24 +7,24 @@ import BaseGrid from './shared/BaseGrid.js'
 import Button from './shared/Button.js'
 
 const colDefs = [
-	{headerName: 'Id', field: 'Id', width: 40, hide: true},
-	{headerName: 'Name', field: 'Name'},
+	{headerName: 'Id', field: 'id', width: 40, hide: true},
+	{headerName: 'Name', field: 'name'},
 	{headerName: 'Total Beds',
-		field: 'BedCount',
+		field: 'bedCount',
 		width: 90,
 		cellStyle: {
 			textAlign: 'right'
 		}
 	},
-	{headerName: 'Occupied', field: 'Occupied', width: 80,
+	{headerName: 'Occupied', field: 'occupied', width: 80,
 	cellStyle: {
 		textAlign: 'right'
 	}},
-	{headerName: 'Address 1', field: 'Addr1', width: 140},
-	{headerName: 'Address 2', field: 'Addr2', width: 140},
-	{headerName: 'City', field: 'City', width: 140},
-	{headerName: 'State', field: 'State', width: 90},
-	{headerName: 'Zip', field: 'Zip', width: 80}
+	{headerName: 'Address 1', field: 'addr1', width: 140},
+	{headerName: 'Address 2', field: 'addr2', width: 140},
+	{headerName: 'City', field: 'city', width: 140},
+	{headerName: 'State', field: 'state', width: 90},
+	{headerName: 'Zip', field: 'zip', width: 80}
 ]
 class Building extends React.Component {
 
@@ -46,7 +46,7 @@ class Building extends React.Component {
 		hashHistory.push('/buildings/edit')
 	}
 	edit() {
-		hashHistory.push('buildings/edit/' + this.state.selection.Id);
+		hashHistory.push('buildings/edit/' + this.state.selection.id);
 	}
 
 	render() {

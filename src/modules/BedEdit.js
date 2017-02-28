@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field } from 'redux-form'
 import * as BedActions from '../data/actions/bed'
+import mapIdsFromObject from '../fn/mapIdsFromObject'
 
 import  * as FC  from './shared/formControls'
 
@@ -36,6 +37,7 @@ class BedEdit extends React.Component {
   }
 
   handleSubmit(formValues) {
+    formValues = mapIdsFromObject(formValues)
     this.props.dispatch(BedActions.saveBed(formValues))
   }
 
@@ -51,23 +53,23 @@ class BedEdit extends React.Component {
           <button className="w3-btn w3-padding-tiny w3-margin-right" type="submit">Save</button>
           <button className="w3-btn w3-padding-tiny w3-margin-right" onClick={(e) => hashHistory.push('/beds')}>Cancel</button>
         </p>
-        <Field name="Id" component={FC.renderInput} readOnly={true} type="text" placeholder="Bed Id"/>
-        <Field name="Name" component={FC.renderInput} type="text" placeholder="Name"/>
-        <Field name="TypeId" component={FC.renderCombo}
+        <Field name="id" component={FC.renderInput} hidden={true} readOnly={true} type="text" placeholder="Bed Id"/>
+        <Field name="name" component={FC.renderInput} type="text" placeholder="Name"/>
+        <Field name="buildingId"
+            data={buildings}
+            component={FC.renderCombo}
+            textField="name"
+            type="text"
+            placeholder="Building"/>
+
+
+      <Field name="typeId" component={FC.renderCombo}
           data={bedTypes}
-          textField="Type"
+          textField="type"
           type="text"
           placeholder="Bed Type"
         />
-        <Field name="BuildingId"
-          data={buildings}
-          component={FC.renderCombo}
-          textField="Name"
-          type="text"
-          placeholder="Building"/>
-        <Field name="Cost" component={FC.renderInput} type="number" placeholder="Cost" />
-
-      </form>
+        </form>
 )
 
   }

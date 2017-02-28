@@ -6,11 +6,11 @@ import BaseGrid from './shared/BaseGrid.js'
 import Button from './shared/Button.js'
 
 const colDefs = [
-	{headerName: 'Id', field: 'Id',hide: true},
-	{headerName: 'Name', field: 'Name'},
-	{headerName: 'Type', field: 'Type'},
-	{headerName: 'Building Name', field: 'BuildingName'},
-	{headerName: 'Occupied', field: 'Occupied', cellStyle: {
+	{headerName: 'Id', field: 'id',hide: true},
+	{headerName: 'Name', field: 'name'},
+	{headerName: 'Type', field: 'type'},
+	{headerName: 'Building Name', field: 'buildingName'},
+	{headerName: 'Occupied', field: 'occupied', cellStyle: {
 			textAlign: 'center'
 		}, cellFormatter: function(obj) {
 		return obj.value ? 'Y' : ''
@@ -32,7 +32,7 @@ class Bed extends React.Component {
 	}
 
 	edit() {
-		hashHistory.push('beds/edit/' + this.state.selection.Id);
+		hashHistory.push('beds/edit/' + this.state.selection.id);
 	}
 
 	onSelectionChange(sel) {
@@ -42,7 +42,6 @@ class Bed extends React.Component {
 	}
 
 	render() {
-
 		const toolbar = [
 			<Button key="add" onClick={this.add}>Add Bed</Button>,
 			<Button key="edit" onClick={this.edit.bind(this)}

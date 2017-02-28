@@ -13,8 +13,8 @@ export default function people(state={
     }
     case "FETCH_PERSONS_FULFILLED": {
       payload.forEach(function(p) {
-        let middle = p.Middle ? ' ' + p.Middle + ' ' : ' ';
-        p.FullName = p.First + middle + p.Last
+        let middle = p.middle ? ' ' + p.middle + ' ' : ' ';
+        p.fullName = p.first + middle + p.last
       })
       return {...state,
         fetching : false,
@@ -36,9 +36,6 @@ export default function people(state={
       }
     }
     case "WORK_WITH_PERSON": {
-      if (payload.length > 0) {
-        payload = payload[0]
-      }
       return {
         ...state,
         current: payload

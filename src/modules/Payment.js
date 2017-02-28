@@ -9,6 +9,7 @@ import  * as FC  from './shared/formControls'
 import { required } from '../fn/form-validate.js'
 import PaymentHistory from './PaymentHistory.js'
 import { getVisitById } from '../data/store.js'
+import mapIdsFromObject from '../fn/mapIdsFromObject'
 
 const getFormValue = formValueSelector('paymentForm');
 
@@ -47,17 +48,14 @@ class Payment extends React.Component {
     hashHistory.push('/visits')
   }
   handleSubmit(formValues) {
-    ['VisitId'].forEach(fn => {
-      if (typeof formValues[fn] === 'object') {
-        formValues[fn] = formValues[fn].Id;
-      }
-    })
+
+    formValues = mapIdsFromObject(formValues)
     this.props.dispatch(Actions.save(formValues))
   }
 
   onVisitChange(visit) {
-    if (visit && visit.Id) {
-      this.props.dispatch(Actions.get(visit.Id));
+    if (visit && visit.id) {
+      this.props.dispatch(Actions.get(visit.id));
     }
   }
 
@@ -73,24 +71,24 @@ class Payment extends React.Component {
             <Button onClick={this.onCancel}>Cancel</Button>
           </div>
           <div className="w3-third">
-            <Field name="Id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
-            <Field name="VisitId"
+            <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
+            <Field name="visitId"
               readOnly={editMode}
               data={visits}
               component={FC.renderCombo}
               validate={required}
               onChangeAction={this.onVisitChange.bind(this)}
-              textField="Display"
+              textField="display"
               type="text"
               placeholder="Visit"/>
 
-            <Field name="Amount"
+            <Field name="amount"
               component={FC.renderInput}
               readOnly={editMode}
               type="number"
               validate={required}
               placeholder="Payment Amount"/>
-            <Field name="PayDate"
+            <Field name="payDate"
               readOnly={editMode}
               component={FC.renderInput}
               type="date"
@@ -118,18 +116,22 @@ Payment = withRouter(Payment)
 
 export default connect((store, ownProps) => {
   let visitId;
-  let currentVisit = getFormValue(store, 'VisitId');
+  let currentVisit = getFormValue(store, 'visitId');
+  console.log(currentVisit)
+  console.log(ownProps.params)
   if (ownProps.params.VisitId) {
     visitId = parseInt(ownProps.params.VisitId, 10);
+    console.log(currentVisit)
     if (typeof currentVisit !== 'object') {
       currentVisit = getVisitById(visitId);
     }
+    console.log(currentVisit)
   }
-
+console.log(store);
   return {
     initialValues: {
-      VisitId: visitId,
-      PayDate: moment().format('YYYY-MM-DD')
+      visitId: visitId,
+      payDate: moment().format('YYYY-MM-DD')
     },
     currentPayments: store.payments.currentPayments,
     currentVisit: currentVisit,

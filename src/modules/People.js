@@ -7,17 +7,17 @@ import Button from './shared/Button.js'
 import moment from 'moment'
 
 const colDefs = [
-	{headerName: 'Id', field: 'Id',hide: true},
-	{headerName: 'First Name', field: 'First'},
-	{headerName: 'Middle', field: 'Middle'},
-	{headerName: 'Last Name', field: 'Last'},
-	{headerName: 'D.O.B.', field: 'Dob',
+	{headerName: 'Id', field: 'id',hide: true},
+	{headerName: 'First Name', field: 'first'},
+	{headerName: 'Middle', field: 'middle'},
+	{headerName: 'Last Name', field: 'last'},
+	{headerName: 'D.O.B.', field: 'dob',
 		cellFormatter: function(obj) {
 			return obj.value ? moment(obj.value).format('MM/DD/YYYY') : null
 		}
 	},
-	{headerName: 'Phone', field: 'Phone', width: 140},
-	{headerName: 'Visiting', field: 'Visiting',
+	{headerName: 'Phone', field: 'phone', width: 140},
+	{headerName: 'Visiting', field: 'visiting',
 		cellStyle: {
 			textAlign: 'center'
 		},
@@ -44,7 +44,9 @@ class People extends React.Component {
 	}
 
 	edit() {
-		hashHistory.push('people/edit/' + this.state.selection.Id);
+		if ( this.state.selection &&  this.state.selection.id) {
+			hashHistory.push('people/edit/' + this.state.selection.id);
+		}
 	}
 
 	onSelectionChange(sel) {

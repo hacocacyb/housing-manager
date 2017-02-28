@@ -43,8 +43,8 @@ export function renderCombo( field ) {
         readOnly={readOnly}
         hidden={hidden}
         onBlur={() => input.onBlur()}
-        valueField={valueField || 'Id'}
-        textField={textField || 'Desc'}
+        valueField={valueField || 'id'}
+        textField={textField || 'desc'}
         placeholder={placeholder}
         data={data}
         onChange={(option) => {

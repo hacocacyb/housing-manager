@@ -1,15 +1,15 @@
-select * from (select v."Id" as "VisitId",
-v."Intake",
-v."Outtake",
-p."First" || ' ' || p."Last" as "FullName",
-  bl."Name" as "BuildingName",
-  (floor(EXTRACT( DAY FROM (now() - v."Intake")) / (v."PayTypeId" * 7)) + 1) * v."Cost" as "TotalBilled",
-	greatest(0, (select sum(p."Amount") from "Payment" p where p."VisitId" = v."Id")) as "Payments",
-  (floor(EXTRACT( DAY FROM (now() - v."Intake")) / (v."PayTypeId" * 7))) * v."Cost" as "DueBilled"
+select * from (select v.id as "visitId",
+v."intake",
+v."outtake",
+p."first" || ' ' || p."last" as "fullName",
+  bl."name" as "buildingName",
+  (floor(EXTRACT( DAY FROM (now() - v."intake")) / (v."rentalPeriodId" * 7)) + 1) * v."cost" as "totalBilled",
+	greatest(0, (select sum(p."amount") from "payment" p where p."visitId" = v."id")) as "payments",
+  (floor(EXTRACT( DAY FROM (now() - v."intake")) / (v."rentalPeriodId" * 7))) * v."cost" as "dueBilled"
 
-from "Visit" v
-left outer join "Person" p on v."PersonId" = p."Id"
-left outer join "Building" bl on v."BuildingId" = bl."Id"
+from "visit" v
+left outer join "person" p on v."personId" = p."id"
+left outer join "building" bl on v."buildingId" = bl."id"
 
-where v."Outtake" is null or v."Outtake" > now()) as q
-WHERE q."DueBilled" - q."Payments" > 0
+where v."outtake" is null or v."outtake" > now()) as q
+WHERE q."dueBilled" - q."payments" > 0
