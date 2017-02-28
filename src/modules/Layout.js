@@ -33,12 +33,12 @@ class Layout extends React.Component {
     }
     return (
       <div>
-        <div className="w3-container w3-padding-small w3-black App-Header w3-xlarge">
+        <div className="w3-container w3-padding-small w3-safety-blue App-Header w3-xlarge">
             <span className="w3-opennav"
               onClick={this.w3_toggle.bind(this)}>&#9776;</span>
             Sober Living
         </div>
-        <nav  className="w3-sidenav w3-black hm-side-nav" style={navStyle}>
+        <nav  className="w3-sidenav w3-safety-blue hm-side-nav" style={navStyle}>
           <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/visits">Visits</NavLink>
           <NavLink to="/payment">Payments</NavLink>

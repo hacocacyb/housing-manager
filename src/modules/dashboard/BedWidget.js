@@ -17,7 +17,7 @@ class BedWidget extends React.Component {
 
 		return (
       <div className={"w3-card-4 " + this.props.className } onDoubleClick={()=>hashHistory.push('/beds')}>
-				<header className="w3-container w3-blue">Beds</header>
+				<header className="w3-container w3-safety-blue w3-xlarge">Beds</header>
 				<div className="w3-container">
 					<div className="w3-row w3-border-bottom">
 						<span className="w3-col s6 l6">Occupancy</span>

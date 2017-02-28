@@ -20,7 +20,8 @@ class BuildingWidget extends React.Component {
 		})
 		return (
       <div className={"w3-card-4 " + this.props.className } onDoubleClick={()=>hashHistory.push('/buildings')}>
-				<header className="w3-container w3-blue">Buildings</header>
+
+				<header className="w3-container w3-safety-blue w3-xlarge">Buildings</header>
 				<div className="w3-container">
 					<div className="w3-row w3-border-bottom">
 						<div className="w3-col s6 l6">Building</div>

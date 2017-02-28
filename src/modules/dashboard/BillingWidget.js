@@ -29,7 +29,7 @@ class BillingWidget extends React.Component {
 
 		return (
       <div className={"w3-card-4 " + this.props.className }>
-				<header className="w3-container w3-red">Past Due Statements</header>
+				<header className="w3-container w3-safety-red w3-xlarge">Past Due Statements</header>
 				<div className="w3-container">
 					<div className="w3-row w3-border-bottom">
 						<span className="w3-col s6">Visitor</span>

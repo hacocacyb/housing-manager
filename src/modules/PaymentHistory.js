@@ -95,11 +95,11 @@ class PaymentHistory extends React.Component {
       return (
         <div className="w3-container w3-rest">
           <div className="w3-panel">
-            <h5 className=" w3-green w3-padding">
+            <h5 className=" w3-safety-purple w3-padding">
               <div className="w3-row">
                 <div className="w3-half w3-row">
                   <div className="w3-third">Visitor:</div>
-                  <div className="w3-rest">{visit.First + ' ' + visit.Last}</div>
+                  <div className="w3-rest">{visit.first + ' ' + visit.last}</div>
                 </div>
                 <div className="w3-half w3-row">
                   <div className="w3-half">Total Billed:</div>
@@ -128,7 +128,7 @@ class PaymentHistory extends React.Component {
               </div>
             </h5>
             <div className="w3-row w3-border-bottom">
-              <div className="w3-quarter" >Date</div>
+              <div className="w3-quarter">Date</div>
               <div className="w3-quarter w3-right-align w3-padding-right" >Invoice</div>
               <div className="w3-quarter w3-right-align w3-padding-right" >Payment</div>
               <div className="w3-quarter w3-right-align w3-padding-right" >Balance</div>

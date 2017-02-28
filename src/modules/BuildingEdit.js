@@ -21,7 +21,7 @@ class BuildingEdit extends React.Component {
 
   handleSubmit(formValues) {
     formValues = mapIdsFromObject(formValues);
-    this.props.dispatch(Actions.save(formValues))
+    return this.props.dispatch(Actions.save(formValues))
   }
 
   render() {
@@ -31,7 +31,7 @@ class BuildingEdit extends React.Component {
       <form className="w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
         <h4>{editMode ? 'Edit Building' : 'Add Building'}</h4>
         <div  className="w3-bar" style={{marginBottom:8}}>
-          <Button type="submit">Save</Button>
+          <Button type="submit" disabled={this.props.pristine}>Save</Button>
           <Button onClick={(e) => hashHistory.push('/buildings')}>Cancel</Button>
         </div>
         <Field name="id"
