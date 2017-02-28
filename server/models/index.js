@@ -7,11 +7,11 @@ var env = process.env.NODE_ENV || 'development';
 var config;
 if (env === 'production') {
   let databaseUrl = process.env.DATABASE_URL;
-  console.log('databaseUrl: ', databaseUrl)
+  //console.log('databaseUrl: ', databaseUrl)
   if (!databaseUrl) {
     throw('No DATABASE_URL is set in production environment: process.env');
   }
-  let params = url.parse(databaseUrl);
+  //let params = url.parse(databaseUrl);
   // let auth = params.auth.split(':');
   //
   // config = {
@@ -22,7 +22,7 @@ if (env === 'production') {
   //   database: params.pathname.split('/')[1],
   //   ssl: true
   // };
-  sequelize = new Sequelize(url)
+  sequelize = new Sequelize(databaseUrl)
   pg.defaults.ssl = true;
 } else {
   console.log('**Trying to connect sequelize')
