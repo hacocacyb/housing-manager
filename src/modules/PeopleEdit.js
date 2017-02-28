@@ -8,29 +8,13 @@ import  * as FC  from './shared/formControls.js'
 import { required, minAge } from '../fn/form-validate.js'
 
 class PeopleEdit extends React.Component {
-  constructor(props) {
-    super(props);
-    const {params} = this.props;
-    let editMode = false;
-    if (params.Id) {
-      editMode = true;
-    }
-    this.state = {
-      editMode : editMode
-    }
-  }
+
   componentWillMount() {
-    let {params} = this.props;
-    if (params.Id) {
-      this.props.dispatch(Actions.get(params.Id))
-      this.setState({
-        editMode: true
-      })
+    const id = this.props.params.Id;
+    if (id) {
+      this.props.dispatch(Actions.get(id))
     } else {
       this.props.dispatch(Actions.removeCurrent());
-      this.setState({
-        editMode: false
-      })
     }
   }
 
@@ -42,17 +26,20 @@ class PeopleEdit extends React.Component {
   }
 
   render() {
+    const editMode = this.props.params.Id && true;
     return (
       <form className="w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
-        <h4>{this.state.editMode ? 'Edit Visitor' : 'Add Visitor'}</h4>
+        <h4>{editMode ? 'Edit Visitor' : 'Add Visitor'}</h4>
         <p>
           <Button type="submit">Save</Button>
           <Button onClick={this.onCancel}>Cancel</Button>
         </p>
         <Field name="id" hidden={true} component={FC.renderInput}
           readOnly={true} type="text" placeholder="Person Id" />
-        <Field name="first" component={FC.renderInput}
-          type="text" placeholder="First"
+        <Field name="first"
+          component={FC.renderInput}
+          type="text"
+          placeholder="First"
           validate={required}
         />
         <Field name="middle" component={FC.renderInput} type="text" placeholder="Middle"/>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
-//import * as Actions from '../data/actions/building.js'
 import * as Actions from '../data/store.js'
 import BaseGrid from './shared/BaseGrid.js'
 import Button from './shared/Button.js'

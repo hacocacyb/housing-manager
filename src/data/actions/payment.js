@@ -1,5 +1,3 @@
-import { hashHistory } from 'react-router'
-
 const apiRoot = '/api/payments/'
 const actionNoun = 'PAYMENT'
 
@@ -67,35 +65,34 @@ export function removeCurrent() {
 }
 
 export function save(obj) {
-
   return function(dispatch) {
-    dispatch({
-      type: 'SAVING_'+ actionNoun
-    })
+    return new Promise(function(resolve, reject) {
+      dispatch({
+        type: 'SAVING_'+ actionNoun
+      })
 
-    fetch(apiRoot, {
-      method: 'PUT',
-      body: JSON.stringify(obj)
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      debugger;
-      if (json.success) {
-        dispatch({
-          type: actionNoun + '_SAVED',
-          payload: json
-        })
-        const nextRoute = 'payment/' + obj.visitId;
-        dispatch(get(obj.visitId))
-        if (!hashHistory.isActive(nextRoute)) {
-          hashHistory.push('payment/' + obj.visitId);
+      fetch(apiRoot, {
+        method: 'PUT',
+        body: JSON.stringify(obj)
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        if (json.success) {
+          dispatch({
+            type: actionNoun + '_SAVED',
+            payload: json
+          })
+
         }
-      }
-    })
-    .catch((err) => {
-      dispatch({type: 'SAVING_' + actionNoun + '_FAILED', payload: err})
+        resolve();
+      })
+      .catch((err) => {
+        reject(err)
+        dispatch({type: 'SAVING_' + actionNoun + '_FAILED', payload: err})
+      })
+
     })
   }
 }

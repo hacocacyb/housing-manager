@@ -3,7 +3,9 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { required } from '../fn/form-validate.js'
 import Button from './shared/Button.js'
+import mapIdsFromObject from '../fn/mapIdsFromObject'
 import * as Actions from '../data/actions/visit.js'
 import  * as FC  from './shared/formControls.js'
 
@@ -11,29 +13,12 @@ const getFormValue = formValueSelector('visitForm');
 
 class VisitEdit extends React.Component {
 
-  constructor(props) {
-    super(props);
-    const {params} = this.props;
-    let editMode = false;
-    if (params.Id) {
-      editMode = true;
-    }
-    this.state = {
-      editMode : editMode
-    }
-  }
   componentWillMount() {
     let {params} = this.props;
     if (params.Id) {
       this.props.dispatch(Actions.get(params.Id))
-      this.setState({
-        editMode: true
-      })
     } else {
       this.props.dispatch(Actions.removeCurrent())
-      this.setState({
-        editMode: false
-      })
     }
   }
 
@@ -41,12 +26,7 @@ class VisitEdit extends React.Component {
     hashHistory.push('/visits')
   }
   handleSubmit(formValues) {
-
-    ['bedId', 'buildingId', 'personId', 'rentalPeriodId'].forEach(fn => {
-      if (typeof formValues[fn] === 'object') {
-        formValues[fn] = formValues[fn].id;
-      }
-    })
+    formValues = mapIdsFromObject(formValues);
     this.props.dispatch(Actions.save(formValues))
   }
 
@@ -56,7 +36,7 @@ class VisitEdit extends React.Component {
     let startDate = moment(intake);
     let payments = [];
     for(let i=0;i<10;i++) {
-      payments.push(<li key={i}>{startDate.add(inc, 'days').format('YYYY-MM-DD')}</li>)
+      payments.push(<li key={i}>{startDate.add(inc, 'days').format('MM/DD/YYYY')}</li>)
     }
 
     return payments
@@ -65,16 +45,15 @@ class VisitEdit extends React.Component {
   render() {
     const { buildings, people, currentBuildingId, currentIntake, currentPaySchedule } = this.props;
     //filtered by the current building
-    console.log(this.props.beds);
     const beds = this.props.beds.filter(b => currentBuildingId === b.buildingId);
     const payHistory = this.buildPayments(currentIntake,currentPaySchedule);
-    const editMode = false;//this.state.editMode;
+    const editMode = this.props.params.Id && true;
 
     return (
       <div className="w3-container">
         <form className="" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
-          <h4>{this.state.editMode ? 'Edit Visit' : 'Add Visit'}</h4>
-          <div  className="w3-padding-bottom w3-cell-row">
+          <h4>{editMode ? 'Edit Visit' : 'Add Visit'}</h4>
+          <div  className="w3-bar" style={{marginBottom:8}}>
             <Button type="submit">Save</Button>
             <Button
               onClick={()=>hashHistory.push('people/edit')}
@@ -87,17 +66,18 @@ class VisitEdit extends React.Component {
             <Field name="personId"
               readOnly={editMode}
               data={people}
-              validate={function(value) {
+              validate={[required, function(value) {
                 if (value && value.Visiting) {
                   return value.fullName + ' is already visiting';
                 }
-              }}
+              }]}
               component={FC.renderCombo}
               textField="fullName"
               type="text"
               placeholder="Visitor"/>
             <Field name="buildingId"
               readOnly={editMode}
+              validate={required}
               data={buildings}
               component={FC.renderCombo}
               textField="name"
@@ -107,11 +87,11 @@ class VisitEdit extends React.Component {
               readOnly={editMode}
               data={beds}
               component={FC.renderCombo}
-              validate={function(v) {
+              validate={[required, function(v) {
                 if (v && v.occupied) {
                   return 'Bed is currently occupied'
                 }
-              }}
+              }]}
               textField="display"
               type="text"
               placeholder="Bed"/>
@@ -120,18 +100,21 @@ class VisitEdit extends React.Component {
               data={[{id: 1, desc: 'Weekly'}, {id: 2, desc: 'Bi-Weekly'}]}
               component={FC.renderCombo}
               type="text"
+              validate={required}
               placeholder="Pay Schedule"/>
             <Field name="cost"
               component={FC.renderInput}
               readOnly={editMode}
               type="number"
+              validate={required}
               placeholder="Cost"/>
             <Field name="intake"
               readOnly={editMode}
               component={FC.renderInput}
               type="date"
+              validate={required}
               placeholder="Date In"/>
-            <Field name="outtake" component={FC.renderInput} type="text" placeholder="Date Out"/>
+            <Field name="outtake" component={FC.renderInput} type="date" placeholder="Date Out"/>
           </div>
           <div className="w3-rest w3-panel ">
             <h5>
@@ -150,14 +133,17 @@ class VisitEdit extends React.Component {
 
 VisitEdit = reduxForm({
   form:'visitForm',
-  enableReinitialize: true
+  enableReinitialize: true,
+  onSubmitSuccess: function(submitResult, dispatch, props) {
+    props.reset()
+  }
 })(VisitEdit);
 
 VisitEdit = withRouter(VisitEdit)
 
 export default connect((store) => {
   let buildingId =  getFormValue(store, 'buildingId');
-  if (typeof buildingId === 'object') {
+  if (buildingId && typeof buildingId === 'object') {
     buildingId = buildingId.id
   }
   let intake = store.visits.current && store.visits.current.intake;

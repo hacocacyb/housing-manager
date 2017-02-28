@@ -16,7 +16,7 @@ class PaymentHistory extends React.Component {
     const { intake, rentalPeriodId, cost } = visit;
     const payPeriodDays = rentalPeriodId === 1 ? 7 : 14;
     const today = moment(moment.now());
-    const startDate = moment(intake);
+    const startDate = moment.utc(intake);
     let billDate = startDate;
     let ledger = [];
     let history = [];
@@ -87,7 +87,6 @@ class PaymentHistory extends React.Component {
 
   render() {
     const props = this.props;
-    console.log(props);
     const { visit, payments } = props;
     if (visit) {
       const payHistory = this.buildPayHistory(visit, payments);

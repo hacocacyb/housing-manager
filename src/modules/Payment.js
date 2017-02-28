@@ -15,34 +15,30 @@ const getFormValue = formValueSelector('paymentForm');
 
 class Payment extends React.Component {
 
-  constructor(props) {
-    super(props);
-    const {params} = this.props;
-    let editMode = false;
-    if (params.Id) {
-      editMode = true;
-    }
-    this.state = {
-      editMode : editMode
-    }
-  }
   componentWillMount() {
-    let {params} = this.props;
-    if (params.Id) {
-      this.props.dispatch(Actions.get(params.Id))
-      this.setState({
-        editMode: true
-      })
-    } else if (params.VisitId) {
-      const visitId = parseInt(params.VisitId, 10);
-      this.props.dispatch(Actions.get(visitId))
-    } else {
-      this.props.dispatch(Actions.removeCurrent())
-      this.setState({
-        editMode: false
-      })
+      console.log('in component will mount');
+      this.props.dispatch(Actions.get(this.props.params.VisitId))
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.params.VisitId !== this.props.params.VisitId) {
+      this.props.dispatch(Actions.get(newProps.params.VisitId))
     }
   }
+
+  // componentWillMount() {
+  //   let {params} = this.props;
+  //   if (params.Id) {
+  //     this.props.dispatch(Actions.get(params.Id))
+  //
+  //   } else if (params.VisitId) {
+  //     const visitId = parseInt(params.VisitId, 10);
+  //     this.props.dispatch(Actions.get(visitId))
+  //   } else {
+  //     this.props.dispatch(Actions.removeCurrent())
+  //
+  //   }
+  // }
 
   onCancel() {
     hashHistory.push('/visits')
@@ -50,12 +46,13 @@ class Payment extends React.Component {
   handleSubmit(formValues) {
 
     formValues = mapIdsFromObject(formValues)
-    this.props.dispatch(Actions.save(formValues))
+    return this.props.dispatch(Actions.save(formValues))
   }
 
   onVisitChange(visit) {
     if (visit && visit.id) {
-      this.props.dispatch(Actions.get(visit.id));
+      hashHistory.push('payment/' + visit.id);
+      //this.props.dispatch(Actions.get(visit.id));
     }
   }
 
@@ -86,7 +83,11 @@ class Payment extends React.Component {
               component={FC.renderInput}
               readOnly={editMode}
               type="number"
-              validate={required}
+              validate={[required, (val) => {
+                if (val <= 0) {
+                  return 'Payment may not be zero or negative'
+                }
+              }]}
               placeholder="Payment Amount"/>
             <Field name="payDate"
               readOnly={editMode}
@@ -109,7 +110,14 @@ class Payment extends React.Component {
 
 Payment = reduxForm({
   form:'paymentForm',
-  enableReinitialize: true
+  enableReinitialize: true,
+  onSubmitSuccess: function(submitResponse, dispatch, props) {
+    console.log('will the amount change to 0?')
+    props.dispatch(props.change('amount', 0))
+    props.dispatch(props.untouch('amount'))
+    const visitId = props.currentVisit && props.currentVisit.id;
+    props.dispatch(Actions.get(visitId));
+  }
 })(Payment);
 
 Payment = withRouter(Payment)
@@ -117,20 +125,16 @@ Payment = withRouter(Payment)
 export default connect((store, ownProps) => {
   let visitId;
   let currentVisit = getFormValue(store, 'visitId');
-  console.log(currentVisit)
-  console.log(ownProps.params)
   if (ownProps.params.VisitId) {
     visitId = parseInt(ownProps.params.VisitId, 10);
-    console.log(currentVisit)
     if (typeof currentVisit !== 'object') {
       currentVisit = getVisitById(visitId);
     }
-    console.log(currentVisit)
   }
-console.log(store);
   return {
     initialValues: {
       visitId: visitId,
+      amount: 0,
       payDate: moment().format('YYYY-MM-DD')
     },
     currentPayments: store.payments.currentPayments,

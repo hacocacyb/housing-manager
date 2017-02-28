@@ -2,7 +2,6 @@ import React from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import withBodyResize from './withBodyResize'
 
-
 class BaseGrid extends React.Component {
 
   onRowSelected(rec) {
@@ -31,11 +30,10 @@ class BaseGrid extends React.Component {
     let style = {
       height: props.height || 400
     }
-
+//w3-padding-bottom w3-cell-row
     return (
       <div className="w3-padding-small w3-padding-top">
-        <div  className="w3-padding-bottom w3-cell-row">
-
+        <div  className="w3-bar" style={{marginBottom:8}}>
           {props.buttons}
         </div>
         <div className="ag-fresh" style={style}>
