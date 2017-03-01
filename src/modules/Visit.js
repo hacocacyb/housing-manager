@@ -20,7 +20,7 @@ let colDefs = [
 	{headerName: 'Visitor', cellFormatter: function(obj) {
 		const data = obj.node.data;
 		return data.first + (data.middle ? ' ' + data.middle + ' ' : ' ') + data.last;
-	}},
+	}, field: 'visitor'},
 	{headerName: 'Building', field: 'buildingName'},
 	{headerName: 'Bed', field: 'bedName'},
 	{headerName: 'Rental Period', field: 'rentalPeriodId', cellFormatter: rentalPeriod},

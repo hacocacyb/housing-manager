@@ -68,7 +68,6 @@ export function save(obj) {
       .then((json) => {
         if (json.success) {
           hashHistory.push('/visits');
-          console.log(obj);
 
           dispatch(getBed(obj.bedId, true))
           dispatch(getBuilding(obj.buildingId, true))

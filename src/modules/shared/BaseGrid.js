@@ -18,15 +18,6 @@ class BaseGrid extends React.Component {
       }
       this.props.onSelectionChange();
     }
-
-  }
-  componentDidUpdate() {
-    this.autoSizeColumns();
-  }
-
-  autoSizeColumns() {
-    //let cols = this.gridOptions.columnApi.getAllColumns().map((c) => c.colId);
-    //this.gridOptions.columnApi.autoSizeColumns(cols);
   }
 
 
@@ -34,8 +25,7 @@ class BaseGrid extends React.Component {
     const opt = this.gridOptions;
     const gridState = {
       colState: opt.columnApi.getColumnState(),
-      sortModel: opt.api.getSortModel(),
-      filterModel: opt.api.getFilterModel()
+      sortModel: opt.api.getSortModel()
     }
 
     this.props.setGridState(this.props.gridName, gridState);
@@ -61,7 +51,6 @@ class BaseGrid extends React.Component {
             onSortChanged={this.persistColState.bind(this)}
             onGridReady={(options) => {
               this.gridOptions = options;
-              this.autoSizeColumns()
             }}
             {...props}
           />
@@ -74,7 +63,7 @@ class BaseGrid extends React.Component {
 
 export default connect((store, ownProps) => {
   const columnDefs = ownProps.columnDefs;
-  const gridState =  store.grid[ownProps.gridName];
+  const gridState = store.grid[ownProps.gridName];
 
   if (gridState) {
     let sorts = {}

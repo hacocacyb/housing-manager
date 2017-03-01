@@ -1,6 +1,13 @@
-export default function grids(state={
+let firstState = {}
+if (localStorage) {
+  try {
+    firstState = JSON.parse(localStorage.gridState) || {};
+  } catch(e) {
 
-}, action) {
+  }
+}
+
+export default function grids(state=firstState, action) {
   let payload = action.payload;
   switch(action.type) {
     case "UPDATE_COL_DEF": {
@@ -8,6 +15,9 @@ export default function grids(state={
       let gridState = payload.gridState
       let nextState = {...state}
       nextState[grid] = gridState
+      if (localStorage) {
+        localStorage.setItem('gridState', JSON.stringify(nextState))
+      }
       return nextState
     }
     default:
