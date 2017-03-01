@@ -30,7 +30,7 @@ export function get(id, byForce) {
     dispatch({
       type: 'FETCHING_' + actionNoun
     })
-    
+
     if (byForce) {
       fetchById(id, dispatch)
     } else {
@@ -38,7 +38,7 @@ export function get(id, byForce) {
       const localBuilding = state.buildings.byId[id]
       if (localBuilding) {
         dispatch({
-          type: 'WORK_WITH_' + actionNoun,
+          type: 'BUILDING_FETCHED',
           payload: localBuilding
         })
       } else {
@@ -52,7 +52,7 @@ function fetchById(id, dispatch) {
     return response.json();
   }).then((json) => {
     dispatch({
-      type: 'WORK_WITH_' + actionNoun,
+      type: 'BUILDING_FETCHED',
       payload: json
     })
   })
@@ -67,29 +67,30 @@ export function removeCurrent() {
 export function save(obj) {
 
   return function(dispatch) {
-    dispatch({
-      type: 'SAVING_'+ actionNoun
-    })
-
-    fetch(apiRoot, {
-      method: 'PUT',
-      body: JSON.stringify(obj)
-    })
-      .then((response) => {
-        return response.json();
+    return new Promise(function(resolve, reject) {
+      dispatch({
+        type: 'SAVING_'+ actionNoun
       })
-      .then((json) => {
-        if (json) {
+
+      fetch(apiRoot, {
+        method: 'PUT',
+        body: JSON.stringify(obj)
+      }).then((response) => {
+        return response.json();
+      }).then((json) => {
+        if (json.success) {
           hashHistory.push('/buildings');
           dispatch({
-            type: actionNoun + '_SAVED',
-            payload: json
+            type: actionNoun + '_SAVED'
           })
           getAll()
+          resolve()
         }
-      })
-      .catch((err) => {
+      }).catch((err) => {
+        reject(err)
         dispatch({type: 'SAVING_' + actionNoun + '_FAILED', payload: err})
       })
+    })
+
   }
 }

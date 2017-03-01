@@ -5,6 +5,7 @@ import { reduxForm, Field } from 'redux-form'
 import Button from './shared/Button.js'
 import * as Actions from '../data/actions/people.js'
 import  * as FC  from './shared/formControls.js'
+import moment from 'moment'
 import { required, minAge } from '../fn/form-validate.js'
 
 class PeopleEdit extends React.Component {
@@ -61,7 +62,11 @@ PeopleEdit = reduxForm({
 PeopleEdit = withRouter(PeopleEdit)
 
 export default connect((store) => {
+  let iv = { ...store.people.current }
+  if (iv && iv.dob) {
+    iv.dob = moment.utc(iv.dob).format('YYYY-MM-DD')
+  }
   return {
-    initialValues:  { ...store.people.current }
+    initialValues: iv
   }
 })(PeopleEdit);

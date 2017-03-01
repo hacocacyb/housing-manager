@@ -20,6 +20,7 @@ class BuildingEdit extends React.Component {
   }
 
   handleSubmit(formValues) {
+    console.log('in handle submit')
     formValues = mapIdsFromObject(formValues);
     return this.props.dispatch(Actions.save(formValues))
   }
@@ -37,7 +38,6 @@ class BuildingEdit extends React.Component {
         <Field name="id"
           component={FC.renderInput}
           hidden={true}
-          validate={required}
           readOnly={true}
           type="text"
           placeholder="Building Id" />

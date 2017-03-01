@@ -2,7 +2,6 @@ import { hashHistory } from 'react-router'
 import { getBed } from './bed'
 import { get as getBuilding } from './building'
 import { get as getPerson } from './people.js'
-import store from '../../data/store.js'
 
 const apiRoot = '/api/visits'
 const actionNoun = 'VISIT'

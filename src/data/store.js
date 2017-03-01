@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux'
 
-//import logger from "redux-logger"
+import logger from "redux-logger"
 import thunk from "redux-thunk"
 import promise from "redux-promise-middleware"
 import reducer from "./reducers/index.js"
@@ -11,7 +11,7 @@ import * as PeopleActions from './actions/people'
 import * as VisitActions from './actions/visit'
 
 
-const middleware = applyMiddleware(promise(), thunk) //, logger()
+const middleware = applyMiddleware(promise(), thunk, logger())
 var store = createStore(reducer, middleware)
 
 export default store

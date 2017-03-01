@@ -24,9 +24,15 @@ function get(req, res, next) {
 function save(req, res, next) {
   parseRequest(req, function(params) {
     db.Building.upsert(params).then(result => {
-      res.status(200).json(result)
+      res.status(200).json({
+        success: true,
+        msg: 'Record ' + result ? 'Created' : 'Updated'
+      })
     }).catch(err => {
-      res.status(500).json(err)
+      res.status(500).json({
+        success: false,
+        msg: error
+      })
     })
   })
 }
