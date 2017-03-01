@@ -7,7 +7,7 @@ import { required } from '../fn/form-validate.js'
 import Button from './shared/Button.js'
 import mapIdsFromObject from '../fn/mapIdsFromObject'
 import * as Actions from '../data/actions/visit.js'
-import  * as FC  from './shared/formControls.js'
+import * as FC  from './shared/formControls.js'
 
 const getFormValue = formValueSelector('visitForm');
 
@@ -48,6 +48,10 @@ class VisitEdit extends React.Component {
     const beds = this.props.beds.filter(b => currentBuildingId === b.buildingId);
     const payHistory = this.buildPayments(currentIntake,currentPaySchedule);
     const editMode = this.props.params.Id && true;
+    let filteredPeople = people;
+    if (!editMode) {
+      filteredPeople = people.filter((p) => !p.visiting);
+    }
 
     return (
       <div className="w3-container">
@@ -65,9 +69,9 @@ class VisitEdit extends React.Component {
             <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
             <Field name="personId"
               readOnly={editMode}
-              data={people}
+              data={filteredPeople}
               validate={[required, function(value) {
-                if (value && value.Visiting) {
+                if (value && value.visiting) {
                   return value.fullName + ' is already visiting';
                 }
               }]}

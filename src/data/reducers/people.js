@@ -38,15 +38,22 @@ export default function people(state={
         byId: {}
       };
     }
-    case "REMOVE_CURRENT_PERSON": {
+
+    case "PERSON_FETCHED": {
+      let newId = payload.id;
+      let data = state.data.map((item)=> {
+        if (item.id === newId) {
+          return payload
+        }
+        return item
+      })
+      const byId = {...state.byId}
+      byId[newId] = payload;
+
       return {
         ...state,
-        current: undefined
-      }
-    }
-    case "WORK_WITH_PERSON": {
-      return {
-        ...state,
+        byId: byId,
+        data: data,
         current: payload
       }
     }

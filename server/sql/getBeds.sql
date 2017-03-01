@@ -6,5 +6,3 @@ exists(select v.id from visit v
 ) as "occupied"
 from bed b left outer join "bedType" bt on b."typeId"  = bt."id"
 left outer join "building" bl on b."buildingId" = bl.id
-
-order by bl.name, b.name

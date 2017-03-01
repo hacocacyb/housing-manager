@@ -11,10 +11,13 @@ export function getAll() {
 
     fetch(apiRoot)
       .then((response) => {
-        return response.json();
+        return response.json()
       })
       .then(function(json) {
-        dispatch({type: 'FETCH_' + actionNoun + 'S_FULFILLED', payload: json})
+        dispatch({
+          type: 'FETCH_' + actionNoun + 'S_FULFILLED',
+          payload: json
+        })
       })
       .catch((err) => {
         dispatch({type: 'FETCH_' + actionNoun + 'S_FAILED', payload: err})
@@ -22,31 +25,37 @@ export function getAll() {
   }
 }
 
-export function get(id) {
+export function get(id, byForce) {
   return function(dispatch, getState) {
     dispatch({
       type: 'FETCHING_' + actionNoun
     })
-
-    const state = getState()
-    const localBuilding = state.buildings.byId[id]
-    if (localBuilding) {
-      dispatch({
-        type: 'WORK_WITH_' + actionNoun,
-        payload: localBuilding
-      })
+    
+    if (byForce) {
+      fetchById(id, dispatch)
     } else {
-      fetch(apiRoot + '/' + id).then((response) => {
-        return response.json();
-      }).then((json) => {
+      const state = getState()
+      const localBuilding = state.buildings.byId[id]
+      if (localBuilding) {
         dispatch({
           type: 'WORK_WITH_' + actionNoun,
-          payload: json
+          payload: localBuilding
         })
-      })
+      } else {
+        fetchById(id, dispatch)
+      }
     }
-
   }
+}
+function fetchById(id, dispatch) {
+  fetch(apiRoot + '/' + id).then((response) => {
+    return response.json();
+  }).then((json) => {
+    dispatch({
+      type: 'WORK_WITH_' + actionNoun,
+      payload: json
+    })
+  })
 }
 
 export function removeCurrent() {

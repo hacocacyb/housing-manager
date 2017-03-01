@@ -22,10 +22,15 @@ function get(req, res, next) {
     res.status(422).send('No id was included in request');
     return;
   }
-  db.People.findById(id).then(data => {
-    decorateName(data)
+  let qry = fs.readFileSync('server/sql/getPeople.sql').toString();
+  qry += ' WHERE id = ' + id;
+  db.query(qry).spread((data, meta) => {
+    data.forEach(decorateName)
+    if (data.length > 0) {
+      data = data[0]
+    }
     res.status(200).json(data)
-  }).catch(err => res.status(500).send(err))
+  }).catch((err) => res.status(500).send(err))
 }
 
 function save(req, res, next) {

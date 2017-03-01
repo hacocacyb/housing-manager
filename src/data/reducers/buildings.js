@@ -38,10 +38,21 @@ export default function buildings(state={
         current: undefined
       }
     }
-    case "WORK_WITH_BUILDING": {
+    case "BUILDING_FETCHED": {
+      let newId = payload.id;
+      let data = state.data.map((item)=> {
+        if (item.id === newId) {
+          return payload
+        }
+        return item
+      })
+      const byId = {...state.byId}
+      byId[newId] = payload;
 
       return {
         ...state,
+        byId: byId,
+        data: data,
         current: payload
       }
     }

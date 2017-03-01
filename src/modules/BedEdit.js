@@ -92,7 +92,7 @@ export default connect((store) => {
     bedTypes: store.codes.bedTypes,
     buildings: store.buildings.data,
     initialValues: {
-      ...store.beds.currentBed
+      ...store.beds.current
     }
   }
 })(BedEdit);

@@ -1,7 +1,7 @@
 export default function bedReducer(state={
   fetching: false,
   fetched: false,
-  currentBed: undefined,
+  current: undefined,
   byId: {},
   data: []
 }, action) {
@@ -41,14 +41,25 @@ export default function bedReducer(state={
     case "REMOVE_CURRENT_BED": {
       return {
         ...state,
-        currentBed: undefined
+        current: undefined
       }
     }
-    case "WORK_WITH_BED": {
+    case "BED_FETCHED": {
+      let newId = payload.id;
+      let data = state.data.map((item)=> {
+        if (item.id === newId) {
+          return payload
+        }
+        return item
+      })
+      const byId = {...state.byId}
+      byId[newId] = payload;
 
       return {
         ...state,
-        currentBed: payload
+        byId: byId,
+        data: data,
+        current: payload
       }
     }
     default:

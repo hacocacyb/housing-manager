@@ -2,16 +2,19 @@ var { parseRequest } = require('../fn/httpHelpers')
 var fs = require('fs')
 var db = require('../models/index')
 
+function decorateBeds(data) {
+  data.forEach(function(b) {
+    b.display = b.name + ' - ' + b.type;
+    if (b.occupied) {
+      b.display += ' (Occupied)'
+    }
+  })
+}
+
 function getAllBeds(req, res) {
   var qry = fs.readFileSync('server/sql/getBeds.sql').toString();
-  db.sequelize.query(qry).spread((beds, meta) => {
-    console.log(beds.length);
-    beds.forEach(function(b) {
-      b.display = b.name + ' - ' + b.type;
-      if (b.occupied) {
-        b.display += ' (Occupied)'
-      }
-    })
+  db.query(qry).spread((beds, meta) => {
+    decorateBeds(beds)
     res.status(200).json(beds)
   }).catch(err => {
     res.status(500).json(err)
@@ -21,11 +24,19 @@ function getAllBeds(req, res) {
 function getBed(req, res, next) {
   let id = req.params.id;
   if (!id) {
-    res.status(500).send('No id was included in request');
+    res.status(422).send('No id was included in request');
   }
 
-  db.Bed.findById(id).then(data => {
-    res.status(200).json(data)
+  var qry = fs.readFileSync('server/sql/getBeds.sql').toString();
+  qry += ' WHERE b.id=' + id;
+  db.query(qry).spread((beds, meta) => {
+    decorateBeds(beds)
+    if (beds.length > 0) {
+      beds = beds[0]
+    }
+    res.status(200).json(beds)
+  }).catch(err => {
+    res.status(500).json(err)
   })
 }
 

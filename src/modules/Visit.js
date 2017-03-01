@@ -25,7 +25,7 @@ let colDefs = [
 	{headerName: 'Bed', field: 'bedName'},
 	{headerName: 'Rental Period', field: 'rentalPeriodId', cellFormatter: rentalPeriod},
 	{headerName: 'Intake', field: 'intake', cellFormatter: dateCellFormatter},
-	{headerName: 'Outtake', field: 'iuttake', cellFormatter: dateCellFormatter},
+	{headerName: 'Outtake', field: 'outtake', cellFormatter: dateCellFormatter},
 	{headerName: 'Rent', field: 'cost'}
 ]
 class Visit extends React.Component {

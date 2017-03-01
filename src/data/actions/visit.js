@@ -1,4 +1,8 @@
 import { hashHistory } from 'react-router'
+import { getBed } from './bed'
+import { get as getBuilding } from './building'
+import { get as getPerson } from './people.js'
+import store from '../../data/store.js'
 
 const apiRoot = '/api/visits'
 const actionNoun = 'VISIT'
@@ -63,8 +67,15 @@ export function save(obj) {
         return response.json();
       })
       .then((json) => {
+        console.log('save worked');
         if (json.success) {
           hashHistory.push('/visits');
+          console.log(obj);
+
+          dispatch(getBed(obj.bedId, true))
+          dispatch(getBuilding(obj.buildingId, true))
+          dispatch(getPerson(obj.personId, true))
+
           dispatch({
             type: actionNoun + '_SAVED',
             payload: json

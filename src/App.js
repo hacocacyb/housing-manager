@@ -13,7 +13,7 @@ import * as Actions from './data/store'
 
 Actions.initializeData();
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (<Router history={hashHistory} routes={routes}/>);
   }

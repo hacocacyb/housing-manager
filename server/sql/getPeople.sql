@@ -6,4 +6,3 @@ select p.*,
     and (v.outtake is null or v.outtake > now())
   ) as visiting
 from person p
-order by last

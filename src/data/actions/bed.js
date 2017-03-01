@@ -19,34 +19,37 @@ export function getAll() {
   }
 }
 
-export function getBed(id) {
+export function getBed(id, byForce) {
   return function(dispatch,getState) {
     dispatch({
       type: 'FETCHING_BED'
     })
-
-    const state = getState();
-    const localBed = state.beds.byId[id];
-    if (localBed) {
-      dispatch({
-        type: 'WORK_WITH_BED',
-        payload: localBed
-      })
+    if (byForce) {
+      fetchById(id, dispatch)
     } else {
-
-      fetch('api/beds/' + id).then((response) => {
-        return response.json();
-      }).then((json) => {
+      const state = getState();
+      const localBed = state.beds.byId[id];
+      if (localBed) {
         dispatch({
-          type: 'WORK_WITH_BED',
-          payload: json
+          type: 'BED_FETCHED',
+          payload: localBed
         })
-      })
+      } else {
+        fetchById(id, dispatch)
+      }
     }
-
   }
 }
-
+function fetchById(id, dispatch) {
+  fetch('api/beds/' + id).then((response) => {
+    return response.json();
+  }).then((json) => {
+    dispatch({
+      type: 'BED_FETCHED',
+      payload: json
+    })
+  })
+}
 export function removeCurrentBed() {
   return {
     type: "REMOVE_CURRENT_BED"

@@ -15,15 +15,15 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div className="w3-padding-small">
+      <div className="w3-padding-tiny">
         <div className="w3-row">
-          <div className="w3-third w3-padding">
+          <div className="w3-col l4 m6 w3-padding">
             <BuildingWidget/>
           </div>
-          <div className="w3-third w3-padding">
+          <div className="w3-col l4 m6 w3-padding">
             <BedWidget/>
           </div>
-          <div className="w3-third w3-padding">
+          <div className="w3-col l4 m6 w3-padding">
             <BillingWidget/>
           </div>
         </div>
