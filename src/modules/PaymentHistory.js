@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import Cell from './PaymentHistoryCell'
 
 var formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -95,36 +96,18 @@ class PaymentHistory extends React.Component {
       return (
         <div className="w3-container w3-rest">
           <div className="w3-panel">
-            <h5 className=" w3-safety-purple w3-padding">
+            <h5 className=" w3-safety-purple w3-padding w3-round-large">
               <div className="w3-row">
-                <div className="w3-half w3-row">
-                  <div className="w3-third">Visitor:</div>
-                  <div className="w3-rest">{visit.first + ' ' + visit.last}</div>
-                </div>
-                <div className="w3-half w3-row">
-                  <div className="w3-half">Total Billed:</div>
-                  <div className="w3-rest w3-right">{currency(totalBilled)}</div>
-                </div>
+                <Cell label={"Visitor"} value={visit.first + ' ' + visit.last} />
+                <Cell label={"Total Billed"} value={currency(totalBilled)} align={"right"}/>
               </div>
               <div className="w3-row">
-                <div className="w3-half w3-row">
-                  <div className="w3-third">Intake:</div>
-                  <div className="w3-rest">{intakeDate}</div>
-                </div>
-                <div className="w3-half w3-row">
-                  <div className="w3-half">Total Paid:</div>
-                  <div className="w3-rest w3-right">{currency(totalPaid)}</div>
-                </div>
+                <Cell label={"Intake"} value={intakeDate} />
+                <Cell label={"Total Paid"} value={currency(totalPaid)} align={"right"}/>
               </div>
               <div className="w3-row">
-                <div className="w3-half w3-row">
-                  <div className="w3-third">Outtake:</div>
-                  <div className="w3-rest">N/A</div>
-                </div>
-                <div className="w3-half w3-row">
-                  <div className="w3-half">Balance:</div>
-                  <div className="w3-rest w3-right">{currency(balance)}</div>
-                </div>
+                <Cell label={"Outtake"} value={"N/A"} />
+                <Cell label={"Balance"} value={currency(balance)} align={"right"}/>
               </div>
             </h5>
             <div className="w3-row w3-border-bottom">
