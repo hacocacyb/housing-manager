@@ -1,15 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 import Cell from './PaymentHistoryCell'
-
-var formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  minimumFractionDigits: 2,
-});
-var currency = function(v) {
-  return formatter.format(v);
-}
+import DataRow from './PaymentHistoryDataRow'
+import currency from '../fn/formatCurrency'
 
 class PaymentHistory extends React.Component {
 
@@ -69,12 +62,13 @@ class PaymentHistory extends React.Component {
         totalPaid += row.payment;
       }
       history.push(
-        <div key={ix} className="w3-row">
-          <div className="w3-quarter" >{dateFormat}</div>
-          <div className="w3-quarter w3-right-align w3-padding-right">{row.cost ? currency(row.cost) : '-'}</div>
-          <div className="w3-quarter w3-right-align w3-padding-right">{row.payment ? currency(row.payment) : '-'}</div>
-          <div className="w3-quarter w3-right-align w3-padding-right">{currency(balance)}</div>
-        </div>
+        <DataRow
+          key={ix}
+          date={dateFormat}
+          cost={row.cost}
+          payment={row.payment}
+          balance={balance}
+        ></DataRow>
       )
     });
 
