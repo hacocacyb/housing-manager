@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Button from '../Button';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Button from '../Button'
 import renderer from 'react-test-renderer'
 
 describe('Button', () => {
