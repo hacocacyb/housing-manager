@@ -66,7 +66,6 @@ export function save(obj) {
         return response.json();
       })
       .then((json) => {
-        console.log('save worked');
         if (json.success) {
           hashHistory.push('/visits');
           console.log(obj);

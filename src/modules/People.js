@@ -63,6 +63,7 @@ class People extends React.Component {
 		]
 		return (
 		  <BaseGrid
+				gridName={"peopleGrid"}
 				onSelectionChange={this.onSelectionChange.bind(this)}
 				onRowDoubleClicked={this.edit.bind(this)}
 				rowData={this.props.data}

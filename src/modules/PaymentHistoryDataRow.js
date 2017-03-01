@@ -2,10 +2,6 @@ import React from 'react'
 import currency from '../fn/formatCurrency'
 
 export default (props) => {
-  let valueClass = "w3-rest ";
-  if (props.align === 'right') {
-    valueClass += 'w3-right'
-  }
   return (
     <div key={props.key} className="w3-row">
       <div className="w3-quarter" >{props.date}</div>

@@ -8,6 +8,9 @@ import people from './people'
 import visits from './visits'
 import payments from './payment'
 
+//tracking state of ag-grids
+import grid from './grid'
+
 const reducer = combineReducers({
   beds: bed,
   codes: code,
@@ -15,6 +18,7 @@ const reducer = combineReducers({
   buildings: buildings,
   payments: payments,
   people: people,
-  visits: visits
+  visits: visits,
+  grid: grid
 })
 export default reducer

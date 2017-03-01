@@ -80,6 +80,7 @@ class Building extends React.Component {
     ]
 
     return (<BaseGrid
+      gridName={"buildingGrid"}
       onSelectionChange={this.onSelectionChange.bind(this)}
       onRowDoubleClicked={this.edit.bind(this)}
       rowData={this.props.data}

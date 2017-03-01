@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
-import * as BedActions from '../data/actions/bed.js'
+import * as BedActions from '../data/actions/bed'
 import BaseGrid from './shared/BaseGrid.js'
 import Button from './shared/Button.js'
 
@@ -23,6 +23,9 @@ class Bed extends React.Component {
 		this.state = {
 			selection: null
 		}
+		//default columns on first entry
+		// could be in the reducer but that would be confusing IMO
+
 	}
 	componentWillMount() {
 		this.props.getAll();
@@ -52,10 +55,13 @@ class Bed extends React.Component {
 		return (
 
 				<BaseGrid
+					gridName={"bedGrid"}
 					onRowDoubleClicked={this.edit.bind(this)}
 					onSelectionChange={this.onSelectionChange.bind(this)}
+
 					rowData={this.props.data}
-					columnDefs={colDefs}
+
+					columnDefs={this.props.colDefs}
 					buttons={toolbar}
 				/>
 
@@ -65,7 +71,10 @@ class Bed extends React.Component {
 }
 
 export default connect((store) => {
-	return {...store.beds};
+	return {
+		...store.beds,
+		colDefs: colDefs
+	};
 }, {
 	getAll: BedActions.getAll
 })(Bed);

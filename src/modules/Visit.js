@@ -72,6 +72,7 @@ class Visit extends React.Component {
 		]
 		return (
 		  <BaseGrid
+				gridName={"visitGrid"}
 				onSelectionChange={this.onSelectionChange.bind(this)}
 				onRowDoubleClicked={this.edit.bind(this)}
 				rowData={this.props.data}
