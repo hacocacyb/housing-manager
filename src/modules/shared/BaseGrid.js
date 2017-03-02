@@ -20,7 +20,6 @@ class BaseGrid extends React.Component {
     }
   }
 
-
   persistColState() {
     const opt = this.gridOptions;
     const gridState = {
@@ -61,6 +60,9 @@ class BaseGrid extends React.Component {
 
 }
 
+BaseGrid.propTypes = {
+  gridName: React.PropTypes.string
+}
 export default connect((store, ownProps) => {
   const columnDefs = ownProps.columnDefs;
   const gridState = store.grid[ownProps.gridName];

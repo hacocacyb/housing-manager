@@ -1,13 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
-
-const activeLinkStyle = { backgroundColor: 'white', color: 'black', fontWeight: 'bolder' }
+import './NavLink.css'
 
 export default (props) => {
-
   return (
     <Link
-      activeStyle={activeLinkStyle}
+      className="hasThisClass"
+      activeClassName={'active-nav-link'}
       {...props}
     >
       {props.children}

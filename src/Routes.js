@@ -10,6 +10,7 @@ import Visit from './modules/Visit'
 import VisitEdit from './modules/VisitEdit'
 import Payment from './modules/Payment'
 import Dashboard from './modules/dashboard/Dashboard'
+import About from './modules/About'
 
 const routes = {
   path: '/',
@@ -20,6 +21,9 @@ const routes = {
     }
   },
   childRoutes: [{
+    path: '/about',
+    component : About
+  }, {
     path: '/beds',
     component : Beds
   }, {

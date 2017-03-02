@@ -1,10 +1,8 @@
 let firstState = {}
-if (localStorage) {
+if (typeof localStorage !== 'undefined') {
   try {
     firstState = JSON.parse(localStorage.gridState) || {};
-  } catch(e) {
-
-  }
+  } catch(e) {}
 }
 
 export default function grids(state=firstState, action) {

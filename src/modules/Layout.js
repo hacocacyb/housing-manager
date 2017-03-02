@@ -45,6 +45,7 @@ class Layout extends React.Component {
           <NavLink to="/people">Visitors</NavLink>
           <NavLink to="/buildings">Buildings</NavLink>
           <NavLink to="/beds">Beds</NavLink>
+          <NavLink to="/about">About</NavLink>
         </nav>
 
         <div className="Content-Body" style={bodyStyle}>

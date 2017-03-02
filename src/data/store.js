@@ -10,8 +10,11 @@ import * as BedActions from './actions/bed'
 import * as PeopleActions from './actions/people'
 import * as VisitActions from './actions/visit'
 
-
-const middleware = applyMiddleware(promise(), thunk, logger())
+let mw = [promise(), thunk]
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+  mw.push(logger())
+}
+const middleware = applyMiddleware(...mw)
 var store = createStore(reducer, middleware)
 
 export default store
