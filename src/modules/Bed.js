@@ -23,9 +23,6 @@ class Bed extends React.Component {
 		this.state = {
 			selection: null
 		}
-		//default columns on first entry
-		// could be in the reducer but that would be confusing IMO
-
 	}
 	componentWillMount() {
 		this.props.getAll();

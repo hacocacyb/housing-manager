@@ -20,7 +20,6 @@ class BuildingEdit extends React.Component {
   }
 
   handleSubmit(formValues) {
-    console.log('in handle submit')
     formValues = mapIdsFromObject(formValues);
     return this.props.dispatch(Actions.save(formValues))
   }

@@ -6,7 +6,7 @@ export function getAll() {
       type: "FETCHING_BEDS"
     })
 
-    fetch('api/beds')
+    return fetch('api/beds')
       .then((response) => {
         return response.json();
       })
@@ -25,28 +25,36 @@ export function getBed(id, byForce) {
       type: 'FETCHING_BED'
     })
     if (byForce) {
-      fetchById(id, dispatch)
+      return fetchById(id, dispatch)
     } else {
       const state = getState();
-      const localBed = state.beds.byId[id];
+      const byId = state.beds.byId || {};
+      const localBed = byId[id];
       if (localBed) {
-        dispatch({
-          type: 'BED_FETCHED',
-          payload: localBed
+        return new Promise((resolve, reject) => {
+          dispatch({
+            type: 'BED_FETCHED',
+            payload: localBed
+          })
+          resolve()
         })
       } else {
-        fetchById(id, dispatch)
+        return fetchById(id, dispatch)
       }
     }
   }
 }
 function fetchById(id, dispatch) {
-  fetch('api/beds/' + id).then((response) => {
+  return fetch('api/beds/' + id).then((response) => {
     return response.json();
   }).then((json) => {
     dispatch({
       type: 'BED_FETCHED',
       payload: json
+    })
+  }).catch(err => {
+    dispatch({
+      type: 'FETCH_BED_ERROR'
     })
   })
 }
