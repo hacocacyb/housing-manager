@@ -1,5 +1,7 @@
 # Sober Living
 
+[Demo Site](https://sober-living.herokuapp.com)
+
 A web app for managing a group of Sober Living homes, visitors and payments.
 
 * UI: React, Redux, redux-form, ag-grid
