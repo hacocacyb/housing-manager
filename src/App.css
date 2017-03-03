@@ -1,3 +1,13 @@
+html * {
+  font-family: "Times New Roman", Times, serif
+}
+
+.ag-bootstrap .ag-ltr .ag-cell-no-focus {
+  border-right: 1px dotted grey !important;
+}
+.ag-header-cell {
+  border-bottom: 1px solid grey !important;
+}
 .w3-safety-red
 {color:#fff;background-color:#bd1e24}
 

@@ -5,8 +5,8 @@ export default (props) => {
     <div className="w3-container">
       <header><h3>Sober Living - Web Sandbox</h3></header>
       <section className="w3-margin-bottom">
-        This site is a sandbox for experimenting with technologies I don't use at work.
-        Sober Living is a fictional company for managing visitors at sober living
+        This site is a sandbox for experimenting with new (or new to me) technologies.
+        Sober Living is a fictional company for managing stays at supervised living
         facilities in the Chicagoland area. All data is fake.
       </section>
       <section>

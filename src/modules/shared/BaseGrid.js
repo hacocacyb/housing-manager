@@ -2,8 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { AgGridReact } from 'ag-grid-react'
 import withBodyResize from './withBodyResize'
-
 import { setGridState } from '../../data/actions/grid'
+
+import 'ag-grid/dist/styles/ag-grid.css'
+import 'ag-grid/dist/styles/theme-fresh.css'
+import 'ag-grid/dist/styles/theme-bootstrap.css'
 
 class BaseGrid extends React.Component {
 
@@ -40,7 +43,7 @@ class BaseGrid extends React.Component {
         <div  className="w3-bar" style={{marginBottom:8}}>
           {props.buttons}
         </div>
-        <div className="ag-fresh" style={style}>
+        <div className="ag-bootstrap" style={style}>
           <AgGridReact
             onRowSelected={this.onRowSelected.bind(this)}
             enableColResize={true}
