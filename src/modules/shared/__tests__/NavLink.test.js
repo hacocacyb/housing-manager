@@ -1,5 +1,5 @@
 import React from 'react'
-import NavLink from '../Navlink'
+import NavLink from '../NavLink'
 import { render } from 'react-dom'
 import { shallow } from 'enzyme'
 import { Router, Route } from 'react-router'
