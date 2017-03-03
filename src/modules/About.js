@@ -10,11 +10,12 @@ export default (props) => {
         facilities in the Chicagoland area. All data is fake.
       </section>
       <section>
-        Tools and frameworks used to develop the side:
+        Tools and frameworks used to develop the site:
         <ul>
           <li>Node, npm, express, webpack, babel, ES6</li>
           <li>React/Redux, Sequelize, Postgres</li>
           <li>Testing with Jest, Enzyme</li>
+          <li>Deployment with heroku</li>
           <li>Additional Packages: ag-grid-react, redux-form, react-widgets</li>
           <li>W3.CSS</li>
         </ul>

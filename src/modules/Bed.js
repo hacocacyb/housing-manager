@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
 import * as BedActions from '../data/actions/bed'
-import BaseGrid from './shared/BaseGrid.js'
+import GridPanel from './shared/GridPanel.js'
 import Button from './shared/Button.js'
 
 const colDefs = [
@@ -51,7 +51,7 @@ class Bed extends React.Component {
 		]
 		return (
 
-				<BaseGrid
+				<GridPanel
 					gridName={"bedGrid"}
 					onRowDoubleClicked={this.edit.bind(this)}
 					onSelectionChange={this.onSelectionChange.bind(this)}

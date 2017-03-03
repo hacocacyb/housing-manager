@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
 import * as Actions from '../data/actions/visit.js'
-import BaseGrid from './shared/BaseGrid.js'
+import GridPanel from './shared/GridPanel.js'
 import Button from './shared/Button.js'
 import moment from 'moment'
 
@@ -20,7 +20,7 @@ let colDefs = [
 	{headerName: 'Visitor', cellFormatter: function(obj) {
 		const data = obj.node.data;
 		return data.first + (data.middle ? ' ' + data.middle + ' ' : ' ') + data.last;
-	}, field: 'visitor'},
+	}, colId: 'visitor'},
 	{headerName: 'Building', field: 'buildingName'},
 	{headerName: 'Bed', field: 'bedName'},
 	{headerName: 'Rental Period', field: 'rentalPeriodId', cellFormatter: rentalPeriod},
@@ -71,7 +71,7 @@ class Visit extends React.Component {
 			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>
 		]
 		return (
-		  <BaseGrid
+		  <GridPanel
 				gridName={"visitGrid"}
 				onSelectionChange={this.onSelectionChange.bind(this)}
 				onRowDoubleClicked={this.edit.bind(this)}

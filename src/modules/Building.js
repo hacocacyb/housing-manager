@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {hashHistory} from 'react-router'
 import * as Actions from '../data/store.js'
-import BaseGrid from './shared/BaseGrid.js'
+import GridPanel from './shared/GridPanel.js'
 import Button from './shared/Button.js'
 
 var colDefs = [
@@ -79,7 +79,7 @@ class Building extends React.Component {
       <Button key="refresh" onClick={()=> Actions.getAllBuildings(true)} text="Refresh" />
     ]
 
-    return (<BaseGrid
+    return (<GridPanel
       gridName={"buildingGrid"}
       onSelectionChange={this.onSelectionChange.bind(this)}
       onRowDoubleClicked={this.edit.bind(this)}

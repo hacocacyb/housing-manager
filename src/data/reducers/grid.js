@@ -8,7 +8,7 @@ if (typeof localStorage !== 'undefined') {
 export default function grids(state=firstState, action) {
   let payload = action.payload;
   switch(action.type) {
-    case "UPDATE_COL_DEF": {
+    case "UPDATE_GRID_STATE": {
       let grid = payload.gridName
       let gridState = payload.gridState
       let nextState = {...state}
