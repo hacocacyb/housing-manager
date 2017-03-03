@@ -5,7 +5,7 @@ import withBodyResize from './withBodyResize'
 import { setGridState } from '../../data/actions/grid'
 
 import 'ag-grid/dist/styles/ag-grid.css'
-import 'ag-grid/dist/styles/theme-fresh.css'
+//import 'ag-grid/dist/styles/theme-fresh.css'
 import 'ag-grid/dist/styles/theme-bootstrap.css'
 
 class BaseGrid extends React.Component {
