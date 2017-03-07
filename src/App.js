@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import {Router, hashHistory} from 'react-router'
 import {connect} from 'react-redux'
+import routes from './Routes'
+import * as Actions from './data/store'
 
-import './w3.css'
+import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css'
 import 'react-widgets/dist/css/react-widgets.css'
 import './App.css'
-import routes from './Routes'
-import * as Actions from './data/store'
+
 
 Actions.initializeData();
 

@@ -1,4 +1,4 @@
-import Layout from './modules/Layout'
+import Layout from './modules/layout/Layout'
 import Beds from './modules/Bed'
 import BedEdit from './modules/BedEdit'
 import Rooms from './modules/Room'

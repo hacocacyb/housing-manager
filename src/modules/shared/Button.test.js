@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Button from '../Button'
+import Button from './Button'
 import renderer from 'react-test-renderer'
 
 describe('Button', () => {
@@ -8,7 +8,6 @@ describe('Button', () => {
     const div = document.createElement('div');
     ReactDOM.render(<Button />, div);
   });
-
 
   it('has a default set of props', () => {
     let btn = renderer.create(<Button />)

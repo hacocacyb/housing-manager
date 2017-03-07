@@ -1,10 +1,10 @@
 import React from 'react'
-import NavLink from '../NavLink'
+import NavLink from './NavLink'
 import { render } from 'react-dom'
 import { shallow } from 'enzyme'
 import { Router, Route } from 'react-router'
 import createHistory from 'react-router/lib/createMemoryHistory'
-import execSteps from '../../../fn/testHelpers/execSteps'
+import execSteps from '../../fn/testHelpers/execSteps'
 
 /**
   Tests below similar to Link-tests on react-router, but wrapping my NavLink
@@ -32,12 +32,12 @@ describe('NavLink', () => {
     const history = createHistory('/goodbye')
     const steps = [
       () => {
-        a = node.querySelector('a')
-        expect(a.hasClass('active-nav-link')).toEqual(false)
+        a = node.querySelector('li')
+        expect(a.hasClass('active')).toEqual(false)
         history.push('/hello')
       },
       () => {
-        expect(a.hasClass('active-nav-link')).toEqual(true)
+        expect(a.hasClass('active')).toEqual(true)
       }
     ]
 
