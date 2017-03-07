@@ -58,7 +58,8 @@ class People extends React.Component {
 	render() {
 		const buttons = [
 			<Button key="add" onClick={this.add.bind(this)} text="Add Visitor" />,
-			<Button key="edit" onClick={this.edit.bind(this)} text="Edit" className={this.state.selection ? '' : "w3-disabled"}/>,
+			<Button key="edit" onClick={this.edit.bind(this)} text="Edit"
+				disabled={this.state.selection ? false : true}/>,
 			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>
 		]
 		return (

@@ -72,10 +72,9 @@ class Building extends React.Component {
   }
 
   render() {
-    const selectedClass = this.state.selection ? '' : 'w3-disabled'
     const toolbar = [
       <Button key="add" onClick={this.add.bind(this)} text="Add Building" />,
-      <Button key="edit" onClick={this.edit.bind(this)} text="Edit" className={selectedClass} />,
+      <Button key="edit" onClick={this.edit.bind(this)} text="Edit" disabled={this.state.selection ? false : true} />,
       <Button key="refresh" onClick={()=> Actions.getAllBuildings(true)} text="Refresh" />
     ]
 

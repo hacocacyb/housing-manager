@@ -45,7 +45,8 @@ class Bed extends React.Component {
 		const toolbar = [
 			<Button key="add" onClick={this.add}>Add Bed</Button>,
 			<Button key="edit" onClick={this.edit.bind(this)}
-				text="Edit" className={this.state.selection ? '' : "w3-disabled"}
+				disabled={this.state.selection ? false : true}
+				text="Edit"
 			/>,
 			<Button key="refresh" onClick={this.props.getAll}>Refresh</Button>
 		]
@@ -55,9 +56,7 @@ class Bed extends React.Component {
 					gridName={"bedGrid"}
 					onRowDoubleClicked={this.edit.bind(this)}
 					onSelectionChange={this.onSelectionChange.bind(this)}
-
 					rowData={this.props.data}
-
 					columnDefs={this.props.colDefs}
 					buttons={toolbar}
 				/>

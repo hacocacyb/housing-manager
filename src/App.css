@@ -2,14 +2,12 @@
 .App-Header {
   width: 100%;
   top: 0;
-  height: 45px;
   position: fixed;
   z-index: 100000;
 }
 
 .Content-Body {
   overflow-y:none;
-  margin-top: 45px;
 }
 
 .hm-side-nav {
