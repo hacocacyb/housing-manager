@@ -1,7 +1,8 @@
+const APP_NAME = 'sober-living'
 let firstState = {}
 if (typeof localStorage !== 'undefined') {
   try {
-    firstState = JSON.parse(localStorage.gridState) || {};
+    firstState = JSON.parse(localStorage[APP_NAME].gridState) || {};
   } catch(e) {}
 }
 
@@ -9,12 +10,12 @@ export default function grids(state=firstState, action) {
   let payload = action.payload;
   switch(action.type) {
     case "UPDATE_GRID_STATE": {
-      let grid = payload.gridName
-      let gridState = payload.gridState
+      const grid = payload.gridName
+      const gridState = payload.gridState
       let nextState = {...state}
       nextState[grid] = gridState
       if (localStorage) {
-        localStorage.setItem('gridState', JSON.stringify(nextState))
+        localStorage.setItem(APP_NAME + '.gridState', JSON.stringify(nextState))
       }
       return nextState
     }
