@@ -21,6 +21,7 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.17.1",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
@@ -36,7 +37,9 @@
   },
   "scripts": {
     "start": "node index.js",
-    "startdev": "start react-scripts start && start nodemon index.js",
+    "startweb": "react-scripts start",
+    "startserver": "nodemon index.js",
+    "startdev": "start startweb && start startserver",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose",
     "eject": "react-scripts eject",
