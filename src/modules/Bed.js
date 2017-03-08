@@ -7,10 +7,10 @@ import Button from './shared/Button.js'
 
 const colDefs = [
 	{headerName: 'Id', field: 'id',hide: true},
-	{headerName: 'Name', field: 'name'},
-	{headerName: 'Type', field: 'type'},
-	{headerName: 'Building Name', field: 'buildingName'},
-	{headerName: 'Occupied', field: 'occupied', cellStyle: {
+	{headerName: 'Bed Name', field: 'name', width: 160},
+	{headerName: 'Building Name', field: 'buildingName', width: 160},
+	{headerName: 'Bed Type', field: 'type', width: 100},
+	{headerName: 'Occupied', field: 'occupied', width: 100, cellStyle: {
 			textAlign: 'center'
 		}, cellFormatter: function(obj) {
 		return obj.value ? 'Y' : ''

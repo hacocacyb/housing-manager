@@ -6,7 +6,7 @@ class Layout extends React.Component {
     return (
       <div>
         <NavBar />
-        <div className="Content-Body">
+        <div className="content-body">
           {this.props.children}
         </div>
       </div>

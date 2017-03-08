@@ -3,9 +3,6 @@ import ReduxGrid from './ReduxGrid'
 import withBodyResize from './withBodyResize'
 import { ButtonToolbar } from 'react-bootstrap'
 
-import 'ag-grid/dist/styles/ag-grid.css'
-import 'ag-grid/dist/styles/theme-bootstrap.css'
-
 class GridPanel extends React.Component {
 
   onRowSelected(rec) {
@@ -27,11 +24,11 @@ class GridPanel extends React.Component {
       height: props.height || 400
     }
     return (
-      <div className="w3-padding-small w3-padding-top">
-        <ButtonToolbar>
+      <div>
+        <ButtonToolbar className="grid-panel-toolbar">
           {props.buttons}
         </ButtonToolbar>
-        <div className="ag-bootstrap" style={style}>
+        <div className="ag-bootstrap grid-panel-body" style={style}>
           <ReduxGrid
             onRowSelected={this.onRowSelected.bind(this)}
             enableColResize={true}

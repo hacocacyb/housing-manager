@@ -1,14 +1,13 @@
-
-.App-Header {
-  width: 100%;
-  top: 0;
-  position: fixed;
-  z-index: 100000;
+html, body {
+  overflow-y: hidden;
 }
 
-.Content-Body {
+.navbar {
+  margin-bottom: 10px;
+}
+.content-body {
   overflow-y:none;
-  margin-top: 71px;
+  margin-top: 61px;
 }
 
 .form-error {
@@ -24,4 +23,22 @@
   -moz-osx-font-smoothing: grayscale;
   content: '\F06A';
   margin-right: 5px;
+}
+
+.grid-panel-toolbar {
+  padding: 0px 10px 0px 10px;
+}
+.grid-panel-body {
+  margin: 10px;
+  border: solid gray 1px;
+}
+.ag-bootstrap .ag-header {
+  border-bottom: 2px solid #000;
+}
+.ag-bootstrap .ag-ltr .ag-header-cell {
+    border-right: 1px solid gray;
+}
+.ag-bootstrap .ag-ltr .ag-cell-no-focus {
+    border-left: none;
+    border-right: 1px dotted gray;
 }
