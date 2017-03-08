@@ -22,6 +22,7 @@ class PeopleEdit extends React.Component {
   }
 
   onCancel() {
+    this.props.dispatch(Actions.removeCurrent());
     hashHistory.push('/people')
   }
   handleSubmit(formValues) {
@@ -35,7 +36,7 @@ class PeopleEdit extends React.Component {
         <header className="card-title">{editMode ? 'Edit Visitor' : 'Add Visitor'}</header>
         <ButtonToolbar>
           <Button type="submit">Save</Button>
-          <Button onClick={this.onCancel}>Cancel</Button>
+          <Button onClick={this.onCancel.bind(this)}>Cancel</Button>
         </ButtonToolbar>
         <Field name="id" hidden={true} component={FC.renderInput}
           readOnly={true} type="text" placeholder="Person Id" />
@@ -59,7 +60,10 @@ class PeopleEdit extends React.Component {
 
 PeopleEdit = reduxForm({
   form:'peopleForm',
-  enableReinitialize: true
+  enableReinitialize: true,
+  onSubmitSuccess: function(submitResult, dispatch) {
+    dispatch(Actions.removeCurrent());
+  }
 })(PeopleEdit);
 
 PeopleEdit = withRouter(PeopleEdit)

@@ -13,7 +13,7 @@ describe('Button', () => {
     let btn = renderer.create(<Button />)
     let tree = btn.toJSON();
 
-    expect(tree.props.disabled).toEqual(undefined)
+    expect(tree.props.disabled).toEqual(false)
   })
 
   it('takes text from text property or children', () => {

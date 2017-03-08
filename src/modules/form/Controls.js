@@ -33,7 +33,7 @@ export function renderCombo( field ) {
     <Label {...field}/>
     <select
       style={{
-        width: 300 || field.width,
+        width: field.width || 300,
         padding: '2px 0 2px 0'
       }}
       readOnly={readOnly}

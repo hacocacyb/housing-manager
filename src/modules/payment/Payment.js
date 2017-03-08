@@ -50,17 +50,20 @@ class Payment extends React.Component {
 
     return (
       <div className="container">
-        <form className="" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+        <form onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
           <header className="card-title">Payments</header>
           <ButtonToolbar>
             <Button type="submit">Add Payment</Button>
             <Button onClick={this.onCancel}>Cancel</Button>
           </ButtonToolbar>
           <Row>
-            <Col md={6}>
+            <Col md={5}>
 
               <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
-              <Field name="visitId"
+              <Field
+                name="visitId"
+                width={180}
+                labelWidth={80}
                 readOnly={editMode}
                 data={visits}
                 component={FC.renderCombo}
@@ -72,24 +75,27 @@ class Payment extends React.Component {
 
               <Field name="amount"
                 width={180}
+                labelWidth={80}
                 component={FC.renderInput}
                 readOnly={editMode}
                 type="number"
+                minValue={0}
                 validate={[required, (val) => {
                   if (val <= 0) {
-                    return 'Payment may not be zero or negative'
+                    return 'Invalid Amount'
                   }
                 }]}
                 placeholder="Amount"/>
               <Field name="payDate"
                 width={180}
+                labelWidth={80}
                 readOnly={editMode}
                 component={FC.renderInput}
                 type="date"
                 validate={required}
                 placeholder="Date"/>
             </Col>
-            <Col md={6}>
+            <Col md={7}>
               <PaymentHistory
                 visit={currentVisit}
                 payments={currentPayments}

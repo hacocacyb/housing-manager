@@ -46,7 +46,7 @@ class BedEdit extends React.Component {
         <Field
           name="id"
           component={FC.renderInput}
-
+          hidden={true}
           readOnly={true}
           type="text"
           placeholder="Bed Id"/>

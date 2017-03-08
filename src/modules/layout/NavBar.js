@@ -31,7 +31,7 @@ class NavBar extends React.Component {
       >
         <Navbar.Header>
           <Navbar.Brand>
-            Sober Living
+            Rental Manager
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

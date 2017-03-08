@@ -39,7 +39,7 @@
     "start": "node index.js",
     "startweb": "react-scripts start",
     "startserver": "nodemon index.js",
-    "startdev": "start startweb && start startserver",
+    "startdev": "start npm run startweb && start npm run startserver",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose",
     "eject": "react-scripts eject",

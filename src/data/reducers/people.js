@@ -57,6 +57,12 @@ export default function people(state={
         current: payload
       }
     }
+    case "REMOVE_CURRENT_PERSON": {
+      return {
+        ...state,
+        current: undefined
+      }
+    }
     default:
       return state;
   }

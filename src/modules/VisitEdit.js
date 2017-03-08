@@ -24,6 +24,7 @@ class VisitEdit extends React.Component {
   }
 
   onCancel() {
+    this.props.dispatch(Actions.removeCurrent())
     hashHistory.push('/visits')
   }
   handleSubmit(formValues) {
@@ -36,7 +37,7 @@ class VisitEdit extends React.Component {
 
     let startDate = moment(intake);
     let payments = [];
-    for(let i=0;i<10;i++) {
+    for(let i=0;i<3;i++) {
       payments.push(<li key={i}>{startDate.add(inc, 'days').format('MM/DD/YYYY')}</li>)
     }
 
@@ -60,7 +61,7 @@ class VisitEdit extends React.Component {
           <header className="card-title">{editMode ? 'Edit Visit' : 'Add Visit'}</header>
           <ButtonToolbar>
             <Button type="submit">Save</Button>
-            <Button onClick={this.onCancel}>Cancel</Button>
+            <Button onClick={this.onCancel.bind(this)}>Cancel</Button>
           </ButtonToolbar>
           <div>
             <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
@@ -137,6 +138,7 @@ VisitEdit = reduxForm({
   enableReinitialize: true,
   onSubmitSuccess: function(submitResult, dispatch, props) {
     props.reset()
+    dispatch(Actions.removeCurrent())
   }
 })(VisitEdit);
 
@@ -149,7 +151,6 @@ export default connect((store) => {
   }
   let intake = store.visits.current && store.visits.current.intake;
   intake = moment(intake);
-
   return {
     initialValues: {
       payTypeId: 1,

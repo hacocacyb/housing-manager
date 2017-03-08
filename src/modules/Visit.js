@@ -21,12 +21,12 @@ let colDefs = [
 		const data = obj.node.data;
 		return data.first + (data.middle ? ' ' + data.middle + ' ' : ' ') + data.last;
 	}, colId: 'visitor'},
-	{headerName: 'Building', field: 'buildingName'},
-	{headerName: 'Bed', field: 'bedName'},
-	{headerName: 'Rental Period', field: 'rentalPeriodId', cellFormatter: rentalPeriod},
-	{headerName: 'Intake', field: 'intake', cellFormatter: dateCellFormatter},
-	{headerName: 'Outtake', field: 'outtake', cellFormatter: dateCellFormatter},
-	{headerName: 'Rent', field: 'cost'}
+	{headerName: 'Building', field: 'buildingName', width: 160},
+	{headerName: 'Bed', field: 'bedName', width: 120},
+	{headerName: 'Rental Period', field: 'rentalPeriodId', cellFormatter: rentalPeriod, width: 160},
+	{headerName: 'Intake', field: 'intake', cellFormatter: dateCellFormatter, width: 120},
+	{headerName: 'Outtake', field: 'outtake', cellFormatter: dateCellFormatter, width: 120},
+	{headerName: 'Rent', field: 'cost', width: 100}
 ]
 class Visit extends React.Component {
 

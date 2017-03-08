@@ -1,8 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 import { Panel, Row, Col } from 'react-bootstrap'
+import HistoryHeader from './PaymentHistoryHeader'
 import DataRow from './PaymentHistoryDataRow'
-import currency from '../../fn/formatCurrency'
 
 class PaymentHistory extends React.Component {
 
@@ -85,31 +85,8 @@ class PaymentHistory extends React.Component {
     const { visit, payments } = props;
     if (visit) {
       const payHistory = this.buildPayHistory(visit, payments);
-      const { totalBilled, totalPaid, balance, history } = payHistory;
-      const intakeDate = moment(visit.Intake).format('MM/DD/YYYY');
+      const header = <HistoryHeader payHistory={payHistory} visit={visit} />
 
-      const header = (
-        <h5>
-          <Row>
-            <Col xs={3}>Visitor</Col>
-            <Col xs={3}>{visit.first + ' ' + visit.last}</Col>
-            <Col xs={3}>Total Billed</Col>
-            <Col xs={3} className="text-align">{currency(totalBilled)}</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Intake</Col>
-            <Col xs={3}>{intakeDate}</Col>
-            <Col xs={3}>Total Paid</Col>
-            <Col xs={3} className="text-align">{currency(totalPaid)}</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Outtake</Col>
-            <Col xs={3}>{"N/A"}</Col>
-            <Col xs={3}>Balance</Col>
-            <Col xs={3} className="text-align">{currency(balance)}</Col>
-          </Row>
-        </h5>
-      )
       return (
         <Panel className="payment-history-panel" header={header}>
           <Row className="payment-history-ledger-header">
@@ -118,7 +95,7 @@ class PaymentHistory extends React.Component {
             <Col xs={3} className="text-right" >Payment</Col>
             <Col xs={3} className="text-right" >Balance</Col>
           </Row>
-          {history}
+          {payHistory.history}
         </Panel>)
     } else {
       return <div></div>
