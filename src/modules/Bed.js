@@ -53,7 +53,8 @@ class Bed extends React.Component {
 		return (
 
 				<GridPanel
-					gridName={"bedGrid"}
+					gridName="bedGrid"
+					title="Beds"
 					onRowDoubleClicked={this.edit.bind(this)}
 					onSelectionChange={this.onSelectionChange.bind(this)}
 					rowData={this.props.data}

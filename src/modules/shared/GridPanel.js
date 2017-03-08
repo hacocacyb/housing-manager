@@ -24,7 +24,8 @@ class GridPanel extends React.Component {
       height: props.height || 400
     }
     return (
-      <div>
+      <div className="container">
+        <header className="card-title">{props.title}</header>
         <ButtonToolbar className="grid-panel-toolbar">
           {props.buttons}
         </ButtonToolbar>

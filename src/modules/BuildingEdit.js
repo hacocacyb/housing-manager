@@ -4,7 +4,7 @@ import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field } from 'redux-form'
 import { required } from '../fn/form-validate.js'
 import * as Actions from '../data/actions/building.js'
-import  * as FC  from './shared/formControls.js'
+import * as FC from './form/Controls'
 import mapIdsFromObject from '../fn/mapIdsFromObject'
 import Button from './shared/Button'
 
@@ -28,8 +28,10 @@ class BuildingEdit extends React.Component {
     const editMode = this.props.params.Id;
 
     return (
-      <form className="w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
-        <h4>{editMode ? 'Edit Building' : 'Add Building'}</h4>
+      <form className="container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+        <header className="card-title">{editMode
+            ? 'Edit Building'
+            : 'Add Building'}</header>
         <div  className="w3-bar" style={{marginBottom:8}}>
           <Button type="submit" disabled={this.props.pristine}>Save</Button>
           <Button onClick={(e) => hashHistory.push('/buildings')}>Cancel</Button>

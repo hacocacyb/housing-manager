@@ -1,36 +1,30 @@
-html, body {
-  overflow-y: hidden;
-}
 
 .navbar {
   margin-bottom: 10px;
 }
 .content-body {
-  overflow-y:none;
-  margin-top: 61px;
+  overflow-y: auto;
+  padding-top: 61px;
 }
 
 .form-error {
   font-weight: 700;
   color: #700;
+  padding-left: 8px;
 }
-.form-error:before {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  content: '\F06A';
-  margin-right: 5px;
+.form-error > .glyphicon {
+  padding-right: 8px;
 }
 
-.grid-panel-toolbar {
-  padding: 0px 10px 0px 10px;
+
+.card-title {
+  font-size: 20px;
 }
 .grid-panel-body {
-  margin: 10px;
   border: solid gray 1px;
+}
+.btn-toolbar {
+  padding-bottom: 10px;
 }
 .ag-bootstrap .ag-header {
   border-bottom: 2px solid #000;
@@ -41,4 +35,12 @@ html, body {
 .ag-bootstrap .ag-ltr .ag-cell-no-focus {
     border-left: none;
     border-right: 1px dotted gray;
+}
+.payment-history-panel > .panel-body {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.payment-history-ledger-header {
+  font-weight: bolder;
+  text-decoration: underline;
 }

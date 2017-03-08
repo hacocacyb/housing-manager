@@ -6,8 +6,9 @@ import {required} from '../fn/form-validate.js'
 import * as BedActions from '../data/actions/bed'
 import mapIdsFromObject from '../fn/mapIdsFromObject'
 import Button from './shared/Button.js'
+import { ButtonToolbar } from 'react-bootstrap'
 
-import * as FC from './shared/formControls'
+import * as FC from './form/Controls'
 
 class BedEdit extends React.Component {
 
@@ -22,6 +23,7 @@ class BedEdit extends React.Component {
 
   handleSubmit(formValues) {
     formValues = mapIdsFromObject(formValues)
+    console.log('in the submit?', formValues)
     this.props.dispatch(BedActions.saveBed(formValues))
   }
 
@@ -32,21 +34,20 @@ class BedEdit extends React.Component {
 
     return (
       <form
-        className="w3-container"
+        className="container"
         onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))}>
-        <h4>{editMode
+        <header className="card-title">{editMode
             ? 'Edit Bed'
-            : 'Add Bed'}</h4>
-        <div className="w3-bar" style={{
-          marginBottom: 8
-        }}>
+            : 'Add Bed'}</header>
+        
+        <ButtonToolbar>
           <Button type="submit" disabled={this.props.pristine}>Save</Button>
           <Button onClick={(e) => hashHistory.push('/beds')}>Cancel</Button>
-        </div>
+        </ButtonToolbar>
         <Field
           name="id"
           component={FC.renderInput}
-          hidden={true}
+
           readOnly={true}
           type="text"
           placeholder="Bed Id"/>
@@ -80,8 +81,12 @@ class BedEdit extends React.Component {
 BedEdit = reduxForm({
   form: 'bedForm',
   enableReinitialize: true,
+
   onSubmitSuccess: function(submitResult, dispatch, props) {
     props.reset()
+  },
+  onSubmitFail: function() {
+    console.log('submit fail ', arguments)
   }
 })(BedEdit);
 

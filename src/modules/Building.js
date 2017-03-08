@@ -80,7 +80,8 @@ class Building extends React.Component {
     ]
 
     return (<GridPanel
-      gridName={"buildingGrid"}
+      gridName="buildingGrid"
+      title="Buildings"
       onSelectionChange={this.onSelectionChange.bind(this)}
       onRowDoubleClicked={this.edit.bind(this)}
       rowData={this.props.data}

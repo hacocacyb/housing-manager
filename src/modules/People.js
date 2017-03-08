@@ -64,7 +64,8 @@ class People extends React.Component {
 		]
 		return (
 		  <GridPanel
-				gridName={"peopleGrid"}
+				gridName="peopleGrid"
+				title="Visitors"
 				onSelectionChange={this.onSelectionChange.bind(this)}
 				onRowDoubleClicked={this.edit.bind(this)}
 				rowData={this.props.data}

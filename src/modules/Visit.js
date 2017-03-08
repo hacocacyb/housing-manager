@@ -75,6 +75,7 @@ class Visit extends React.Component {
 		return (
 		  <GridPanel
 				gridName={"visitGrid"}
+				title="Visits"
 				onSelectionChange={this.onSelectionChange.bind(this)}
 				onRowDoubleClicked={this.edit.bind(this)}
 				rowData={this.props.data}

@@ -16,7 +16,7 @@ export default (props) => {
           <li>React/Redux, Sequelize, Postgres</li>
           <li>Testing with Jest, Enzyme</li>
           <li>Deployment with heroku</li>
-          <li>Additional Packages: ag-grid-react, react-bootstrap, redux-form, react-widgets</li>
+          <li>Additional Packages: ag-grid-react, react-bootstrap, redux-form</li>
           <li>Bootstrap CSS</li>
         </ul>
 

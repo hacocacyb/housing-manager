@@ -3,11 +3,12 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { ButtonToolbar } from 'react-bootstrap'
 import { required } from '../fn/form-validate.js'
 import Button from './shared/Button.js'
 import mapIdsFromObject from '../fn/mapIdsFromObject'
 import * as Actions from '../data/actions/visit.js'
-import * as FC  from './shared/formControls.js'
+import * as FC from './form/Controls'
 
 const getFormValue = formValueSelector('visitForm');
 
@@ -54,17 +55,17 @@ class VisitEdit extends React.Component {
     }
 
     return (
-      <div className="w3-container">
+      <div className="container">
         <form className="" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
-          <h4>{editMode ? 'Edit Visit' : 'Add Visit'}</h4>
-          <div  className="w3-bar" style={{marginBottom:8}}>
+          <header className="card-title">{editMode ? 'Edit Visit' : 'Add Visit'}</header>
+          <ButtonToolbar>
             <Button type="submit">Save</Button>
             <Button
               onClick={()=>hashHistory.push('people/edit')}
               className={editMode ? 'w3-hide' : ''}
             >Add Visitor</Button>
             <Button onClick={this.onCancel}>Cancel</Button>
-          </div>
+          </ButtonToolbar>
           <div className="w3-third">
             <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
             <Field name="personId"

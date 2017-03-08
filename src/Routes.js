@@ -1,14 +1,13 @@
 import Layout from './modules/layout/Layout'
 import Beds from './modules/Bed'
 import BedEdit from './modules/BedEdit'
-import Rooms from './modules/Room'
 import Buildings from './modules/Building'
 import BuildingEdit from './modules/BuildingEdit'
 import People from './modules/People'
 import PeopleEdit from './modules/PeopleEdit'
 import Visit from './modules/Visit'
 import VisitEdit from './modules/VisitEdit'
-import Payment from './modules/Payment'
+import Payment from './modules/payment/Payment'
 import Dashboard from './modules/dashboard/Dashboard'
 import About from './modules/About'
 
@@ -32,9 +31,6 @@ const routes = {
   }, {
     path: '/dashboard',
     component: Dashboard
-  }, {
-    path: '/rooms',
-    component: Rooms
   }, {
     path: '/buildings',
     component: Buildings
