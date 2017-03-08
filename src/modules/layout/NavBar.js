@@ -11,7 +11,6 @@ class NavBar extends React.Component {
     }
   }
   onNavClicked() {
-    console.log('on nav clicked', this.state.navExpanded)
     if (this.state.navExpanded) {
       this.toggleNav()
       this.forceUpdate()

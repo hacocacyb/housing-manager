@@ -1,7 +1,6 @@
 import React from 'react'
 import moment from 'moment'
 import { Panel, Row, Col } from 'react-bootstrap'
-import Cell from './PaymentHistoryCell'
 import DataRow from './PaymentHistoryDataRow'
 import currency from '../../fn/formatCurrency'
 
@@ -97,13 +96,13 @@ class PaymentHistory extends React.Component {
             <Col xs={3}>Total Billed</Col>
             <Col xs={3} className="text-align">{currency(totalBilled)}</Col>
           </Row>
-          <Row className="w3-row">
+          <Row>
             <Col xs={3}>Intake</Col>
             <Col xs={3}>{intakeDate}</Col>
             <Col xs={3}>Total Paid</Col>
             <Col xs={3} className="text-align">{currency(totalPaid)}</Col>
           </Row>
-          <Row className="w3-row">
+          <Row>
             <Col xs={3}>Outtake</Col>
             <Col xs={3}>{"N/A"}</Col>
             <Col xs={3}>Balance</Col>

@@ -41,7 +41,6 @@ export function renderCombo( field ) {
       placeholder={placeholder}
       {...input}
       onChange={(option) => {
-        console.log(option.target.value)
         if (field.onChangeAction !== undefined) {
           field.onChangeAction(option.target.value)
         }

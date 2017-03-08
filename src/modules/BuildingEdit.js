@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field } from 'redux-form'
+import { ButtonToolbar } from 'react-bootstrap'
 import { required } from '../fn/form-validate.js'
 import * as Actions from '../data/actions/building.js'
 import * as FC from './form/Controls'
@@ -32,10 +33,10 @@ class BuildingEdit extends React.Component {
         <header className="card-title">{editMode
             ? 'Edit Building'
             : 'Add Building'}</header>
-        <div  className="w3-bar" style={{marginBottom:8}}>
+        <ButtonToolbar>
           <Button type="submit" disabled={this.props.pristine}>Save</Button>
           <Button onClick={(e) => hashHistory.push('/buildings')}>Cancel</Button>
-        </div>
+        </ButtonToolbar>
         <Field name="id"
           component={FC.renderInput}
           hidden={true}

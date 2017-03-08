@@ -23,7 +23,6 @@ class BedEdit extends React.Component {
 
   handleSubmit(formValues) {
     formValues = mapIdsFromObject(formValues)
-    console.log('in the submit?', formValues)
     this.props.dispatch(BedActions.saveBed(formValues))
   }
 
@@ -39,7 +38,7 @@ class BedEdit extends React.Component {
         <header className="card-title">{editMode
             ? 'Edit Bed'
             : 'Add Bed'}</header>
-        
+
         <ButtonToolbar>
           <Button type="submit" disabled={this.props.pristine}>Save</Button>
           <Button onClick={(e) => hashHistory.push('/beds')}>Cancel</Button>
@@ -84,9 +83,6 @@ BedEdit = reduxForm({
 
   onSubmitSuccess: function(submitResult, dispatch, props) {
     props.reset()
-  },
-  onSubmitFail: function() {
-    console.log('submit fail ', arguments)
   }
 })(BedEdit);
 

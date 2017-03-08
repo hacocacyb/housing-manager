@@ -60,13 +60,9 @@ class VisitEdit extends React.Component {
           <header className="card-title">{editMode ? 'Edit Visit' : 'Add Visit'}</header>
           <ButtonToolbar>
             <Button type="submit">Save</Button>
-            <Button
-              onClick={()=>hashHistory.push('people/edit')}
-              className={editMode ? 'w3-hide' : ''}
-            >Add Visitor</Button>
             <Button onClick={this.onCancel}>Cancel</Button>
           </ButtonToolbar>
-          <div className="w3-third">
+          <div>
             <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
             <Field name="personId"
               readOnly={editMode}
@@ -121,7 +117,7 @@ class VisitEdit extends React.Component {
               placeholder="Date In"/>
             <Field name="outtake" component={FC.renderInput} type="date" placeholder="Date Out"/>
           </div>
-          <div className="w3-rest w3-panel ">
+          <div>
             <h5>
               Rent Due Dates
             </h5>

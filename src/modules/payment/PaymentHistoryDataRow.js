@@ -4,7 +4,7 @@ import currency from '../../fn/formatCurrency'
 
 export default (props) => {
   return (
-    <Row key={props.key} className="w3-row">
+    <Row key={props.key}>
       <Col xs={3} >{props.date}</Col>
       <Col xs={3} className="text-right">{props.cost ? currency(props.cost) : '-'}</Col>
       <Col xs={3} className="text-right">{props.payment ? currency(props.payment) : '-'}</Col>

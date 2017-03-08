@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import moment from 'moment'
-import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap'
+import { ButtonToolbar, Row, Col } from 'react-bootstrap'
 import Button from '../shared/Button'
 import * as Actions from '../../data/actions/payment'
 import * as FC from '../form/Controls'
@@ -39,7 +39,6 @@ class Payment extends React.Component {
   }
 
   onVisitChange(visit) {
-    console.log(visit)
     if (visit) {
       hashHistory.push('payment/' + visit);
     }
