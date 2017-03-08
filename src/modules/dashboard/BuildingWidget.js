@@ -12,22 +12,18 @@ class BuildingWidget extends React.Component {
 		})
 		const rows = data.map(function(d) {
 			return (
-				<Row key={"widget-row-" + d.name}>
-					<Col xs={4}>{d.name}</Col>
-					<Col className="text-right" xs={4}>{d.bedCount}</Col>
-					<Col className="text-right" xs={4}>{d.occupied}</Col>
+				<Row className="widget-row" key={"widget-row-" + d.name}>
+					<Col xs={6}>{d.name}</Col>
+					<Col className="text-center" xs={6}>{d.occupied + ' / ' + d.bedCount}</Col>
 				</Row>
 			)
 		})
 		const title = <h3><Link to="/buildings">Buildings</Link></h3>
 		return (
-      <Panel header={title} >
-				<Row>
-					<strong>
-						<Col xs={4}>Building</Col>
-						<Col className="text-right" xs={4}>Beds</Col>
-						<Col className="text-right" xs={4}>Occupied</Col>
-					</strong>
+      <Panel header={title} bsStyle="info" >
+				<Row className="widget-header-row">
+					<Col xs={6}>Building</Col>
+					<Col className="text-center" xs={6}>Occupied Beds</Col>
 				</Row>
 				{rows}
       </Panel>

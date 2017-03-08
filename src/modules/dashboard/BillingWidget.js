@@ -20,7 +20,7 @@ class BillingWidget extends React.Component {
 	render() {
 		const data = this.props.widgetData;
 		const list = data && data.map((d) => {
-			return <Row key={d.visitId}
+			return <Row className="widget-row" key={d.visitId}
 				onDoubleClick={()=>hashHistory.push('/payment/' + d.VisitId)}
 			>
 				<Col xs={6}>{d.fullName}</Col>
@@ -30,12 +30,10 @@ class BillingWidget extends React.Component {
     const title = <h3><Link to="/payments">Past Due</Link></h3>
 
 		return (
-      <Panel header={title} >
-				<Row>
-          <strong>
-  					<Col bsStyle="font-weight-bold" xs={6}>Visitor</Col>
-  					<Col className="text-right" xs={6}>Past Due</Col>
-          </strong>
+      <Panel header={title} bsStyle="danger" >
+				<Row className="widget-header-row">
+					<Col bsStyle="font-weight-bold" xs={6}>Visitor</Col>
+					<Col className="text-right" xs={6}>Past Due</Col>
         </Row>
 				{list}
       </Panel>

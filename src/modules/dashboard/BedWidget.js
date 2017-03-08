@@ -19,16 +19,16 @@ class BedWidget extends React.Component {
 
 	 const title = <h3><Link to="/beds">Beds</Link></h3>
  		return (
-       <Panel header={title} >
- 				<Row>
+       <Panel header={title} bsStyle="success" >
+ 				<Row className="widget-row">
 					<Col xs={6}>Occupancy</Col>
 					<Col className="text-right" xs={6}>{occupancy + '%'}</Col>
  				</Row>
-				<Row>
+				<Row className="widget-row">
 					<Col xs={6}>Total Beds</Col>
 					<Col className="text-right" xs={6}>{beds}</Col>
  				</Row>
-				<Row>
+				<Row className="widget-row">
 					<Col xs={6}>Occupied Beds</Col>
 					<Col className="text-right" xs={6}>{occupied}</Col>
  				</Row>

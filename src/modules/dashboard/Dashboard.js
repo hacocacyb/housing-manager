@@ -17,12 +17,12 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <Grid>
+      <Grid fluid>
         <Row>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12} sm={6} md={5}>
             <BuildingWidget/>
           </Col>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12} sm={6} md={3}>
             <BedWidget/>
           </Col>
           <Col xs={12} sm={6} md={4}>

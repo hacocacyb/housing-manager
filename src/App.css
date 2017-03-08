@@ -52,3 +52,17 @@
   font-weight: bolder;
   text-decoration: underline;
 }
+.widget-row, .widget-header-row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.panel > .panel-body {
+  padding: 10px;
+}
+.widget-header-row {
+  font-weight: bolder;
+  border-bottom: 1px solid black;
+}
+.widget-row:nth-child(odd) {
+  background-color: rgb(238,238,238);
+}
