@@ -13,9 +13,9 @@ class BuildingWidget extends React.Component {
 		const rows = data.map(function(d) {
 			return (
 				<Row key={"widget-row-" + d.name}>
-					<Col xs={6}>{d.name}</Col>
-					<Col className="text-right" xs={3}>{d.bedCount}</Col>
-					<Col className="text-right" xs={3}>{d.occupied}</Col>
+					<Col xs={4}>{d.name}</Col>
+					<Col className="text-right" xs={4}>{d.bedCount}</Col>
+					<Col className="text-right" xs={4}>{d.occupied}</Col>
 				</Row>
 			)
 		})
@@ -24,9 +24,9 @@ class BuildingWidget extends React.Component {
       <Panel header={title} >
 				<Row>
 					<strong>
-						<Col xs={6}>Building</Col>
-						<Col className="text-right" xs={3}>Beds</Col>
-						<Col className="text-right" xs={3}>Occupied</Col>
+						<Col xs={4}>Building</Col>
+						<Col className="text-right" xs={4}>Beds</Col>
+						<Col className="text-right" xs={4}>Occupied</Col>
 					</strong>
 				</Row>
 				{rows}

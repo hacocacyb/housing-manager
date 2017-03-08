@@ -1,6 +1,7 @@
 import React from 'react'
+import { Row, Col, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { hashHistory } from 'react-router'
+import { Link } from 'react-router'
 
 class BedWidget extends React.Component {
 
@@ -15,25 +16,24 @@ class BedWidget extends React.Component {
 		let occupancy = (beds === 0) ? 0 : (occupied/beds) * 100;
 		occupancy = occupancy.toFixed(2);
 
-		return (
-      <div className={"w3-card-4 " + this.props.className } onDoubleClick={()=>hashHistory.push('/beds')}>
-				<header className="w3-container w3-safety-blue w3-xlarge">Beds</header>
-				<div className="w3-container">
-					<div className="w3-row w3-border-bottom">
-						<span className="w3-col s6 l6">Occupancy</span>
-						<span className="w3-col s6 l6 w3-center">{occupancy + '%'}</span>
-					</div>
-					<div className="w3-row w3-border-bottom w3-border-top">
-						<span className="w3-col s6 l6">Total Beds</span>
-						<span className="w3-col s6 l6 w3-center">{beds}</span>
-					</div>
-					<div className="w3-row">
-						<span className="w3-col s6 l6">Occupied Beds</span>
-						<span className="w3-col s6 l6 w3-center">{occupied}</span>
-					</div>
-				</div>
-      </div>
-		 );
+
+	 const title = <h3><Link to="/beds">Beds</Link></h3>
+ 		return (
+       <Panel header={title} >
+ 				<Row>
+					<Col xs={6}>Occupancy</Col>
+					<Col className="text-right" xs={6}>{occupancy + '%'}</Col>
+ 				</Row>
+				<Row>
+					<Col xs={6}>Total Beds</Col>
+					<Col className="text-right" xs={6}>{beds}</Col>
+ 				</Row>
+				<Row>
+					<Col xs={6}>Occupied Beds</Col>
+					<Col className="text-right" xs={6}>{occupied}</Col>
+ 				</Row>
+       </Panel>
+ 		 );
 	}
 }
 
