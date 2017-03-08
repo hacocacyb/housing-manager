@@ -1,6 +1,7 @@
 import React from 'react'
+import { Row, Col, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { hashHistory } from 'react-router'
+import { Link } from 'react-router'
 
 class BuildingWidget extends React.Component {
 
@@ -11,26 +12,25 @@ class BuildingWidget extends React.Component {
 		})
 		const rows = data.map(function(d) {
 			return (
-				<div key={"widget-row-" + d.name} className="w3-row w3-border-top">
-					<div className="w3-col s6 l6">{d.name}</div>
-					<div className="w3-col s3 l3 w3-center">{d.bedCount}</div>
-					<div className="w3-col s3 l3 w3-center">{d.occupied}</div>
-				</div>
+				<Row key={"widget-row-" + d.name}>
+					<Col xs={6}>{d.name}</Col>
+					<Col className="text-right" xs={3}>{d.bedCount}</Col>
+					<Col className="text-right" xs={3}>{d.occupied}</Col>
+				</Row>
 			)
 		})
+		const title = <h3><Link to="/buildings">Buildings</Link></h3>
 		return (
-      <div className={"w3-card-4 " + this.props.className } onDoubleClick={()=>hashHistory.push('/buildings')}>
-
-				<header className="w3-container w3-safety-blue w3-xlarge">Buildings</header>
-				<div className="w3-container">
-					<div className="w3-row w3-border-bottom">
-						<div className="w3-col s6 l6">Building</div>
-						<div className="w3-col s3 l3 w3-center">Beds</div>
-						<div className="w3-col s3 l3 w3-center">Occupied</div>
-					</div>
-					{rows}
-				</div>
-      </div>
+      <Panel header={title} >
+				<Row>
+					<strong>
+						<Col xs={6}>Building</Col>
+						<Col className="text-right" xs={3}>Beds</Col>
+						<Col className="text-right" xs={3}>Occupied</Col>
+					</strong>
+				</Row>
+				{rows}
+      </Panel>
 		 );
 	}
 }

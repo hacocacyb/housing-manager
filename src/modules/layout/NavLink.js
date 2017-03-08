@@ -12,7 +12,7 @@ export default React.createClass({
     let props = {...this.props}
     return (
       <li className={className}>
-        <Link to={props.to} >
+        <Link to={props.to} onClick={this.props.onClick}>
           {this.props.children}
         </Link>
       </li>

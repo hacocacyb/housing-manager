@@ -1,6 +1,7 @@
 import React from 'react'
+import { Row, Col, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { hashHistory } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 import { getPaymentsWidget } from '../../data/actions/payment'
 var formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -19,25 +20,25 @@ class BillingWidget extends React.Component {
 	render() {
 		const data = this.props.widgetData;
 		const list = data && data.map((d) => {
-			return <div key={d.visitId} className="w3-row w3-border-top"
+			return <Row key={d.visitId}
 				onDoubleClick={()=>hashHistory.push('/payment/' + d.VisitId)}
 			>
-				<span className="w3-col s6">{d.fullName}</span>
-				<span className="w3-col s6 w3-center">{currency(d.pastDue)}</span>
-			</div>
+				<Col xs={6}>{d.fullName}</Col>
+				<Col className="text-right" xs={6}>{currency(d.pastDue)}</Col>
+			</Row>
 		})
+    const title = <h3><Link to="/payments">Past Due</Link></h3>
 
 		return (
-      <div className={"w3-card-4 " + this.props.className }>
-				<header className="w3-container w3-safety-red w3-xlarge">Past Due Statements</header>
-				<div className="w3-container">
-					<div className="w3-row w3-border-bottom">
-						<span className="w3-col s6">Visitor</span>
-						<span className="w3-col s6 w3-center">Past Due</span>
-					</div>
-					{list}
-				</div>
-      </div>
+      <Panel header={title} >
+				<Row>
+          <strong>
+  					<Col bsStyle="font-weight-bold" xs={6}>Visitor</Col>
+  					<Col className="text-right" xs={6}>Past Due</Col>
+          </strong>
+        </Row>
+				{list}
+      </Panel>
 		 );
 	}
 }

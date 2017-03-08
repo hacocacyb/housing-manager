@@ -1,47 +1,55 @@
 import React from 'react'
 import NavLink from './NavLink.js'
 import { Navbar, Nav } from 'react-bootstrap';
-export default (props) => {
-  return (
-    <Navbar collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
-          Sober Living
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-          <NavLink to="/visits">Visits</NavLink>
-          <NavLink to="/payment">Payments</NavLink>
-          <NavLink to="/people">Visitors</NavLink>
-          <NavLink to="/buildings">Buildings</NavLink>
-          <NavLink to="/beds">Beds</NavLink>
-          <NavLink to="/about">About</NavLink>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.toggleNav = this.toggleNav.bind(this)
+    this.onNavClicked = this.onNavClicked.bind(this)
+    this.state = {
+      navExpanded: false
+    }
+  }
+  onNavClicked() {
+    console.log('on nav clicked', this.state.navExpanded)
+    if (this.state.navExpanded) {
+      this.toggleNav()
+      this.forceUpdate()
+    }
+  }
 
-
-
-  )
+  toggleNav() {
+    this.setState({
+      navExpanded: !this.state.navExpanded
+    })
+  }
+  render() {
+    return (
+      <Navbar
+        fixedTop
+        expanded={this.state.navExpanded}
+        onToggle={() => this.toggleNav()}
+      >
+        <Navbar.Header>
+          <Navbar.Brand>
+            Sober Living
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <NavLink onClick={this.onNavClicked} to="/dashboard">Dashboard</NavLink>
+            <NavLink onClick={this.onNavClicked} to="/visits">Visits</NavLink>
+            <NavLink onClick={this.onNavClicked} to="/payment">Payments</NavLink>
+            <NavLink onClick={this.onNavClicked} to="/people">Visitors</NavLink>
+            <NavLink onClick={this.onNavClicked} to="/buildings">Buildings</NavLink>
+            <NavLink onClick={this.onNavClicked} to="/beds">Beds</NavLink>
+            <NavLink onClick={this.onNavClicked} to="/about">About</NavLink>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    )
+  }
 }
 
-    // <nav className="navbar navbar-default">
-    //   <div className="container-fluid">
-    //     <div className="navbar-header">
-    //       <a className="navbar-brand" href="#/about">Sober Living</a>
-    //     </div>
-    //     <ul className="nav navbar-nav">
-    //       <NavLink to="/dashboard">Dashboard</NavLink>
-    //       <NavLink to="/visits">Visits</NavLink>
-    //       <NavLink to="/payment">Payments</NavLink>
-    //       <NavLink to="/people">Visitors</NavLink>
-    //       <NavLink to="/buildings">Buildings</NavLink>
-    //       <NavLink to="/beds">Beds</NavLink>
-    //       <NavLink to="/about">About</NavLink>
-    //     </ul>
-    //   </div>
-    // </nav>
-    //
+export default NavBar

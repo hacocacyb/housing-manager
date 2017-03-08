@@ -7,6 +7,7 @@ import * as Actions from '../data/actions/people.js'
 import  * as FC  from './shared/formControls.js'
 import moment from 'moment'
 import { required, minAge } from '../fn/form-validate.js'
+import { Form, FormControl } from 'react-bootstrap'
 
 class PeopleEdit extends React.Component {
 
@@ -29,7 +30,7 @@ class PeopleEdit extends React.Component {
   render() {
     const editMode = this.props.params.Id && true;
     return (
-      <form className="w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+      <Form horizontal className="w3-container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
         <h4>{editMode ? 'Edit Visitor' : 'Add Visitor'}</h4>
         <p>
           <Button type="submit">Save</Button>
@@ -37,6 +38,7 @@ class PeopleEdit extends React.Component {
         </p>
         <Field name="id" hidden={true} component={FC.renderInput}
           readOnly={true} type="text" placeholder="Person Id" />
+
         <Field name="first"
           component={FC.renderInput}
           type="text"
@@ -48,7 +50,7 @@ class PeopleEdit extends React.Component {
         <Field name="dob" component={FC.renderInput} type="date" placeholder="Date of Birth" validate={[required, minAge(18)]}/>
         <Field name="phone" component={FC.renderInput} type="tel" placeholder="Phone Number" validate={required}/>
 
-      </form>
+      </Form>
     )
 
   }

@@ -1,10 +1,12 @@
 import React from 'react'
+import { Grid, Row, Col } from 'react-bootstrap'
 import BuildingWidget from './BuildingWidget'
 import BedWidget from './BedWidget'
 import BillingWidget from './BillingWidget'
 import { getAll as getAllBeds } from '../../data/actions/bed'
 import { getAll as getAllBuildings } from '../../data/actions/building'
 import store from '../../data/store.js'
+
 
 class Dashboard extends React.Component {
 
@@ -15,19 +17,19 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div className="w3-padding-tiny">
-        <div className="w3-row">
-          <div className="w3-col l4 m6 w3-padding">
+      <Grid>
+        <Row>
+          <Col xs={12} sm={6} md={4}>
             <BuildingWidget/>
-          </div>
-          <div className="w3-col l4 m6 w3-padding">
+          </Col>
+          <Col xs={12} sm={6} md={4}>
             <BedWidget/>
-          </div>
-          <div className="w3-col l4 m6 w3-padding">
+          </Col>
+          <Col xs={12} sm={6} md={4}>
             <BillingWidget/>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }

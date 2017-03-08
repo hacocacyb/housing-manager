@@ -8,11 +8,7 @@
 
 .Content-Body {
   overflow-y:none;
-}
-
-.hm-side-nav {
-  margin-top:0px;
-  z-index: 100002;
+  margin-top: 71px;
 }
 
 .form-error {
