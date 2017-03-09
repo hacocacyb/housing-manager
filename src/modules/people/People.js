@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
-import * as Actions from '../data/actions/people.js'
-import GridPanel from './shared/GridPanel.js'
-import Button from './shared/Button.js'
 import moment from 'moment'
+import * as Actions from '../../data/actions/people.js'
+import GridPanel from '../../shared/GridPanel.js'
+import Button from '../../shared/Button.js'
 
 const colDefs = [
 	{headerName: 'Id', field: 'id',hide: true},

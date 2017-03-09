@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field } from 'redux-form'
 import { ButtonToolbar } from 'react-bootstrap'
-import { required } from '../fn/form-validate.js'
-import * as Actions from '../data/actions/building.js'
-import * as FC from './form/Controls'
-import mapIdsFromObject from '../fn/mapIdsFromObject'
-import Button from './shared/Button'
+import { required } from '../../fn/form-validate.js'
+import * as Actions from '../../data/actions/building.js'
+import * as FC from '../../form/Controls'
+import mapIdsFromObject from '../../fn/mapIdsFromObject'
+import Button from '../../shared/Button'
 
 class BuildingEdit extends React.Component {
 

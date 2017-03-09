@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
-import * as Actions from '../data/actions/visit.js'
-import GridPanel from './shared/GridPanel.js'
-import Button from './shared/Button.js'
+import * as Actions from '../../data/actions/visit.js'
+import GridPanel from '../../shared/GridPanel.js'
+import Button from '../../shared/Button.js'
 import moment from 'moment'
 
 const dateCellFormatter = function(obj) {

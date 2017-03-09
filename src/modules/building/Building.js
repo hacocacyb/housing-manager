@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {hashHistory} from 'react-router'
-import * as Actions from '../data/store.js'
-import GridPanel from './shared/GridPanel.js'
-import Button from './shared/Button.js'
+import * as Actions from '../../data/store.js'
+import GridPanel from '../../shared/GridPanel.js'
+import Button from '../../shared/Button.js'
 
 var colDefs = [
   {

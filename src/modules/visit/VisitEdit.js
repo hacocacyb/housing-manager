@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { ButtonToolbar } from 'react-bootstrap'
-import { required } from '../fn/form-validate.js'
-import Button from './shared/Button.js'
-import mapIdsFromObject from '../fn/mapIdsFromObject'
-import * as Actions from '../data/actions/visit.js'
-import * as FC from './form/Controls'
+import { required } from '../../fn/form-validate.js'
+import Button from '../../shared/Button.js'
+import mapIdsFromObject from '../../fn/mapIdsFromObject'
+import * as Actions from '../../data/actions/visit.js'
+import * as FC from '../../form/Controls'
 
 const getFormValue = formValueSelector('visitForm');
 

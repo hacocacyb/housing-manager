@@ -1,14 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {hashHistory, withRouter} from 'react-router'
-import {reduxForm, Field} from 'redux-form'
-import {required} from '../fn/form-validate.js'
-import * as BedActions from '../data/actions/bed'
-import mapIdsFromObject from '../fn/mapIdsFromObject'
-import Button from './shared/Button.js'
-import { ButtonToolbar } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { hashHistory, withRouter, ButtonToolbar } from 'react-router'
+import { reduxForm, Field } from 'redux-form'
+import { required } from '../../fn/form-validate.js'
+import * as BedActions from '../../data/actions/bed'
+import mapIdsFromObject from '../../fn/mapIdsFromObject'
+import Button from '../../shared/Button.js'
 
-import * as FC from './form/Controls'
+import * as FC from '../../form/Controls'
 
 class BedEdit extends React.Component {
 

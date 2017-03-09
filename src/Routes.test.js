@@ -5,7 +5,8 @@ import { shallow } from 'enzyme'
 import { Router, Route } from 'react-router'
 import createHistory from 'react-router/lib/createMemoryHistory'
 import Dashboard from './modules/dashboard/Dashboard'
-import Bed from './modules/Bed.js'
+import Bed from './modules/bed/Bed.js'
+import Building from './modules/building/Building.js'
 
 describe('Router implementation', () => {
   let a, node
@@ -30,6 +31,8 @@ describe('Router implementation', () => {
     //small smapling
     expect(pathMap['/dashboard']).toEqual(Dashboard)
     expect(pathMap['/beds']).toEqual(Bed)
+    expect(pathMap['/buildings']).toEqual(Building)
+
   })
 
   it('renders header', () => {
