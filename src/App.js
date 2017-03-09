@@ -7,7 +7,7 @@ import * as Actions from './data/store'
 import 'bootstrap/dist/css/bootstrap.css';
 
 import 'ag-grid/dist/styles/ag-grid.css'
-import 'ag-grid/dist/styles/theme-bootstrap.css'
+import 'ag-grid/dist/styles/theme-material.css'
 
 import 'font-awesome/css/font-awesome.css'
 import 'react-widgets/dist/css/react-widgets.css'

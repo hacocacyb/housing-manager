@@ -26,7 +26,6 @@ class PaymentHistory extends React.Component {
       })
       billDate = billDate.add(payPeriodDays, 'days');
     }
-
     if ( payments ) {
       payments.forEach(function(payment) {
         ledger.push({
@@ -63,6 +62,7 @@ class PaymentHistory extends React.Component {
       }
       history.push(
         <DataRow
+          className="data-row"
           key={ix}
           date={dateFormat}
           cost={row.cost}

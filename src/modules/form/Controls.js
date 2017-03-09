@@ -1,56 +1,67 @@
 import React from 'react'
-import Label from './Label'
-import ErrorWarningSpan from './ErrorWarningSpan'
+import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
+import Combobox from 'react-widgets/lib/Combobox'
 
+function validationState(meta) {
+  const { touched, error, warning } = meta;
+  if (touched) {
+    if (error) {
+      return 'error'
+    }
+    if (warning) {
+      return 'warning'
+    }
+  }
+  return null;
+}
 export function renderInput( field ) {
-  let  { hidden, placeholder, input, type, readOnly, meta } = field
-  return <div hidden={hidden}>
-    <Label {...field}/>
-    <input style={{
-        width: field.width || 300
-      }}
-      {...input}
+  const  { hidden, placeholder, input, type, readOnly, meta } = field
+  return (
+    <FormGroup
+      controlId={input.name}
+      validationState={validationState(meta)}
       hidden={hidden}
-      type={type}
-      placeholder={placeholder}
-      readOnly={readOnly}
-    ></input>
-    <ErrorWarningSpan {...meta} />
-  </div>
+    >
+      <ControlLabel>{placeholder}</ControlLabel>
+      <FormControl type={type}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        value={input.value}
+        onChange={input.onChange}
+      />
+      <FormControl.Feedback />
+    </FormGroup>
+  )
 }
 
 export function renderCombo( field ) {
-  const { data, hidden, placeholder, input, readOnly, meta } = field;
-  let { valueField, textField } = field;
-  valueField = valueField || 'id'
-  textField = textField || 'desc'
-  const options = data.map((d, ix) => {
-    const value = d[valueField]
-    const desc = d[textField]
-    return <option key={ix} value={value}>{desc}</option>
-  })
-  return <div>
-    <Label {...field}/>
-    <select
-      style={{
-        width: field.width || 300,
-        padding: '2px 0 2px 0'
-      }}
-      readOnly={readOnly}
+  const { valueField, textField, data, hidden, placeholder, input, readOnly, meta } = field;
+  return (
+    <FormGroup
+      controlId={input.name}
+      validationState={validationState(meta)}
       hidden={hidden}
-      placeholder={placeholder}
-      {...input}
-      onChange={(option) => {
-        if (field.onChangeAction !== undefined) {
-          field.onChangeAction(option.target.value)
-        }
-        input.onChange(option)
-      }}
     >
-      <option value="" disabled>{"Choose a " + placeholder + "..."}</option>
-      {options}
-    </select>
-    <ErrorWarningSpan {...meta} />
+      <ControlLabel>{placeholder}</ControlLabel>
 
-    </div>
+      <Combobox
+        {...input}
+        readOnly={readOnly}
+        disabled={readOnly}
+        hidden={hidden}
+        onBlur={() => input.onBlur()}
+        valueField={valueField || 'id'}
+        textField={textField || 'desc'}
+        placeholder={placeholder}
+        data={data}
+        onChange={(option) => {
+          if (field.onChangeAction !== undefined) {
+            field.onChangeAction(option)
+          }
+          input.onChange(option)
+        }}
+      />
+      <FormControl.Feedback className="select-feedback"/>
+    </FormGroup>
+  )
 }

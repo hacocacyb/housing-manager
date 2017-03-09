@@ -12,6 +12,8 @@ import PaymentHistory from './PaymentHistory.js'
 import { getVisitById } from '../../data/store.js'
 import mapIdsFromObject from '../../fn/mapIdsFromObject'
 
+import './payment.css'
+
 const getFormValue = formValueSelector('paymentForm');
 
 class Payment extends React.Component {
@@ -39,69 +41,72 @@ class Payment extends React.Component {
   }
 
   onVisitChange(visit) {
-    if (visit) {
-      hashHistory.push('payment/' + visit);
+    if (visit && visit.id) {
+      hashHistory.push('payment/' + visit.id);
     }
   }
 
   render() {
     const editMode = false;//this.state.editMode;
-    const { visits, currentVisit, currentPayments } = this.props;
+    const { visits, currentVisit, currentPayments, invalid } = this.props;
 
     return (
       <div className="container">
-        <form onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+        <form onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} style={{
+            minHeight: 500
+          }}>
           <header className="card-title">Payments</header>
           <ButtonToolbar>
-            <Button type="submit">Add Payment</Button>
-            <Button onClick={this.onCancel}>Cancel</Button>
+            <Button type="submit" disabled={invalid}>Add Payment</Button>
           </ButtonToolbar>
-          <Row>
-            <Col md={5}>
 
-              <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
-              <Field
-                name="visitId"
-                width={180}
-                labelWidth={80}
-                readOnly={editMode}
-                data={visits}
-                component={FC.renderCombo}
-                validate={required}
-                onChangeAction={this.onVisitChange.bind(this)}
-                textField="display"
-                type="text"
-                placeholder="Visit"/>
+              <Row>
+              <Col xs={12} md={6}>
+                <Field name="id" hidden={true} component={FC.renderInput} readOnly={true} type="text" placeholder="Visit Id" />
+                <Field
+                  name="visitId"
+                  width={220}
+                  labelWidth={80}
+                  readOnly={editMode}
+                  data={visits}
+                  component={FC.renderCombo}
+                  validate={required}
+                  onChangeAction={this.onVisitChange.bind(this)}
+                  textField="display"
+                  type="text"
+                  placeholder="Visit"/>
 
-              <Field name="amount"
-                width={180}
-                labelWidth={80}
-                component={FC.renderInput}
-                readOnly={editMode}
-                type="number"
-                minValue={0}
-                validate={[required, (val) => {
-                  if (val <= 0) {
-                    return 'Invalid Amount'
-                  }
-                }]}
-                placeholder="Amount"/>
+              </Col>
+              <Col xs={12} md={6}>
+                <Field name="amount"
+                  width={120}
+                  labelWidth={80}
+                  component={FC.renderInput}
+                  readOnly={editMode}
+                  type="number"
+                  minValue={0}
+                  validate={[required, (val) => {
+                    if (val <= 0) {
+                      return 'Invalid Amount'
+                    }
+                  }]}
+                  placeholder="Amount"/>
+              </Col>
+              <Col xs={6}>
               <Field name="payDate"
                 width={180}
                 labelWidth={80}
+                hidden={true}
                 readOnly={editMode}
                 component={FC.renderInput}
                 type="date"
-                validate={required}
                 placeholder="Date"/>
             </Col>
-            <Col md={7}>
+            </Row>
               <PaymentHistory
                 visit={currentVisit}
                 payments={currentPayments}
               />
-            </Col>
-          </Row>
         </form>
       </div>
     )

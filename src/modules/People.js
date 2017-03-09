@@ -17,12 +17,12 @@ const colDefs = [
 		}
 	},
 	{headerName: 'Phone', field: 'phone', width: 140},
-	{headerName: 'Visiting', field: 'visiting', width: 100,
+	{headerName: 'Visiting', field: 'visiting', width: 60,
 		cellStyle: {
 			textAlign: 'center'
 		},
-		cellFormatter: function(obj) {
-			return obj.value ? 'Y' : ''
+		cellRenderer: function(obj) {
+			return obj.value ? '<span class="text-success glyphicon glyphicon-ok" />' : ''
 		}
 	}
 ]

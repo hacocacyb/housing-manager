@@ -17,9 +17,10 @@ const rentalPeriod = function(obj) {
 	}
 }
 let colDefs = [
-	{headerName: 'Visitor', cellFormatter: function(obj) {
+	{headerName: 'Visitor', cellRenderer: function(obj) {
 		const data = obj.node.data;
-		return data.first + (data.middle ? ' ' + data.middle + ' ' : ' ') + data.last;
+		const fullName = data.first + (data.middle ? ' ' + data.middle + ' ' : ' ') + data.last;
+		return fullName;
 	}, colId: 'visitor'},
 	{headerName: 'Building', field: 'buildingName', width: 160},
 	{headerName: 'Bed', field: 'bedName', width: 120},

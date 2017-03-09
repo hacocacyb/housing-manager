@@ -29,8 +29,9 @@ class GridPanel extends React.Component {
         <ButtonToolbar className="grid-panel-toolbar">
           {props.buttons}
         </ButtonToolbar>
-        <div className="ag-bootstrap grid-panel-body" style={style}>
+        <div className="ag-material grid-panel-body" style={style}>
           <ReduxGrid
+            rowHeight={48}
             onRowSelected={this.onRowSelected.bind(this)}
             enableColResize={true}
             enableSorting={true}
