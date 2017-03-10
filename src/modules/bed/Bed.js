@@ -10,11 +10,14 @@ const colDefs = [
 	{headerName: 'Bed Name', field: 'name', width: 160},
 	{headerName: 'Building Name', field: 'buildingName', width: 160},
 	{headerName: 'Bed Type', field: 'type', width: 100},
-	{headerName: 'Occupied', field: 'occupied', width: 100, cellStyle: {
-			textAlign: 'center'
-		}, cellFormatter: function(obj) {
-		return obj.value ? 'Y' : ''
-	}}
+	{headerName: 'Occupied',
+		field: 'occupied',
+		width: 100,
+		align: 'center',
+		cellFormatter: function(obj) {
+			return obj.value ? 'Y' : ''
+		}
+	}
 ]
 
 class Bed extends React.Component {

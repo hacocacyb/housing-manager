@@ -18,9 +18,7 @@ const colDefs = [
 	},
 	{headerName: 'Phone', field: 'phone', width: 140},
 	{headerName: 'Visiting', field: 'visiting', width: 60,
-		cellStyle: {
-			textAlign: 'center'
-		},
+		align: 'center',
 		cellRenderer: function(obj) {
 			return obj.value ? '<span class="text-success glyphicon glyphicon-ok" />' : ''
 		}
@@ -33,6 +31,9 @@ class People extends React.Component {
 		this.state = {
 			selection : null
 		};
+		this.edit = this.edit.bind(this)
+		this.onEditClick = this.onEditClick.bind(this)
+		this.onDblClick = this.onDblClick.bind(this)
 	}
 
 	componentWillMount() {
@@ -43,13 +44,22 @@ class People extends React.Component {
 		hashHistory.push('/people/edit')
 	}
 
-	edit() {
+	edit(id) {
+		hashHistory.push('people/edit/' + id);
+	}
+	onDblClick(node) {
+		if (node && node.data) {
+			this.edit(node.data.id)
+		}
+	}
+	onEditClick() {
 		if ( this.state.selection &&  this.state.selection.id) {
-			hashHistory.push('people/edit/' + this.state.selection.id);
+			this.edit(this.state.selection.id)
 		}
 	}
 
 	onSelectionChange(sel) {
+		console.log('selection change so setting the state to new selection')
 		this.setState({
 			selection: sel
 		})
@@ -58,7 +68,7 @@ class People extends React.Component {
 	render() {
 		const buttons = [
 			<Button key="add" onClick={this.add.bind(this)} text="Add Visitor" />,
-			<Button key="edit" onClick={this.edit.bind(this)} text="Edit"
+			<Button key="edit" onClick={this.onEditClick} text="Edit"
 				disabled={this.state.selection ? false : true}/>,
 			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>
 		]
@@ -67,7 +77,7 @@ class People extends React.Component {
 				gridName="peopleGrid"
 				title="Visitors"
 				onSelectionChange={this.onSelectionChange.bind(this)}
-				onRowDoubleClicked={this.edit.bind(this)}
+				onRowDoubleClicked={this.onDblClick}
 				rowData={this.props.data}
 				columnDefs={colDefs}
 				buttons={buttons}

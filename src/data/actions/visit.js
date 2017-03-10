@@ -58,7 +58,7 @@ export function save(obj) {
       type: 'SAVING_'+ actionNoun
     })
 
-    fetch(apiRoot, {
+    return fetch(apiRoot, {
       method: 'PUT',
       body: JSON.stringify(obj)
     })

@@ -26,7 +26,7 @@ class PeopleEdit extends React.Component {
     hashHistory.push('/people')
   }
   handleSubmit(formValues) {
-    this.props.dispatch(Actions.save(formValues))
+    return this.props.dispatch(Actions.save(formValues))
   }
 
   render() {
@@ -35,7 +35,7 @@ class PeopleEdit extends React.Component {
       <form className="container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
         <header className="card-title">{editMode ? 'Edit Visitor' : 'Add Visitor'}</header>
         <ButtonToolbar>
-          <Button type="submit">Save</Button>
+          <Button type="submit" disabled={this.props.pristine}>Save</Button>
           <Button onClick={this.onCancel.bind(this)}>Cancel</Button>
         </ButtonToolbar>
         <Field name="id" hidden={true} component={FC.renderInput}
@@ -61,6 +61,25 @@ class PeopleEdit extends React.Component {
 PeopleEdit = reduxForm({
   form:'peopleForm',
   enableReinitialize: true,
+  // validate: function(values, props) {
+  //   const errors = {}
+  //   console.log(
+  //     'validating? ', values, props
+  //   )
+  //   if (!values.first) {
+  //     errors.first = 'Required'
+  //   }
+  //   if (!values.last) {
+  //     errors.last = 'Required'
+  //   }
+  //   if (!values.dob) {
+  //     errors.dob = 'Required'
+  //   }
+  //   if (!values.phone) {
+  //     errors.phone = 'Required'
+  //   }
+  //   return errors;
+  // },
   onSubmitSuccess: function(submitResult, dispatch) {
     dispatch(Actions.removeCurrent());
   }

@@ -2,6 +2,16 @@ var moment = require('moment')
 
 module.exports = {
   required: value => value ? undefined : 'Required',
+  required: function(value) {
+
+    if (value) {
+      console.log('** required Check', value, 'returning null')
+      return undefined;
+    } else {
+      console.log('** required Check', value, 'returningn required')
+      return 'Required'
+    }
+  },
   minAge: function(age) {
     return function(value) {
       let val = moment(value);

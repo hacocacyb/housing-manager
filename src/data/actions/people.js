@@ -28,23 +28,23 @@ export function get(id, byForce) {
     })
 
     if (byForce) {
-      fetchById(id, dispatch)
+      return fetchById(id, dispatch)
     } else {
       const state = getState()
       const localPerson = state.people.byId[id]
       if (localPerson) {
-        dispatch({
+        return dispatch({
           type: 'PERSON_FETCHED',
           payload: localPerson
         })
       } else {
-        fetchById(id, dispatch);
+        return fetchById(id, dispatch);
       }
     }
   }
 }
 function fetchById(id, dispatch) {
-  fetch(apiRoot + '/' + id).then((response) => {
+  return fetch(apiRoot + '/' + id).then((response) => {
     return response.json();
   }).then((json) => {
     dispatch({
@@ -65,7 +65,7 @@ export function save(obj) {
       type: 'SAVING_PERSON'
     })
 
-    fetch(apiRoot, {
+    return fetch(apiRoot, {
       method: 'PUT',
       body: JSON.stringify(obj)
     }).then((response) => {

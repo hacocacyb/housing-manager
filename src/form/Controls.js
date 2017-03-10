@@ -1,10 +1,11 @@
 import React from 'react'
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
+import { FormGroup, ControlLabel, FormControl, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import Combobox from 'react-widgets/lib/Combobox'
-
+import './tooltip.css'
 function validationState(meta) {
-  const { touched, error, warning } = meta;
-  if (touched) {
+  const { touched, dirty, error, warning } = meta;
+  console.log('touched', touched)
+  if (dirty) {
     if (error) {
       return 'error'
     }
@@ -15,7 +16,26 @@ function validationState(meta) {
   return null;
 }
 export function renderInput( field ) {
+  console.log('field', field.input.name, 'Touched?: ', field.meta.touched, ' dirty? ', field.meta.dirty)
   const  { hidden, placeholder, input, type, readOnly, meta } = field
+  console.log('render', input.name, meta.error)
+  let control = (
+    <FormControl
+      type={type}
+      placeholder={placeholder}
+      readOnly={readOnly}
+      value={input.value}
+      onChange={input.onChange}
+    />
+  )
+  if (meta.dirty && meta.error) {
+    const tooltip = <Tooltip className="red-tooltip" id={input.name + '-tooltip'}>{meta.error}</Tooltip>
+    control = (
+      <OverlayTrigger placement="top" overlay={tooltip} >
+        {control}
+      </OverlayTrigger>
+    )
+  }
   return (
     <FormGroup
       controlId={input.name}
@@ -23,12 +43,7 @@ export function renderInput( field ) {
       hidden={hidden}
     >
       <ControlLabel>{placeholder}</ControlLabel>
-      <FormControl type={type}
-        placeholder={placeholder}
-        readOnly={readOnly}
-        value={input.value}
-        onChange={input.onChange}
-      />
+      {control}
       <FormControl.Feedback />
     </FormGroup>
   )

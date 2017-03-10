@@ -11,7 +11,7 @@ import * as PeopleActions from './actions/people'
 import * as VisitActions from './actions/visit'
 
 let mw = [promise(), thunk]
-if (false && process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   mw.push(logger())
 }
 const middleware = applyMiddleware(...mw)

@@ -2,6 +2,7 @@ import React from 'react'
 import ReduxGrid from './ReduxGrid'
 import withBodyResize from './withBodyResize'
 import { ButtonToolbar } from 'react-bootstrap'
+import './GridPanel.css'
 
 class GridPanel extends React.Component {
 
@@ -17,12 +18,27 @@ class GridPanel extends React.Component {
       this.props.onSelectionChange();
     }
   }
-
+  applyColumnDefaults(columns) {
+    return columns.map(function(col) {
+      if (col.align) {
+        let className;
+        if (col.align === 'right') {
+          className = ' align-right'
+        } else if (col.align === 'center') {
+          className = ' align-center'
+        }
+        col.cellClass += className;
+        col.headerClass += className;
+      }
+      return col;
+    })
+  }
   render() {
     const props = this.props;
     let style = {
       height: props.height || 400
     }
+    const columnDefs = this.applyColumnDefaults(props.columnDefs);
     return (
       <div className="fluid-container grid-panel">
         <header className="card-title">{props.title}</header>
@@ -36,6 +52,7 @@ class GridPanel extends React.Component {
             enableColResize={true}
             enableSorting={true}
             rowSelection={'single'}
+            columnDefs={columnDefs}
             {...props}
           />
         </div>

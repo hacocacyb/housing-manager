@@ -1,20 +1,22 @@
 import React from 'react'
 
-function withBodyResize(WrappedComponent) {
+function withBodyResize(WrappedComponent, params={}) {
   return class extends React.Component {
     constructor(props) {
   		super(props)
   		this.state = {
-  			selectedId : null,
-  			gridHeight : 100
+  			height : props.height || props.minHeight || 100,
+        adjustment: params.adjustment
   		};
 
   		this.updateDimensions = this.updateDimensions.bind(this);
   	}
 
   	updateDimensions() {
+      console.log(this.state.adjustment)
+      const bufferZone = this.state.adjustment || 140;
   		this.setState({
-  			gridHeight: window.innerHeight - 140
+  			height: window.innerHeight - bufferZone
   		})
   	}
 
@@ -28,7 +30,7 @@ function withBodyResize(WrappedComponent) {
         window.removeEventListener("resize", this.updateDimensions);
     }
     render() {
-      let height = this.state.gridHeight;
+      let height = this.state.height;
 
       return <WrappedComponent {...this.props} height={height}/>
     }

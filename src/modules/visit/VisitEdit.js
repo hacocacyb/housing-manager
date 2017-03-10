@@ -29,7 +29,7 @@ class VisitEdit extends React.Component {
   }
   handleSubmit(formValues) {
     formValues = mapIdsFromObject(formValues);
-    this.props.dispatch(Actions.save(formValues))
+    return this.props.dispatch(Actions.save(formValues))
   }
 
   buildPayments(intake, schedule) {
@@ -57,10 +57,10 @@ class VisitEdit extends React.Component {
 
     return (
       <div className="container">
-        <form className="" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+        <form onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
           <header className="card-title">{editMode ? 'Edit Visit' : 'Add Visit'}</header>
           <ButtonToolbar>
-            <Button type="submit">Save</Button>
+            <Button type="submit" disabled={this.props.pristine}>Save</Button>
             <Button onClick={this.onCancel.bind(this)}>Cancel</Button>
           </ButtonToolbar>
           <div>

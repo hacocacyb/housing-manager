@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { hashHistory, withRouter, ButtonToolbar } from 'react-router'
+import { hashHistory, withRouter } from 'react-router'
 import { reduxForm, Field } from 'redux-form'
+import { ButtonToolbar } from 'react-bootstrap'
 import { required } from '../../fn/form-validate.js'
 import * as BedActions from '../../data/actions/bed'
 import mapIdsFromObject from '../../fn/mapIdsFromObject'
 import Button from '../../shared/Button.js'
+
+import withBodyResize from '../../shared/withBodyResize'
 
 import * as FC from '../../form/Controls'
 
@@ -32,11 +35,15 @@ class BedEdit extends React.Component {
 
     return (
       <form
+        style={{
+          height: this.props.height
+        }}
         className="container"
         onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))}>
         <header className="card-title">{editMode
             ? 'Edit Bed'
-            : 'Add Bed'}</header>
+            : 'Add Bed'}
+        </header>
 
         <ButtonToolbar>
           <Button type="submit" disabled={this.props.pristine}>Save</Button>
@@ -76,6 +83,9 @@ class BedEdit extends React.Component {
   }
 }
 
+BedEdit = withBodyResize(BedEdit, {
+  adjustment: 61
+})
 BedEdit = reduxForm({
   form: 'bedForm',
   enableReinitialize: true,

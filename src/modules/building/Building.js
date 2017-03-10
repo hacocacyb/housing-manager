@@ -19,16 +19,12 @@ var colDefs = [
     headerName: 'Total Beds',
     field: 'bedCount',
     width: 100,
-    cellStyle: {
-      textAlign: 'right'
-    }
+    align: 'right'
   }, {
     headerName: 'Occupied',
     field: 'occupied',
     width: 100,
-    cellStyle: {
-      textAlign: 'right'
-    }
+    align: 'right'
   }, {
     headerName: 'Address 1',
     field: 'addr1',
