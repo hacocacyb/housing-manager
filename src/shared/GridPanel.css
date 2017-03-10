@@ -1,0 +1,17 @@
+.ag-header-cell.align-right .ag-header-cell-label {
+  text-align: right;
+}
+.ag-cell.align-right {
+  text-align: right;
+}
+.ag-header-cell.align-center .ag-header-cell-label {
+  text-align: center;
+}
+.ag-cell.align-center {
+  text-align: center;
+}
+
+.grid-panel {
+  padding-left: 10px;
+  padding-right: 10px;
+}
