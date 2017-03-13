@@ -65,13 +65,11 @@ class Visit extends React.Component {
 
 	render() {
 		const buttons = [
-			<Button key="add" onClick={this.add.bind(this)} text="Add Visit" />,
-			<Button key="addVisitor" onClick={()=>hashHistory.push('people/edit')}>Add Visitor</Button>,
+			<Button key="add" onClick={this.add.bind(this)} text="New Visit" />,
 			<Button key="viewPayment" onClick={this.addPayment.bind(this)}
 				disabled={this.state.selection ? false : true}>View Payments</Button>,
 			<Button key="edit" onClick={this.edit.bind(this)} text="Edit"
-				disabled={this.state.selection ? false : true}/>,
-			<Button key="refresh" onClick={this.props.getAll} text="Refresh"/>
+				disabled={this.state.selection ? false : true}/>
 		]
 		return (
 		  <GridPanel

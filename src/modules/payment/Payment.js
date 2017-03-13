@@ -57,7 +57,7 @@ class Payment extends React.Component {
           }}>
           <header className="card-title">Payments</header>
           <ButtonToolbar>
-            <Button type="submit" disabled={invalid}>Add Payment</Button>
+            <Button type="submit" disabled={invalid}>Submit Payment</Button>
           </ButtonToolbar>
 
               <Row>

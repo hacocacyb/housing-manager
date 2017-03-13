@@ -46,18 +46,18 @@ class Bed extends React.Component {
 
 	render() {
 		const toolbar = [
-			<Button key="add" onClick={this.add}>Add Bed</Button>,
+			<Button key="add" onClick={this.add}>New Bed</Button>,
 			<Button key="edit" onClick={this.edit.bind(this)}
 				disabled={this.state.selection ? false : true}
 				text="Edit"
-			/>,
-			<Button key="refresh" onClick={this.props.getAll}>Refresh</Button>
+			/>
 		]
 		return (
 
 				<GridPanel
 					gridName="bedGrid"
 					title="Beds"
+					loading={this.props.fetching}
 					onRowDoubleClicked={this.edit.bind(this)}
 					onSelectionChange={this.onSelectionChange.bind(this)}
 					rowData={this.props.data}
