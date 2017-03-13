@@ -13,7 +13,6 @@ function withBodyResize(WrappedComponent, params={}) {
   	}
 
   	updateDimensions() {
-      console.log(this.state.adjustment)
       const bufferZone = this.state.adjustment || 140;
   		this.setState({
   			height: window.innerHeight - bufferZone
