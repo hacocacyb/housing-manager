@@ -4,7 +4,6 @@ import Combobox from 'react-widgets/lib/Combobox'
 import './tooltip.css'
 function validationState(meta) {
   const { touched, dirty, error, warning } = meta;
-  console.log('touched', touched)
   if (dirty) {
     if (error) {
       return 'error'

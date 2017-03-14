@@ -37,7 +37,10 @@ class BuildingEdit extends React.Component {
               : 'Add Building'}</header>
           <ButtonToolbar>
             <Button type="submit" disabled={this.props.pristine}>Save</Button>
-            <Button onClick={(e) => hashHistory.push('/buildings')}>Cancel</Button>
+            <Button onClick={(e) => {
+              this.props.dispatch(Actions.removeCurrent())
+              hashHistory.push('/buildings')
+            }}>Cancel</Button>
           </ButtonToolbar>
           <Field name="id"
             component={FC.renderInput}

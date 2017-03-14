@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { hashHistory } from 'react-router'
 import moment from 'moment'
 import * as Actions from '../../data/actions/people.js'
 import GridPanel from '../../shared/GridPanel.js'
 import Button from '../../shared/Button.js'
+import gridPanelWrapper from '../../shared/GridPanelWrapper'
 
 const colDefs = [
 	{headerName: 'Id', field: 'id',hide: true},
@@ -26,57 +26,19 @@ const colDefs = [
 ]
 class People extends React.Component {
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			selection : null
-		};
-		this.edit = this.edit.bind(this)
-		this.onEditClick = this.onEditClick.bind(this)
-		this.onDblClick = this.onDblClick.bind(this)
-	}
-
-	componentWillMount() {
-		this.props.getAll();
-  }
-
-	add() {
-		hashHistory.push('/people/edit')
-	}
-
-	edit(id) {
-		hashHistory.push('people/edit/' + id);
-	}
-	onDblClick(node) {
-		if (node && node.data) {
-			this.edit(node.data.id)
-		}
-	}
-	onEditClick() {
-		if ( this.state.selection &&  this.state.selection.id) {
-			this.edit(this.state.selection.id)
-		}
-	}
-
-	onSelectionChange(sel) {
-		this.setState({
-			selection: sel
-		})
-	}
-
 	render() {
 		const buttons = [
-			<Button key="add" onClick={this.add.bind(this)} text="New Visitor" />,
-			<Button key="edit" onClick={this.onEditClick} text="Edit"
-				disabled={this.state.selection ? false : true}/>
+			<Button key="add" onClick={this.props.add} text="New Visitor" />,
+			<Button key="edit" onClick={this.props.onEditClick} text="Edit"
+				disabled={this.props.selection ? false : true}/>
 		]
 		return (
 		  <GridPanel
 				gridName="peopleGrid"
 				title="Visitors"
 				loading={this.props.fetching}
-				onSelectionChange={this.onSelectionChange.bind(this)}
-				onRowDoubleClicked={this.onDblClick}
+				onRowDoubleClicked={this.props.onRowDoubleClicked}
+				onSelectionChange={this.props.onSelectionChange}
 				rowData={this.props.data}
 				columnDefs={colDefs}
 				buttons={buttons}
@@ -84,6 +46,7 @@ class People extends React.Component {
 		 );
 	}
 }
+People = gridPanelWrapper(People, 'people/edit', Actions)
 
 export default connect((store) => {
 	return {...store.people};
