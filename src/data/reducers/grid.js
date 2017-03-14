@@ -1,11 +1,11 @@
-const APP_NAME = 'sober-living'
+const APP_NAME = 'Housing_Manager'
 let firstState = {}
 if (typeof localStorage !== 'undefined') {
   try {
-    firstState = JSON.parse(localStorage[APP_NAME].gridState) || {};
+    firstState = JSON.parse(localStorage[APP_NAME + '.gridState']) || {};
   } catch(e) {}
 }
-
+console.log(firstState)
 export default function grids(state=firstState, action) {
   let payload = action.payload;
   switch(action.type) {
