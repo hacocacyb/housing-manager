@@ -71,19 +71,19 @@ export function saveBed(bed) {
       type: 'SAVING_BED'
     })
 
-    fetch('api/beds', {
+    return fetch('api/beds', {
       method: 'PUT',
       body: JSON.stringify(bed)
     }).then((response) => {
       return response.json();
     }).then((json) => {
       hashHistory.push('/beds')
-      dispatch({
+      return dispatch({
         type: 'BED_SAVED',
         payload: json
       })
     }).catch((err) => {
-      dispatch({type: "SAVING_BED_FAILED", payload: err})
+      return dispatch({type: "SAVING_BED_FAILED", payload: err})
     })
   }
 

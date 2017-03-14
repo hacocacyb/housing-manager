@@ -3,6 +3,7 @@ import ReduxGrid from './ReduxGrid'
 import withBodyResize from './withBodyResize'
 import { ButtonToolbar } from 'react-bootstrap'
 import './GridPanel.css'
+import Mask from './Mask.js'
 
 class GridPanel extends React.Component {
 
@@ -40,21 +41,23 @@ class GridPanel extends React.Component {
     }
     const columnDefs = this.applyColumnDefaults(props.columnDefs);
     return (
-      <div className="fluid-container grid-panel">
+      <div className={"fluid-container grid-panel"}>
         <header className="card-title">{props.title}</header>
         <ButtonToolbar className="grid-panel-toolbar">
           {props.buttons}
         </ButtonToolbar>
         <div className="ag-material grid-panel-body" style={style}>
-          <ReduxGrid
-            rowHeight={48}
-            onRowSelected={this.onRowSelected.bind(this)}
-            enableColResize={true}
-            enableSorting={true}
-            rowSelection={'single'}
-            columnDefs={columnDefs}
-            {...props}
-          />
+          <Mask masked={props.loading}>
+            <ReduxGrid
+              rowHeight={48}
+              onRowSelected={this.onRowSelected.bind(this)}
+              enableColResize={true}
+              enableSorting={true}
+              rowSelection={'single'}
+              columnDefs={columnDefs}
+              {...props}
+            />
+          </Mask>
         </div>
       </div>
     )

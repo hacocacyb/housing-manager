@@ -1,15 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { hashHistory, withRouter } from 'react-router'
-import { reduxForm, Field } from 'redux-form'
-import { ButtonToolbar } from 'react-bootstrap'
-import { required } from '../../fn/form-validate.js'
+import {connect} from 'react-redux'
+import {hashHistory, withRouter} from 'react-router'
+import {reduxForm, Field} from 'redux-form'
+import {ButtonToolbar} from 'react-bootstrap'
+import {required} from '../../fn/form-validate.js'
 import * as BedActions from '../../data/actions/bed'
 import mapIdsFromObject from '../../fn/mapIdsFromObject'
 import Button from '../../shared/Button.js'
-
+import Mask from '../../shared/Mask'
 import withBodyResize from '../../shared/withBodyResize'
-
 import * as FC from '../../form/Controls'
 
 class BedEdit extends React.Component {
@@ -25,7 +24,7 @@ class BedEdit extends React.Component {
 
   handleSubmit(formValues) {
     formValues = mapIdsFromObject(formValues)
-    this.props.dispatch(BedActions.saveBed(formValues))
+    return this.props.dispatch(BedActions.saveBed(formValues))
   }
 
   render() {
@@ -34,58 +33,65 @@ class BedEdit extends React.Component {
     const editMode = this.props.params.Id && true;
 
     return (
+
       <form
         style={{
-          height: this.props.height
+          height: this.props.height,
+          position: 'relative'
         }}
         className="container"
         onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))}>
-        <header className="card-title">{editMode
-            ? 'Edit Bed'
-            : 'Add Bed'}
-        </header>
+        <Mask masked={this.props.submitting}>
+          <header className="card-title">{editMode
+              ? 'Edit Bed'
+              : 'Add Bed'}
+          </header>
 
-        <ButtonToolbar>
-          <Button type="submit" disabled={this.props.pristine}>Save</Button>
-          <Button onClick={(e) => hashHistory.push('/beds')}>Cancel</Button>
-        </ButtonToolbar>
-        <Field
-          name="id"
-          component={FC.renderInput}
-          hidden={true}
-          readOnly={true}
-          type="text"
-          placeholder="Bed Id"/>
-        <Field
-          name="name"
-          component={FC.renderInput}
-          type="text"
-          placeholder="Name"
-          validate={required}/>
-        <Field
-          name="buildingId"
-          data={buildings}
-          validate={required}
-          component={FC.renderCombo}
-          textField="name"
-          type="text"
-          placeholder="Building"/>
-        <Field
-          name="typeId"
-          component={FC.renderCombo}
-          data={bedTypes}
-          validate={required}
-          textField="type"
-          type="text"
-          placeholder="Bed Type"/>
+          <ButtonToolbar>
+            <Button type="submit" disabled={this.props.pristine}>Save</Button>
+            <Button
+              onClick={(e) => {
+                this.props.reset();
+                this.props.dispatch(BedActions.removeCurrentBed());
+                hashHistory.push('/beds');
+              }}>Cancel</Button>
+          </ButtonToolbar>
+          <Field
+            name="id"
+            component={FC.renderInput}
+            hidden={true}
+            readOnly={true}
+            type="text"
+            placeholder="Bed Id"/>
+          <Field
+            name="name"
+            component={FC.renderInput}
+            type="text"
+            placeholder="Name"
+            validate={required}/>
+          <Field
+            name="buildingId"
+            data={buildings}
+            validate={required}
+            component={FC.renderCombo}
+            textField="name"
+            type="text"
+            placeholder="Building"/>
+          <Field
+            name="typeId"
+            component={FC.renderCombo}
+            data={bedTypes}
+            validate={required}
+            textField="type"
+            type="text"
+            placeholder="Bed Type"/>
+        </Mask>
       </form>
     )
   }
 }
 
-BedEdit = withBodyResize(BedEdit, {
-  adjustment: 61
-})
+BedEdit = withBodyResize(BedEdit, {adjustment: 61})
 BedEdit = reduxForm({
   form: 'bedForm',
   enableReinitialize: true,

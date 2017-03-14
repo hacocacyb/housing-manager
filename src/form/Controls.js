@@ -16,9 +16,7 @@ function validationState(meta) {
   return null;
 }
 export function renderInput( field ) {
-  console.log('field', field.input.name, 'Touched?: ', field.meta.touched, ' dirty? ', field.meta.dirty)
   const  { hidden, placeholder, input, type, readOnly, meta } = field
-  console.log('render', input.name, meta.error)
   let control = (
     <FormControl
       type={type}

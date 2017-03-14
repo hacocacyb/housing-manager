@@ -7,6 +7,7 @@ import * as Actions from '../../data/actions/people.js'
 import * as FC from '../../form/Controls'
 import moment from 'moment'
 import { required, minAge } from '../../fn/form-validate.js'
+import Mask from '../../shared/Mask'
 
 import { ButtonToolbar } from 'react-bootstrap'
 
@@ -33,25 +34,26 @@ class PeopleEdit extends React.Component {
     const editMode = this.props.params.Id && true;
     return (
       <form className="container" onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
-        <header className="card-title">{editMode ? 'Edit Visitor' : 'Add Visitor'}</header>
-        <ButtonToolbar>
-          <Button type="submit" disabled={this.props.pristine}>Save</Button>
-          <Button onClick={this.onCancel.bind(this)}>Cancel</Button>
-        </ButtonToolbar>
-        <Field name="id" hidden={true} component={FC.renderInput}
-          readOnly={true} type="text" placeholder="Person Id" />
+        <Mask masked={this.props.submitting}>
+          <header className="card-title">{editMode ? 'Edit Visitor' : 'Add Visitor'}</header>
+          <ButtonToolbar>
+            <Button type="submit" disabled={this.props.pristine}>Save</Button>
+            <Button onClick={this.onCancel.bind(this)}>Cancel</Button>
+          </ButtonToolbar>
+          <Field name="id" hidden={true} component={FC.renderInput}
+            readOnly={true} type="text" placeholder="Person Id" />
 
-        <Field name="first"
-          component={FC.renderInput}
-          type="text"
-          placeholder="First"
-          validate={required}
-        />
-        <Field name="middle" component={FC.renderInput} type="text" placeholder="Middle"/>
-        <Field name="last" component={FC.renderInput} type="text" placeholder="Last" validate={required}/>
-        <Field name="dob" component={FC.renderInput} type="date" placeholder="Date of Birth" validate={[required, minAge(18)]}/>
-        <Field name="phone" component={FC.renderInput} type="tel" placeholder="Phone Number" validate={required}/>
-
+          <Field name="first"
+            component={FC.renderInput}
+            type="text"
+            placeholder="First"
+            validate={required}
+          />
+          <Field name="middle" component={FC.renderInput} type="text" placeholder="Middle"/>
+          <Field name="last" component={FC.renderInput} type="text" placeholder="Last" validate={required}/>
+          <Field name="dob" component={FC.renderInput} type="date" placeholder="Date of Birth" validate={[required, minAge(18)]}/>
+          <Field name="phone" component={FC.renderInput} type="tel" placeholder="Phone Number" validate={required}/>
+        </Mask>
       </form>
     )
 

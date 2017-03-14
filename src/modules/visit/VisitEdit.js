@@ -9,6 +9,7 @@ import Button from '../../shared/Button.js'
 import mapIdsFromObject from '../../fn/mapIdsFromObject'
 import * as Actions from '../../data/actions/visit.js'
 import * as FC from '../../form/Controls'
+import Mask from '../../shared/Mask'
 
 const getFormValue = formValueSelector('visitForm');
 
@@ -58,6 +59,7 @@ class VisitEdit extends React.Component {
     return (
       <div className="container">
         <form onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+          <Mask masked={this.props.submitting}>
           <header className="card-title">{editMode ? 'Edit Visit' : 'Add Visit'}</header>
           <ButtonToolbar>
             <Button type="submit" disabled={this.props.pristine}>Save</Button>
@@ -126,6 +128,7 @@ class VisitEdit extends React.Component {
               {payHistory}
             </ol>
           </div>
+        </Mask>
         </form>
       </div>
     )

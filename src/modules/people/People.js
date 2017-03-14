@@ -59,7 +59,6 @@ class People extends React.Component {
 	}
 
 	onSelectionChange(sel) {
-		console.log('selection change so setting the state to new selection')
 		this.setState({
 			selection: sel
 		})
@@ -75,6 +74,7 @@ class People extends React.Component {
 		  <GridPanel
 				gridName="peopleGrid"
 				title="Visitors"
+				loading={this.props.fetching}
 				onSelectionChange={this.onSelectionChange.bind(this)}
 				onRowDoubleClicked={this.onDblClick}
 				rowData={this.props.data}

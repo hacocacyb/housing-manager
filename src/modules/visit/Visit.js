@@ -36,7 +36,10 @@ class Visit extends React.Component {
 		this.state = {
 			columnDefs: colDefs,
 			selection : null
-		};
+		}
+    this.edit = this.edit.bind(this)
+		this.onEditClick = this.onEditClick.bind(this)
+		this.onDblClick = this.onDblClick.bind(this)
 
 	}
 
@@ -56,6 +59,16 @@ class Visit extends React.Component {
 	edit() {
 		hashHistory.push('visits/edit/' + this.state.selection.id);
 	}
+	onDblClick(node) {
+		if (node && node.data) {
+			this.edit(node.data.id)
+		}
+	}
+	onEditClick() {
+		if ( this.state.selection &&  this.state.selection.id) {
+			this.edit(this.state.selection.id)
+		}
+	}
 
 	onSelectionChange(sel) {
 		this.setState({
@@ -68,15 +81,16 @@ class Visit extends React.Component {
 			<Button key="add" onClick={this.add.bind(this)} text="New Visit" />,
 			<Button key="viewPayment" onClick={this.addPayment.bind(this)}
 				disabled={this.state.selection ? false : true}>View Payments</Button>,
-			<Button key="edit" onClick={this.edit.bind(this)} text="Edit"
+			<Button key="edit" onClick={this.edit} text="Edit"
 				disabled={this.state.selection ? false : true}/>
 		]
 		return (
 		  <GridPanel
 				gridName={"visitGrid"}
 				title="Visits"
+				loading={this.props.fetching}
 				onSelectionChange={this.onSelectionChange.bind(this)}
-				onRowDoubleClicked={this.edit.bind(this)}
+				onRowDoubleClicked={this.onDblClick}
 				rowData={this.props.data}
 				columnDefs={colDefs}
 				buttons={buttons}
