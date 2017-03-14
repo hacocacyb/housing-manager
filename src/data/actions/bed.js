@@ -48,12 +48,12 @@ function fetchById(id, dispatch) {
   return fetch('api/beds/' + id).then((response) => {
     return response.json();
   }).then((json) => {
-    dispatch({
+    return dispatch({
       type: 'BED_FETCHED',
       payload: json
     })
   }).catch(err => {
-    dispatch({
+    return dispatch({
       type: 'FETCH_BED_ERROR'
     })
   })

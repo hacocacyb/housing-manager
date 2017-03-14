@@ -9,18 +9,18 @@ export function getAll() {
       type: "FETCHING_" + actionNoun + 'S'
     })
 
-    fetch(apiRoot)
+    return fetch(apiRoot)
       .then((response) => {
         return response.json()
       })
       .then(function(json) {
-        dispatch({
+        return dispatch({
           type: 'FETCH_' + actionNoun + 'S_FULFILLED',
           payload: json
         })
       })
       .catch((err) => {
-        dispatch({type: 'FETCH_' + actionNoun + 'S_FAILED', payload: err})
+        return dispatch({type: 'FETCH_' + actionNoun + 'S_FAILED', payload: err})
       })
   }
 }

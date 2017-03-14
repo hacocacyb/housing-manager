@@ -9,10 +9,10 @@ export function getBedTypes() {
         return response.json();
       })
       .then(function(json) {
-        dispatch({type: "FETCH_BEDS_TYPES_FULFILLED", payload: json})
+        return dispatch({type: "FETCH_BEDS_TYPES_FULFILLED", payload: json})
       })
       .catch((err) => {
-        dispatch({type: "FETCH_BED_TYPES_FAILED", payload: err})
+        return dispatch({type: "FETCH_BED_TYPES_FAILED", payload: err})
       })
   }
 }
