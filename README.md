@@ -4,10 +4,10 @@
 
 A web app for managing a group of Supervised Living homes, visitors and payments.
 
-* UI: React, Redux, redux-form, ag-grid
-* API: Node.js for API and server, Sequelize ORM for access to Postgres database
-* Tests: Jest, Enzyme
+* React, Redux, redux-form, ag-grid
+* Node.js for API and server, Sequelize ORM for access to Postgres database
+* Jest, Enzyme for testing
 * Deployed via Heroku
-* Bootstrap
+* Bootstrap for style and layout
 
 [![Build Status](https://travis-ci.org/hacocacyb/housing-manager.svg?branch=master)](https://travis-ci.org/hacocacyb/housing-manager)
