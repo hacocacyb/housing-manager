@@ -1,4 +1,4 @@
-# Sober Living
+# Housing Manager
 
 [Demo Site](https://sober-living.herokuapp.com)
 

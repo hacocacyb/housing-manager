@@ -63,25 +63,6 @@ class PeopleEdit extends React.Component {
 PeopleEdit = reduxForm({
   form:'peopleForm',
   enableReinitialize: true,
-  // validate: function(values, props) {
-  //   const errors = {}
-  //   console.log(
-  //     'validating? ', values, props
-  //   )
-  //   if (!values.first) {
-  //     errors.first = 'Required'
-  //   }
-  //   if (!values.last) {
-  //     errors.last = 'Required'
-  //   }
-  //   if (!values.dob) {
-  //     errors.dob = 'Required'
-  //   }
-  //   if (!values.phone) {
-  //     errors.phone = 'Required'
-  //   }
-  //   return errors;
-  // },
   onSubmitSuccess: function(submitResult, dispatch) {
     dispatch(Actions.removeCurrent());
   }
